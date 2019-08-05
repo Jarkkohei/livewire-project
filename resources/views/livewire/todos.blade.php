@@ -28,7 +28,7 @@
                 </div>
 
                 <div>
-                    <button class="btn btn-sm btn-danger">&times;</button>
+                    <button class="btn btn-sm btn-danger" wire:click="deleteTodo({{ $todo->id }})">&times;</button>
                 </div>
             </li>
         @endforeach
