@@ -48,7 +48,7 @@ class Todos extends Component
     public function render()
     {
         return view('livewire.todos', [
-            'todos' => auth()->user()->todos
+            'todos' => auth()->user()->todos->sortBy('updated_at')
         ]);
     }
 }
