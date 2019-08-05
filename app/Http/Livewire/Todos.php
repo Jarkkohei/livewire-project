@@ -29,6 +29,14 @@ class Todos extends Component
         Todo::find($id)->delete();
     }
 
+    public function toggleCompleted($id)
+    {
+        $todo = Todo::find($id);
+
+        $todo->completed = !$todo->completed;
+        $todo->save();
+    }
+
     public function render()
     {
         return view('livewire.todos', [

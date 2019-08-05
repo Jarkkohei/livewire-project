@@ -7,7 +7,7 @@
             class="form-control form-control-lg"
             placeholder="What needs to be done?"
             value="{{ old('addTodo') }}"
-            wire:model="title"
+            wire:model.lazy="title"
             style="{{ $errors->has('title') ? 'background-color: #ffcccc' : '' }}"
         >
         <div class="input-group-append">
@@ -23,8 +23,13 @@
         @foreach($todos as $todo)
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <div>
-                    <input type="checkbox" class="mr-4">
-                    <a href="#">{{ $todo->title }}</a>
+                    <input 
+                        type="checkbox" 
+                        class="mr-4" 
+                        wire:change="toggleCompleted({{ $todo->id }})" 
+                        {{ $todo->completed ? 'checked' : '' }}
+                    >
+                    <a href="#" style="{{ $todo->completed ? 'text-decoration: line-through' : '' }}">{{ $todo->title }}</a>
                 </div>
 
                 <div>
