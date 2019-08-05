@@ -37,7 +37,7 @@
                     </span>
                 </div>
 
-                <div style="min-width: 60px; margin-left: 20px;">
+                <div style="min-width: 65px; margin-left: 10px;">
                     <button 
                         class="btn btn-sm btn-primary" 
                         onclick="updateTodoPrompt('{{ $todo->title }}') || event.stopImmediatePropagation()"
