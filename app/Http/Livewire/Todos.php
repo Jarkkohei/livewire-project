@@ -11,6 +11,10 @@ class Todos extends Component
 
     public function addTodo()
     {
+        $this->validate([
+            'title' => 'required'
+        ]);
+
         Todo::create([
             'user_id' => auth()->id(),
             'title' => $this->title,

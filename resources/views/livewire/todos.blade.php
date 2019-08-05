@@ -8,11 +8,16 @@
             placeholder="What needs to be done?"
             value="{{ old('addTodo') }}"
             wire:model="title"
+            style="{{ $errors->has('title') ? 'background-color: #ffcccc' : '' }}"
         >
         <div class="input-group-append">
             <button class="btn btn-primary" wire:click="addTodo" type="submit">Add</button>
         </div>
     </div>
+
+    @if($errors->has('title'))
+        <div style="color: red;">{{ $errors->first('title') }}</div>
+    @endif
 
     <ul class="list-group mt-4">
         @foreach($todos as $todo)
