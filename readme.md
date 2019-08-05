@@ -14,6 +14,12 @@ cd livewire-project
 
 Create a database and set the environment variables in .env -file.
 
+
+Migrate the database
+```bash
+php artisan migrate 
+```
+
 ---
 
 ## Run
@@ -27,4 +33,3 @@ Run and watch the frontend assets
 ```bash
 npm run watch
 ```
-
