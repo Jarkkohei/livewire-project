@@ -7,7 +7,7 @@
             class="form-control form-control-lg"
             placeholder="What needs to be done?"
             value="{{ old('addTodo') }}"
-            wire:model.lazy="title"
+            wire:model="title"
             style="{{ $errors->has('title') ? 'background-color: #ffcccc' : '' }}"
         >
         <div class="input-group-append">
