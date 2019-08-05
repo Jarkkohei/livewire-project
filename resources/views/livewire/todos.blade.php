@@ -7,9 +7,10 @@
             class="form-control form-control-lg"
             placeholder="What needs to be done?"
             value="{{ old('addTodo') }}"
+            wire:model="title"
         >
         <div class="input-group-append">
-            <button class="btn btn-primary" type="submit">Add</button>
+            <button class="btn btn-primary" wire:click="addTodo" type="submit">Add</button>
         </div>
     </div>
 
