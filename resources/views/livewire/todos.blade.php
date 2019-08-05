@@ -4,11 +4,10 @@
             id="addTodo"
             name="addTodo"
             type="text"
-            class="form-control form-control-lg"
+            class="form-control form-control-lg {{ $errors->has('title') ? 'border border-danger' : '' }}"
             placeholder="New todo..."
             value="{{ old('addTodo') }}"
             wire:model="title"
-            style="{{ $errors->has('title') ? 'background-color: #ffcccc' : '' }}"
         >
         <div class="input-group-append">
             <button 
@@ -23,7 +22,7 @@
     </div>
 
     @if($errors->has('title'))
-        <div style="color: red;">{{ $errors->first('title') }}</div>
+        <div class="text-danger">{{ $errors->first('title') }}</div>
     @endif
 
     <ul class="list-group mt-4">
