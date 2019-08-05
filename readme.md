@@ -12,6 +12,16 @@ git clone https://github.com/Jarkkohei/livewire-project.git
 cd livewire-project
 ```
 
+Install backend dependencies
+```bash
+composer install
+```
+
+Install frontend dependencies
+```bash
+npm install
+```
+
 Create a database and set the environment variables in .env -file.
 
 
