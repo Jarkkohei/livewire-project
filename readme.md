@@ -33,3 +33,5 @@ Run and watch the frontend assets
 ```bash
 npm run watch
 ```
+
+Navigate to http://localhost:8000 to see the Welcome -page
