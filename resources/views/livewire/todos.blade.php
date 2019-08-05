@@ -5,7 +5,7 @@
             name="addTodo"
             type="text"
             class="form-control form-control-lg"
-            placeholder="What needs to be done?"
+            placeholder="New todo..."
             value="{{ old('addTodo') }}"
             wire:model="title"
             style="{{ $errors->has('title') ? 'background-color: #ffcccc' : '' }}"
