@@ -10,4 +10,9 @@ class Todo extends Model
     use SoftDeletes;
 
     protected $fillable = ['user_id', 'title', 'completed'];
+
+    public function user()
+    {
+        $this->belongTo('App\User');
+    }
 }
