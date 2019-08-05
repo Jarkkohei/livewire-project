@@ -2,6 +2,8 @@
 
 A test project using Laravel with Livewire framework.
 
+---
+
 ## Install
 
 Clone the project from Git and cd into the project directory.
@@ -9,6 +11,10 @@ Clone the project from Git and cd into the project directory.
 git clone https://github.com/Jarkkohei/livewire-project.git
 cd livewire-project
 ```
+
+Create a database and set the environment variables in .env -file.
+
+---
 
 ## Run
 
