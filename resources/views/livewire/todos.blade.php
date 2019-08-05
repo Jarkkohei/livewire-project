@@ -43,7 +43,7 @@
                         onclick="updateTodoPrompt('{{ $todo->title }}') || event.stopImmediatePropagation()"
                         wire:click="updateTodo({{ $todo->id }}, updatedTodo)"
                     >
-                        E
+                        <i class="fas fa-edit"></i>
                     </button>
 
                     <button 
@@ -51,7 +51,7 @@
                         onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
                         wire:click="deleteTodo({{ $todo->id }})"
                     >
-                        &times;
+                        <i class="far fa-trash-alt"></i>
                     </button>
                 </div>
             </li>
