@@ -28,7 +28,13 @@
                 </div>
 
                 <div>
-                    <button class="btn btn-sm btn-danger" wire:click="deleteTodo({{ $todo->id }})">&times;</button>
+                    <button 
+                        class="btn btn-sm btn-danger" 
+                        onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
+                        wire:click="deleteTodo({{ $todo->id }})"
+                    >
+                        &times;
+                    </button>
                 </div>
             </li>
         @endforeach
