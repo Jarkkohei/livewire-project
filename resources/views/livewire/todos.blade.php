@@ -29,7 +29,14 @@
                         wire:change="toggleCompleted({{ $todo->id }})" 
                         {{ $todo->completed ? 'checked' : '' }}
                     >
-                    <a href="#" style="{{ $todo->completed ? 'text-decoration: line-through' : '' }}">{{ $todo->title }}</a>
+                    <a 
+                        href="#" 
+                        style="{{ $todo->completed ? 'text-decoration: line-through' : '' }}"
+                        onclick="updateTodoPrompt('{{ $todo->title }}') || event.stopImmediatePropagation()"
+                        wire:click="updateTodo({{ $todo->id }}, updatedTodo)"
+                    >
+                        {{ $todo->title }}
+                    </a>
                 </div>
 
                 <div>
@@ -44,4 +51,22 @@
             </li>
         @endforeach
     </ul>
+
+    <script>
+        let updatedTodo = '';
+
+        function updateTodoPrompt(title) {
+            event.preventDefault();
+            updatedTodo = '';
+            const todo = prompt("Update Todo", title);
+
+            if(todo == null || todo.trim() == '') {
+                updatedTodo = '';
+                return false;
+            }
+
+            updatedTodo = todo;
+            return true;
+        }
+    </script>
 </div>

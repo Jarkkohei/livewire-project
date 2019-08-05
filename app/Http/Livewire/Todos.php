@@ -37,6 +37,14 @@ class Todos extends Component
         $todo->save();
     }
 
+    public function updateTodo($id, $title)
+    {
+        $todo = Todo::find($id);
+
+        $todo->title = $title;
+        $todo->save();
+    }
+
     public function render()
     {
         return view('livewire.todos', [
