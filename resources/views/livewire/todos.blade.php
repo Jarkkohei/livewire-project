@@ -11,7 +11,14 @@
             style="{{ $errors->has('title') ? 'background-color: #ffcccc' : '' }}"
         >
         <div class="input-group-append">
-            <button class="btn btn-primary" wire:click="addTodo" type="submit">Add</button>
+            <button 
+                class="btn btn-primary" 
+                wire:click="addTodo" 
+                type="submit"
+                title="Add new Todo"
+            >
+                Add
+            </button>
         </div>
     </div>
 
@@ -28,11 +35,13 @@
                         class="mr-3" 
                         wire:change="toggleCompleted({{ $todo->id }})" 
                         {{ $todo->completed ? 'checked' : '' }}
+                        title="Mark as {{ $todo->completed ? 'undone' : 'done' }}"
+                        style="cursor: pointer;"
                     >
                 </div>
 
                 <div>
-                    <span style="{{ $todo->completed ? 'text-decoration: line-through' : '' }}">
+                    <span title="{{ $todo->title }}" style="{{ $todo->completed ? 'text-decoration: line-through' : '' }}">
                         {{ $todo->title }}
                     </span>
                 </div>
@@ -42,6 +51,7 @@
                         class="btn btn-sm btn-primary" 
                         onclick="updateTodoPrompt('{{ $todo->title }}') || event.stopImmediatePropagation()"
                         wire:click="updateTodo({{ $todo->id }}, updatedTodo)"
+                        title="Edit"
                     >
                         <i class="fas fa-edit"></i>
                     </button>
@@ -50,6 +60,7 @@
                         class="btn btn-sm btn-danger" 
                         onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
                         wire:click="deleteTodo({{ $todo->id }})"
+                        title="Delete"
                     >
                         <i class="far fa-trash-alt"></i>
                     </button>
