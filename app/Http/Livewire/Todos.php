@@ -8,6 +8,8 @@ class Todos extends Component
 {
     public function render()
     {
-        return view('livewire.todos');
+        return view('livewire.todos', [
+            'todos' => auth()->user()->todos
+        ]);
     }
 }
