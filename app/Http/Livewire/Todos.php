@@ -10,6 +10,8 @@ class Todos extends Component
     public $title = '';
     public $description = '';
 
+    public $mode = null;
+
     public function addTodo()
     {
         $this->validate([

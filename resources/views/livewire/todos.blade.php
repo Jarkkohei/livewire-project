@@ -1,5 +1,20 @@
 <div>
-    @include('includes.addTodo')
+    @if($mode == 'add')
+        @include('includes.addTodo')
+    @else
+        <div class="">
+            <button 
+                class="btn btn-primary"
+                wire:click="$set('mode', 'add')"
+            >
+                Add
+            </button>
+        </div>
+    @endif
+
+    @if($mode == 'edit')
+        @include('includes.editTodo')
+    @endif
 
     <div class="accordion  mt-4" id="todoAccordion">
         @foreach($todos as $todo)

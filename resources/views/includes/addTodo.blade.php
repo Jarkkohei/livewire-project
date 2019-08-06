@@ -3,6 +3,14 @@
     <div class="card-header d-flex justify-content-between align-items-center">
         <div>
             Add new todo
+        </div>        
+        <div>
+            <button 
+                class="btn"
+                wire:click="$set('mode', null)"
+            >
+                &times;
+            </button>
         </div>
     </div>
 
