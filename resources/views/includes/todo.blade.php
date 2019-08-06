@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center" id="heading{{ $todo->id }}">
+    <div class="card-header shadow-sm d-flex justify-content-between align-items-center" id="heading{{ $todo->id }}">
         <div>
             <input 
                 type="checkbox" 
