@@ -27,6 +27,7 @@ class Todos extends Component
 
         $this->title = '';
         $this->description = '';
+        $this->mode = null;
     }
 
     public function deleteTodo($id)
