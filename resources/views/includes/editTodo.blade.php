@@ -1,6 +1,18 @@
 <div class="card d-flex flex-column justify-content-between shadow-sm">
 
-    <div class="card-header">Edit todo</div>
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div>
+            Edit todo
+        </div>
+        <div>
+            <button 
+                class="btn"
+                wire:click="$set('mode', null)"
+            >
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
 
     <div class="card-body">
         <div class="form-group">
