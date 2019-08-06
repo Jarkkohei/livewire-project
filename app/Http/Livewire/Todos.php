@@ -8,6 +8,7 @@ use App\Todo;
 class Todos extends Component
 {
     public $title = '';
+    public $description = '';
 
     public function addTodo()
     {
@@ -18,10 +19,12 @@ class Todos extends Component
         Todo::create([
             'user_id' => auth()->id(),
             'title' => $this->title,
+            'description' => $this->description,
             'completed' => false
         ]);
 
         $this->title = '';
+        $this->description = '';
     }
 
     public function deleteTodo($id)
@@ -37,11 +40,12 @@ class Todos extends Component
         $todo->save();
     }
 
-    public function updateTodo($id, $title)
+    public function updateTodo($id)
     {
         $todo = Todo::find($id);
 
-        $todo->title = $title;
+        $todo->title = $this->title;
+        $todo->description = $this->description;
         $todo->save();
     }
 
