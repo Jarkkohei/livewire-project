@@ -1,26 +1,29 @@
 <div>
     @if($mode == 'add')
         @include('includes.addTodo')
+    @elseif($mode == 'edit')
+        @include('includes.editTodo')
     @else
-        <div class="">
-            <button 
-                class="btn btn-primary"
-                wire:click="$set('mode', 'add')"
-            >
-                Add
-            </button>
+        <div class="card d-flex justify-content-between shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div>Todos</div>        
+                <div>
+                    <button 
+                        class="btn"
+                        wire:click="$set('mode', 'add')"
+                    >
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion mt-4 shadow-sm" id="todoAccordion">
+            @foreach($todos as $todo)
+                @include('includes.todo', $todo)
+            @endforeach
         </div>
     @endif
-
-    @if($mode == 'edit')
-        @include('includes.editTodo')
-    @endif
-
-    <div class="accordion  mt-4" id="todoAccordion">
-        @foreach($todos as $todo)
-            @include('includes.todo', $todo)
-        @endforeach
-    </div>
 
     <script>
         let updatedTodo = '';
