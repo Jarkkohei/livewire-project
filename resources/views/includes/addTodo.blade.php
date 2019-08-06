@@ -9,7 +9,7 @@
                 class="btn"
                 wire:click="$set('mode', null)"
             >
-                &times;
+                <i class="fas fa-times"></i>
             </button>
         </div>
     </div>
