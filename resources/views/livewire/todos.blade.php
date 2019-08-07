@@ -20,7 +20,7 @@
 
         <div class="accordion mt-4 shadow-sm" id="todoAccordion">
             @foreach($todos as $todo)
-                @include('includes.todo', $todo)
+                @include('includes.todoListItem', $todo)
             @endforeach
         </div>
     @endif
