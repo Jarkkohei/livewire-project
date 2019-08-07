@@ -10,7 +10,7 @@
                 wire:click="resetPage"
                 title="go back"
             >
-                Back
+                <i class="fas fa-arrow-left"></i> Back
             </button>
         </div>
     </div>
