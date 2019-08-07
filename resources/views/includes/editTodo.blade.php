@@ -17,11 +17,11 @@
 
     <div class="card-body">
         <div class="form-group">
-            <label for="addTodoTitle">Title</label>
+            <label for="editTodoTitle">Title</label>
             <small class="text-danger">(required)</small>
             <input 
-                id="addTodoTitle"
-                name="addTodoTitle"
+                id="editTodoTitle"
+                name="editTodoTitle"
                 type="text"
                 class="form-control form-control-lg {{ $errors->has('title') ? 'border border-danger' : '' }} shadow-sm"
                 placeholder="Title..."
@@ -35,10 +35,10 @@
         </div>
 
         <div class="form-group">
-            <label for="addTodoDescription">Description</label>
+            <label for="editTodoDescription">Description</label>
             <textarea 
-                id="addTodoDescription"
-                name="addTodoDescription"
+                id="editTodoDescription"
+                name="editTodoDescription"
                 class="form-control form-control-lg {{ $errors->has('description') ? 'border border-danger' : $title }} shadow-sm"
                 placeholder="Description..."
                 rows="5"
