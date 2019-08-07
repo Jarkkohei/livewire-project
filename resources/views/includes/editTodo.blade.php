@@ -22,7 +22,7 @@
                 id="addTodoTitle"
                 name="addTodoTitle"
                 type="text"
-                class="form-control form-control-lg {{ $errors->has('title') ? 'border border-danger' : '' }}"
+                class="form-control form-control-lg {{ $errors->has('title') ? 'border border-danger' : '' }} shadow-sm"
                 placeholder="Title..."
                 aria-describedby="titleErrors"
                 wire:model="title"
@@ -38,7 +38,7 @@
             <textarea 
                 id="addTodoDescription"
                 name="addTodoDescription"
-                class="form-control form-control-lg {{ $errors->has('description') ? 'border border-danger' : $title }}"
+                class="form-control form-control-lg {{ $errors->has('description') ? 'border border-danger' : $title }} shadow-sm"
                 placeholder="Description..."
                 rows="5"
                 value=""
