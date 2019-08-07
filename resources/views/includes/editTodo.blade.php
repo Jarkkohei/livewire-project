@@ -53,7 +53,7 @@
         <div class="form-group">
             <button 
                 class="btn btn-primary form-control" 
-                wire:click="addTodo" 
+                wire:click="updateTodo" 
                 type="submit"
                 title="Add new Todo"
             >
