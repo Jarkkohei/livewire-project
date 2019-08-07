@@ -19,6 +19,7 @@
                 aria-expanded="false" 
                 aria-controls="collapse{{ $todo->id }}" 
                 style="{{ $todo->completed ? 'text-decoration: line-through' : '' }}"
+                title="Show todo details"
             >
                 {{ $todo->title }}
             </button>
