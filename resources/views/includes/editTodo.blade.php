@@ -18,6 +18,7 @@
     <div class="card-body">
         <div class="form-group">
             <label for="addTodoTitle">Title</label>
+            <small class="text-danger">(required)</small>
             <input 
                 id="addTodoTitle"
                 name="addTodoTitle"
