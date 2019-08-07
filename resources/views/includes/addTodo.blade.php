@@ -6,7 +6,7 @@
         </div>        
         <div>
             <button 
-                class="btn btn-sm bt-outline-secondary"
+                class="btn btn-sm btn-outline-secondary"
                 wire:click="resetPage"
                 title="go back"
             >
