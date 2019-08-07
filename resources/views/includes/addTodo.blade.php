@@ -26,6 +26,7 @@
                 placeholder="Title..."
                 aria-describedby="titleErrors"
                 wire:model="title"
+                autofocus
             >
 
             @if($errors->has('title'))
