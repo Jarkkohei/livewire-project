@@ -1,9 +1,15 @@
 <div>
-    @if($mode == 'add')
-        @include('includes.addTodo')
-    @elseif($mode == 'edit')
-        @include('includes.editTodo')
-    @else
-        @include('includes.todoList')
-    @endif
+    @switch($mode)
+
+        @case('add')
+            @include('includes.addTodo')
+            @break
+
+        @case('edit')
+            @include('includes.editTodo')
+            @break
+
+        @default
+            @include('includes.todoList')
+    @endswitch
 </div>
