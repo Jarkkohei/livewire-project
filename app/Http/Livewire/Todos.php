@@ -67,6 +67,10 @@ class Todos extends Component
 
     public function updateTodo()
     {
+        $this->validate([
+            'title' => 'required'
+        ]);
+
         $todo = Todo::find($this->id);
 
         $todo->title = $this->title;
@@ -79,7 +83,7 @@ class Todos extends Component
     public function render()
     {
         return view('livewire.todos', [
-            'todos' => auth()->user()->todos
+            'todos' => auth()->user()->todos->sortBy('completed')
         ]);
     }
 }
