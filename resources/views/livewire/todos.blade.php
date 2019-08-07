@@ -9,7 +9,7 @@
                 <div>Todos</div>        
                 <div>
                     <button 
-                        class="btn btn-sm btn-outline-primary"
+                        class="btn btn-sm btn-primary"
                         wire:click="openAdding"
                         title="Add new todo"
                     >
