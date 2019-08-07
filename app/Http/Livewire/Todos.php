@@ -7,10 +7,34 @@ use App\Todo;
 
 class Todos extends Component
 {
+    public $id = null;
     public $title = '';
     public $description = '';
 
     public $mode = null;
+
+    public function openEditing($id)
+    {
+        $todo = Todo::find($id);
+
+        $this->id = $todo->id;
+        $this->title = $todo->title;
+        $this->description = $todo->description;
+        $this->mode = 'edit';
+    }
+
+    public function openAdding()
+    {
+        $this->mode = 'add';
+    }
+
+    public function resetPage()
+    {
+        $this->id = null;
+        $this->title = '';
+        $this->description = '';
+        $this->mode = null;
+    }
 
     public function addTodo()
     {
@@ -25,9 +49,7 @@ class Todos extends Component
             'completed' => false
         ]);
 
-        $this->title = '';
-        $this->description = '';
-        $this->mode = null;
+        $this->resetPage();
     }
 
     public function deleteTodo($id)
@@ -43,13 +65,15 @@ class Todos extends Component
         $todo->save();
     }
 
-    public function updateTodo($id)
+    public function updateTodo()
     {
-        $todo = Todo::find($id);
+        $todo = Todo::find($this->id);
 
         $todo->title = $this->title;
         $todo->description = $this->description;
         $todo->save();
+
+        $this->resetPage();
     }
 
     public function render()

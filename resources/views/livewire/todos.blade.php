@@ -10,7 +10,7 @@
                 <div>
                     <button 
                         class="btn"
-                        wire:click="$set('mode', 'add')"
+                        wire:click="openAdding"
                     >
                         <i class="fas fa-plus"></i>
                     </button>
@@ -24,22 +24,4 @@
             @endforeach
         </div>
     @endif
-
-    <script>
-        let updatedTodo = '';
-
-        function updateTodoPrompt(title) {
-            event.preventDefault();
-            updatedTodo = '';
-            const todo = prompt("Update Todo", title);
-
-            if(todo == null || todo.trim() == '') {
-                updatedTodo = '';
-                return false;
-            }
-
-            updatedTodo = todo;
-            return true;
-        }
-    </script>
 </div>

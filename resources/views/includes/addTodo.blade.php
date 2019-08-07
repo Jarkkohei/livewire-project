@@ -7,7 +7,7 @@
         <div>
             <button 
                 class="btn"
-                wire:click="$set('mode', null)"
+                wire:click="resetPage"
             >
                 <i class="fas fa-times"></i>
             </button>
@@ -40,7 +40,6 @@
                 class="form-control form-control-lg {{ $errors->has('description') ? 'border border-danger' : $title }}"
                 placeholder="Description..."
                 rows="5"
-                {{--value="{{ $errors->has('description') ? old('addTodoDescription') : $description }}"--}}
                 value=""
                 wire:model="description"
                 aria-describedby="descriptionErrors"

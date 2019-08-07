@@ -24,21 +24,10 @@
             </button>
         </h2>
         <div style="min-width: 65px; margin-left: 10px;">
-            {{--
-            <button 
-                class="btn btn-sm btn-primary" 
-                onclick="updateTodoPrompt('title', '{{ $todo->title }}') || event.stopImmediatePropagation()"
-                wire:click="updateTodo({{ $todo->id }}, updatedTodoTitle, {{ $todo->description }})"
-                title="Edit"
-            >
-                <i class="fas fa-edit"></i>
-            </button>
-            --}}
-
             <button 
                 type="button" 
                 class="btn btn-sm btn-primary" 
-                wire:click="$set('mode', 'edit')"
+                wire:click="openEditing({{ $todo->id }})"
                 title="Edit"
             >
                 <i class="fas fa-edit"></i>
