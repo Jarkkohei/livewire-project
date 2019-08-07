@@ -6,10 +6,11 @@
         </div>        
         <div>
             <button 
-                class="btn"
+                class="btn btn-sm bt-outline-secondary"
                 wire:click="resetPage"
+                title="go back"
             >
-                <i class="fas fa-times"></i>
+                Back
             </button>
         </div>
     </div>

@@ -9,8 +9,9 @@
                 <div>Todos</div>        
                 <div>
                     <button 
-                        class="btn"
+                        class="btn btn-sm btn-outline-primary"
                         wire:click="openAdding"
+                        title="Add new todo"
                     >
                         <i class="fas fa-plus"></i>
                     </button>
