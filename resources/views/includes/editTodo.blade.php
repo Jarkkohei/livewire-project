@@ -52,12 +52,12 @@
 
         <div class="form-group">
             <button 
-                class="btn btn-primary form-control" 
+                class="btn btn-success form-control" 
                 wire:click="updateTodo" 
                 type="submit"
-                title="Add new Todo"
+                title="Save todo"
             >
-                Add
+                Save
             </button>
         </div>
     </div>
