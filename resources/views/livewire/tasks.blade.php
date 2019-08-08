@@ -1,3 +1,15 @@
 <div>
-    {{-- Because she competes with no one, no one can compete with her. --}}
+    @switch($mode)
+
+        @case('add')
+            @include('includes.addTask')
+            @break
+
+        @case('edit')
+            @include('includes.editTask')
+            @break
+
+        @default
+            @include('includes.taskList')
+    @endswitch
 </div>
