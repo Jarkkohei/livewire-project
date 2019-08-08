@@ -10,6 +10,16 @@ class Tasks extends Component
     public $id = null;
     public $title = '';
     public $description = '';
+    public $status = null;
+
+    public $taskStatuses = [
+        ['value' => 1, 'label' => 'Created', 'class' => 'light'],
+        ['value' => 2, 'label' => 'Assigned', 'class' => 'info'],
+        ['value' => 3, 'label' => 'Production', 'class' => 'secondary'],
+        ['value' => 4, 'label' => 'Has obstacle', 'class' => 'warning'],
+        ['value' => 5, 'label' => 'Hurry up', 'class' => 'danger'],
+        ['value' => 0, 'label' => 'Completed', 'class' => 'success']
+    ];
 
     public $mode = null;
 
@@ -20,6 +30,7 @@ class Tasks extends Component
         $this->id = $task->id;
         $this->title = $task->title;
         $this->description = $task->description;
+        $this->status = $task->status;
         $this->mode = 'edit';
     }
 
@@ -34,6 +45,7 @@ class Tasks extends Component
         $this->title = '';
         $this->description = '';
         $this->mode = null;
+        $this->status = null;
     }
 
     public function addTask()
@@ -46,7 +58,7 @@ class Tasks extends Component
             'user_id' => auth()->id(),
             'title' => $this->title,
             'description' => $this->description,
-            'status' => 1
+            'status' => 2
         ]);
 
         $this->resetPage();
@@ -67,16 +79,27 @@ class Tasks extends Component
     }
     */
 
+    public function setTaskStatus($id) 
+    {
+        $task = Task::find($id);
+
+        $task->status = $this->status;
+        $task->save();
+
+    }
+
     public function updateTask()
     {
         $this->validate([
-            'title' => 'required'
+            'title' => 'required',
+            'status' => 'required|integer|min:0|max:5'
         ]);
 
         $task = Task::find($this->id);
 
         $task->title = $this->title;
         $task->description = $this->description;
+        $task->status = $this->status;
         $task->save();
 
         $this->resetPage();

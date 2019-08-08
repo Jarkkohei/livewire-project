@@ -1,15 +1,27 @@
-<div class="card">
+<div class="card"
+    >
     <div class="card-header shadow-sm d-flex justify-content-between align-items-center" id="heading{{ $task->id }}">
-        <div>
-            {{--
-            <input 
-                type="checkbox" 
-                class="mr-3" 
-                wire:change="toggleCompleted({{ $todo->id }})" 
-                {{ $todo->completed ? 'checked' : '' }}
-                title="Mark as {{ $todo->completed ? 'undone' : 'done' }}"
-                style="cursor: pointer;"
-            >--}}
+        <div class="text-center" style="min-width: 30px; max-width: 30px;">
+            @switch($task->status)
+                @case(0)
+                    <i class="fas fa-check-circle fa-lg text-success" title="Completed" style="cursor: pointer;"></i>
+                    @break
+                @case(1)
+                    <i class="fas fa-rocket fa-lg text-primary" title="Created" style="cursor: pointer;"></i>
+                    @break
+                @case(2)
+                    <i class="fas fa-user-circle fa-lg text-secondary" title="Assigned" style="cursor: pointer;"></i>
+                    @break
+                @case(3)
+                    <i class="fas fa-ban fa-lg text-secondary" title="Blocked" style="cursor: pointer;"></i>
+                    @break
+                @case(4)
+                    <i class="fas fa-exclamation-circle fa-lg" title="Burn in" style="cursor: pointer; color: orange;"></i>
+                    @break
+                @case(5)
+                    <i class="fas fa-fire fa-lg text-danger" title="Hurry Up!" style="cursor: pointer;"></i>
+                    @break
+            @endswitch
         </div>
         <h2 class="mb-0">
             <button 
