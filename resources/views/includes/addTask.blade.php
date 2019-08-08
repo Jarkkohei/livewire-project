@@ -27,6 +27,7 @@
                 placeholder="Title..."
                 aria-describedby="titleErrors"
                 wire:model="title"
+                autocomplete="off"
                 autofocus
             >
 
@@ -46,6 +47,7 @@
                 value=""
                 wire:model="description"
                 aria-describedby="descriptionErrors"
+                autocomplete="off"
             ></textarea>
 
             @if($errors->has('description'))

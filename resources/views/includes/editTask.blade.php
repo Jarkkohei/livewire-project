@@ -26,6 +26,7 @@
                 class="form-control form-control-lg {{ $errors->has('title') ? 'border border-danger' : '' }} shadow-sm"
                 placeholder="Title..."
                 aria-describedby="titleErrors"
+                autocomplete="off"
                 wire:model="title"
             >
 
@@ -45,6 +46,7 @@
                 value=""
                 wire:model="description"
                 aria-describedby="descriptionErrors"
+                autocomplete="off"
             ></textarea>
 
             @if($errors->has('description'))
