@@ -16,14 +16,14 @@
     </div>
 
     <div class="card-body">
-        <div class="form-group">
+        <div class="form-group ">
             <label for="editTaskTitle">Title</label>
             <small class="text-danger">(required)</small>
             <input 
                 id="editTaskTitle"
                 name="editTaskTitle"
                 type="text"
-                class="form-control form-control-lg {{ $errors->has('title') ? 'border border-danger' : '' }} shadow-sm"
+                class="form-control form-control {{ $errors->has('title') ? 'border border-danger' : '' }} shadow-sm"
                 placeholder="Title..."
                 aria-describedby="titleErrors"
                 autocomplete="off"
@@ -40,7 +40,7 @@
             <textarea 
                 id="editTaskDescription"
                 name="editTaskDescription"
-                class="form-control form-control-lg {{ $errors->has('description') ? 'border border-danger' : $title }} shadow-sm"
+                class="form-control form-control {{ $errors->has('description') ? 'border border-danger' : $title }} shadow-sm"
                 placeholder="Description..."
                 rows="5"
                 value=""
@@ -59,7 +59,7 @@
             <select 
                 id="editTaskStatus" 
                 name="editTaskStatus"  
-                class="form-control form-control-lg shadow-sm"
+                class="form-control form-control shadow-sm"
                 wire:model="status" 
             >
                 @foreach($taskStatuses as $taskStatus)
