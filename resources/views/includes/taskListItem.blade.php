@@ -1,6 +1,5 @@
-<div class="card"
-    >
-    <div class="card-header shadow-sm d-flex justify-content-between align-items-center" id="heading{{ $task->id }}">
+<div class="card taskListItem">
+    <div class="card-header shadow-sm d-flex justify-content-between align-items-center px-2 px-md-3" id="heading{{ $task->id }}">
         <div class="text-center" style="min-width: 30px; max-width: 30px;">
             @switch($task->status)
                 @case(0)
