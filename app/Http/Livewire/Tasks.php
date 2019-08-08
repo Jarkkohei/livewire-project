@@ -15,7 +15,7 @@ class Tasks extends Component
     public $taskStatuses = [
         ['value' => 1, 'label' => 'Created', 'class' => 'light'],
         ['value' => 2, 'label' => 'Assigned', 'class' => 'info'],
-        ['value' => 3, 'label' => 'Production', 'class' => 'secondary'],
+        ['value' => 3, 'label' => 'In production', 'class' => 'secondary'],
         ['value' => 4, 'label' => 'Has obstacle', 'class' => 'warning'],
         ['value' => 5, 'label' => 'Hurry up', 'class' => 'danger'],
         ['value' => 0, 'label' => 'Completed', 'class' => 'success']

@@ -55,7 +55,7 @@
         </div>
 
         <div class="form-group">
-            <label for="editTaskDescription">Status</label>
+            <label for="editTaskStatus">Status</label>
             <select 
                 id="editTaskStatus" 
                 name="editTaskStatus"  
