@@ -11,7 +11,7 @@
                     <select 
                         wire:model="sortBy" 
                         name="sortBySelect"
-                        class="form-control form-control form-control-sm {{ $errors->has('title') ? 'border border-danger' : '' }} shadow-sm"
+                        class="form-control form-control-sm {{ $errors->has('title') ? 'border border-danger' : '' }} shadow-sm"
                         aria-describedby="sortByErrors"
                     >
                         @foreach($sortableFields as $field)
