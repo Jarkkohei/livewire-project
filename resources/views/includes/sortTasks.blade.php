@@ -2,7 +2,7 @@
     <div class="card-header d-flex justify-content-between align-items-center flex-column flex-sm-row px-0">
 
         <div class="form-group col mb-2 mb-xl-0">
-            <div class="row justify-content-center align-items-center">
+            <div class="row justify-content-start align-items-center">
                 <div class="col-12 col-xl-auto">
                     <label class="mb-xl-0" for="sortBySelect">Sort by:</label>
                 </div>
