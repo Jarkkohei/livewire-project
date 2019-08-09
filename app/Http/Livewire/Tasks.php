@@ -41,7 +41,7 @@ class Tasks extends Component
     public $sortDir = 1;
 
     public $itemsCount = null;
-    public $itemsPerPageOptions = [10, 25, 50, 100];
+    public $itemsPerPageOptions = [5, 10, 25, 50, 100];
 
     public $currentPageNumber = 1;
     public $itemsPerPage = 10;
