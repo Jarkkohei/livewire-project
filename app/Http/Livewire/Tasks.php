@@ -23,6 +23,23 @@ class Tasks extends Component
 
     public $mode = null;
 
+    public $sortableFields = [
+        ['value' => 0, 'name' => 'status'],
+        ['value' => 1, 'name' => 'title'],
+        ['value' => 2, 'name' => 'description'],
+        ['value' => 3, 'name' => 'user_id'],
+        ['value' => 4, 'name' => 'created_at'],
+        ['value' => 5, 'name' => 'updated_at']
+    ];
+
+    public $sortDirections = [
+        ['value' => 0, 'name' => 'Ascending'],
+        ['value' => 1, 'name' => 'Descending']
+    ];
+
+    public $sortBy = 0;
+    public $sortDir = 1;
+
     public function openEditing($id)
     {
         $task = Task::find($id);
@@ -97,8 +114,12 @@ class Tasks extends Component
 
     public function render()
     {
-        return view('livewire.tasks', [
-            'tasks' => auth()->user()->tasks->sortByDesc('status')
-        ]);
+        $tasks = auth()->user()->tasks->sortBy($this->sortableFields[$this->sortBy]['name']);
+
+        if($this->sortDir == 1) {
+            $tasks = $tasks->reverse();
+        }
+
+        return view('livewire.tasks', ['tasks' => $tasks]);
     }
 }
