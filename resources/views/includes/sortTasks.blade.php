@@ -54,7 +54,7 @@
                                 value="{{ $direction['value'] }}" 
                                 {{ $direction['value'] == $sortDir ? 'selected' : '' }}
                             >
-                                {{ ucfirst($direction['name']) }}
+                                {{ $direction['name'] == 'asc' ? 'Ascending' : 'Descending' }}
                             </option>
                         @endforeach
                     </select>

@@ -33,8 +33,8 @@ class Tasks extends Component
     ];
 
     public $sortDirections = [
-        ['value' => 0, 'name' => 'Ascending'],
-        ['value' => 1, 'name' => 'Descending']
+        ['value' => 0, 'name' => 'asc'],
+        ['value' => 1, 'name' => 'desc']
     ];
 
     public $sortBy = 0;
