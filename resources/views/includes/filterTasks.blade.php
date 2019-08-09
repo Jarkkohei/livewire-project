@@ -1,4 +1,4 @@
-<div class="card d-flex justify-content-between shadow-sm mt-4">
+<div class="card d-flex justify-content-between shadow-sm mt-2">
     <div class="card-header col">
 
         <div class="row justify-content-between align-items-center flex-column flex-sm-row px-0">

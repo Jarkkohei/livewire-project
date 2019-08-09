@@ -1,4 +1,4 @@
-<div class="card d-flex justify-content-between shadow-sm mt-4">
+<div class="card d-flex justify-content-between shadow-sm mt-2">
     <div class="card-header d-flex justify-content-center align-items-center">
         <ul class="pagination mb-0">
 
