@@ -40,6 +40,9 @@ class Tasks extends Component
     public $sortBy = 0;
     public $sortDir = 1;
 
+    public $itemsCount = null;
+    public $itemsPerPageOptions = [10, 25, 50, 100];
+
     public $currentPageNumber = 1;
     public $itemsPerPage = 10;
     public $pagesCount = null;
@@ -121,21 +124,21 @@ class Tasks extends Component
         $this->resetTask();
     }
 
-    public function setPagesCount($itemsCount)
+    public function setPagesCount()
     {
-        if($itemsCount == 0) {
+        if($this->itemsCount == 0) {
             //$errors->noTasks = 'No tasks found';
             //$errors['noTasks'] = 'No tasks found';
         } else {
-            if($itemsCount <= $this->itemsPerPage) {
+            if($this->itemsCount <= $this->itemsPerPage) {
                 // All items can be shown on the first page
                 $this->pagesCount = 1;
-            } else if($itemsCount % $this->itemsPerPage == 0) {
+            } else if($this->itemsCount % $this->itemsPerPage == 0) {
                 // All pages are full
-                $this->pagesCount = $itemsCount / $this->itemsPerPage;
+                $this->pagesCount = $this->itemsCount / $this->itemsPerPage;
             } else {
                 // Last page is not full
-                $this->pagesCount = ($itemsCount / $this->itemsPerPage) + 1;
+                $this->pagesCount = ($this->itemsCount / $this->itemsPerPage) + 1;
             }
         }
     }
@@ -144,14 +147,13 @@ class Tasks extends Component
     {
         $collection = Task::orderBy($this->sortableFields[$this->sortBy]['name'], $this->sortDirections[$this->sortDir]['name']);
 
-        $itemsCount = $collection->count();
+        $this->itemsCount = $collection->count();
         //print_r($itemsCount);
 
-        $this->setPagesCount($itemsCount);
+        $this->setPagesCount();
 
         $chunk = $collection->forPage($this->currentPageNumber, $this->itemsPerPage);
         $tasks = $chunk->get();
-
 
         return view('livewire.tasks', ['tasks' => $tasks]);
     }
