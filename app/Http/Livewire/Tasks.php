@@ -135,10 +135,10 @@ class Tasks extends Component
                 $this->pagesCount = 1;
             } else if($this->itemsCount % $this->itemsPerPage == 0) {
                 // All pages are full
-                $this->pagesCount = $this->itemsCount / $this->itemsPerPage;
+                $this->pagesCount = floor($this->itemsCount / $this->itemsPerPage);
             } else {
                 // Last page is not full
-                $this->pagesCount = ($this->itemsCount / $this->itemsPerPage) + 1;
+                $this->pagesCount = floor($this->itemsCount / $this->itemsPerPage) + 1;
             }
         }
     }
