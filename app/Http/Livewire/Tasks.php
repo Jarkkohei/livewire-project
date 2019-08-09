@@ -56,7 +56,7 @@ class Tasks extends Component
         $this->mode = 'add';
     }
 
-    public function resetPage()
+    public function resetTask()
     {
         $this->id = null;
         $this->title = '';
@@ -78,7 +78,7 @@ class Tasks extends Component
             'status' => 2
         ]);
 
-        $this->resetPage();
+        $this->resetTask();
     }
 
     public function deleteTask($id)
@@ -109,7 +109,7 @@ class Tasks extends Component
         $task->status = $this->status;
         $task->save();
 
-        $this->resetPage();
+        $this->resetTask();
     }
 
     public function render()

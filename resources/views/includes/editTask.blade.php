@@ -7,7 +7,7 @@
         <div>
             <button 
                 class="btn btn-sm btn-outline-secondary"
-                wire:click="resetPage"
+                wire:click="resetTask"
                 title="go back"
             >
                 <i class="fas fa-arrow-left"></i> Back
