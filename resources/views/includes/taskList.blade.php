@@ -22,7 +22,7 @@
     <div class="col-12 col-lg-8 col-xl-9">
         @include('includes.paginateTasks')
 
-        <div class="accordion mt-2 shadow-sm" id="taskAccordion">
+        <div class="accordion mt-3 shadow-sm" id="taskAccordion">
             @foreach($tasks as $task)
                 @include('includes.taskListItem', $task)
             @endforeach
