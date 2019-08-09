@@ -2,14 +2,15 @@
     <div class="card-header d-flex justify-content-center align-items-center">
         <ul class="pagination mb-0">
 
-            <li 
-                class="page-item" 
-                wire:click="showPage(1)" 
-                title="To first page" 
-                style="cursor: pointer;"
-            >
-                <span class="page-link">&laquo;</span>
-            </li>
+            @if($currentPageNumber != 1)
+                <li 
+                    class="page-item" 
+                    wire:click="showPage(1)" 
+                    title="To first page" 
+                >
+                    <span class="page-link">&laquo;</span>
+                </li>
+            @endif
 
             @for ($i = 1; $i <= $pagesCount; $i++)
                 <li 
@@ -24,14 +25,15 @@
                 </li>
             @endfor
 
-            <li 
-                class="page-item" 
-                wire:click="showPage({{ $pagesCount }})" 
-                title="To last page" 
-                style="cursor: pointer;"
-            >
-                <span class="page-link">&raquo;</span>
-            </li>
+            @if($currentPageNumber != $pagesCount)
+                <li 
+                    class="page-item" 
+                    wire:click="showPage({{ $pagesCount }})" 
+                    title="To last page" 
+                >
+                    <span class="page-link">&raquo;</span>
+                </li>
+            @endif
 
         </ul>
     </div>
