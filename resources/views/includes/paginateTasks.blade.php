@@ -6,7 +6,8 @@
                 <li 
                     class="page-item" 
                     wire:click="showPage(1)" 
-                    title="To first page" 
+                    title="To first page"
+                    style="cursor: pointer;"
                 >
                     <span class="page-link">&laquo;</span>
                 </li>
@@ -29,7 +30,8 @@
                 <li 
                     class="page-item" 
                     wire:click="showPage({{ $pagesCount }})" 
-                    title="To last page" 
+                    title="To last page"
+                    style="cursor: pointer;"
                 >
                     <span class="page-link">&raquo;</span>
                 </li>
