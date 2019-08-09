@@ -114,11 +114,20 @@ class Tasks extends Component
 
     public function render()
     {
+        /*
         $tasks = auth()->user()->tasks->sortBy($this->sortableFields[$this->sortBy]['name']);
-
         if($this->sortDir == 1) {
             $tasks = $tasks->reverse();
         }
+        */
+
+        /*
+        $tasks = Task::where('user_id', auth()->user()->id)
+            ->orderBy($this->sortableFields[$this->sortBy]['name'], $this->sortDirections[$this->sortDir]['name'])
+            ->paginate(10);
+        */
+
+        $tasks = Task::orderBy($this->sortableFields[$this->sortBy]['name'], $this->sortDirections[$this->sortDir]['name'])->get();
 
         return view('livewire.tasks', ['tasks' => $tasks]);
     }
