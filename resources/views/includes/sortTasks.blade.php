@@ -11,7 +11,7 @@
                     <select 
                         wire:model="sortBy" 
                         name="sortBySelect"
-                        class="form-control {{ $errors->has('title') ? 'border border-danger' : '' }} shadow-sm"
+                        class="form-control form-control form-control-sm {{ $errors->has('title') ? 'border border-danger' : '' }} shadow-sm"
                         aria-describedby="sortByErrors"
                     >
                         @foreach($sortableFields as $field)
@@ -45,7 +45,7 @@
                     <select 
                         wire:model="sortDir"
                         name="sortDirectionSelect"
-                        class="form-control {{ $errors->has('title') ? 'border border-danger' : '' }} shadow-sm"
+                        class="form-control form-control-sm {{ $errors->has('title') ? 'border border-danger' : '' }} shadow-sm"
                         aria-describedby="sortDirectionErrors"
                     >
                         @foreach($sortDirections as $direction)
