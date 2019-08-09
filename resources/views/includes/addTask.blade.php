@@ -23,7 +23,7 @@
                 id="addTaskTitle"
                 name="addTaskTitle"
                 type="text"
-                class="form-control form-control {{ $errors->has('title') ? 'border border-danger' : '' }} shadow-sm"
+                class="form-control {{ $errors->has('title') ? 'border border-danger' : '' }} shadow-sm"
                 placeholder="Title..."
                 aria-describedby="titleErrors"
                 wire:model="title"
@@ -41,7 +41,7 @@
             <textarea 
                 id="addTaskDescription"
                 name="addTaskDescription"
-                class="form-control form-control {{ $errors->has('description') ? 'border border-danger' : $title }} shadow-sm"
+                class="form-control {{ $errors->has('description') ? 'border border-danger' : $title }} shadow-sm"
                 placeholder="Description..."
                 rows="5"
                 value=""
