@@ -1,13 +1,15 @@
 <div class="card d-flex justify-content-between shadow-sm mt-2">
-    <div class="card-header d-flex justify-content-between align-items-center flex-column flex-sm-row px-0">
+    <div class="card-header d-flex justify-content-between align-items-center flex-column flex-sm-row flex-lg-column px-0">
 
-        <div class="form-group col mb-2 mb-xl-0">
+        <div class="form-group col mb-2">
             <div class="row justify-content-start align-items-center">
-                <div class="col-12 col-xl-auto">
-                    <label class="mb-xl-0" for="sortBySelect">Sort by:</label>
+                <div class="col-12">
+                    <label for="sortBySelect">
+                        Sort by:
+                    </label>
                 </div>
 
-                <div class="col-12 col-xl-8">
+                <div class="col-12">
                     <select 
                         wire:model="sortBy" 
                         name="sortBySelect"
@@ -35,13 +37,13 @@
             </div>
         </div>
 
-        <div class="form-group col mb-2 mb-xl-0">
+        <div class="form-group col mb-2">
             <div class="row justify-content-start align-items-center">
-                <div class="col-12 col-xl-auto">
-                    <label class="mb-xl-0" for="sortDirectionSelect">Sort direction:</label>
+                <div class="col-12">
+                    <label for="sortDirectionSelect">Sort direction:</label>
                 </div>
 
-                <div class="col-12 col-xl-8">
+                <div class="col-12">
                     <select 
                         wire:model="sortDir"
                         name="sortDirectionSelect"

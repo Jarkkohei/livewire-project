@@ -13,17 +13,21 @@
     </div>
 </div>
 
-@include('includes.sortTasks')
+<div class="row">
+    <div class="col-12 col-lg-4 col-xl-3 order-lg-12">
+        @include('includes.sortTasks')
+        @include('includes.filterTasks')
+    </div>
 
-@include('includes.filterTasks')
+    <div class="col-12 col-lg-8 col-xl-9">
+        @include('includes.paginateTasks')
 
-@include('includes.paginateTasks')
+        <div class="accordion mt-2 shadow-sm" id="taskAccordion">
+            @foreach($tasks as $task)
+                @include('includes.taskListItem', $task)
+            @endforeach
+        </div>
 
-<div class="accordion mt-2 shadow-sm" id="taskAccordion">
-    @foreach($tasks as $task)
-        @include('includes.taskListItem', $task)
-    @endforeach
+        @include('includes.paginateTasks')
+    </div>
 </div>
-
-@include('includes.paginateTasks')
-
