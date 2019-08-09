@@ -40,6 +40,15 @@ class Tasks extends Component
     public $sortBy = 0;
     public $sortDir = 1;
 
+    public $currentPageNumber = 1;
+    public $itemsPerPage = 10;
+    public $pagesCount = null;
+
+    public function showPage($index)
+    {
+        $this->currentPageNumber = $index;
+    }
+
     public function openEditing($id)
     {
         $task = Task::find($id);
@@ -112,22 +121,37 @@ class Tasks extends Component
         $this->resetTask();
     }
 
+    public function setPagesCount($itemsCount)
+    {
+        if($itemsCount == 0) {
+            //$errors->noTasks = 'No tasks found';
+            //$errors['noTasks'] = 'No tasks found';
+        } else {
+            if($itemsCount <= $this->itemsPerPage) {
+                // All items can be shown on the first page
+                $this->pagesCount = 1;
+            } else if($itemsCount % $this->itemsPerPage == 0) {
+                // All pages are full
+                $this->pagesCount = $itemsCount / $this->itemsPerPage;
+            } else {
+                // Last page is not full
+                $this->pagesCount = ($itemsCount / $this->itemsPerPage) + 1;
+            }
+        }
+    }
+
     public function render()
     {
-        /*
-        $tasks = auth()->user()->tasks->sortBy($this->sortableFields[$this->sortBy]['name']);
-        if($this->sortDir == 1) {
-            $tasks = $tasks->reverse();
-        }
-        */
+        $collection = Task::orderBy($this->sortableFields[$this->sortBy]['name'], $this->sortDirections[$this->sortDir]['name']);
 
-        /*
-        $tasks = Task::where('user_id', auth()->user()->id)
-            ->orderBy($this->sortableFields[$this->sortBy]['name'], $this->sortDirections[$this->sortDir]['name'])
-            ->paginate(10);
-        */
+        $itemsCount = $collection->count();
+        //print_r($itemsCount);
 
-        $tasks = Task::orderBy($this->sortableFields[$this->sortBy]['name'], $this->sortDirections[$this->sortDir]['name'])->get();
+        $this->setPagesCount($itemsCount);
+
+        $chunk = $collection->forPage($this->currentPageNumber, $this->itemsPerPage);
+        $tasks = $chunk->get();
+
 
         return view('livewire.tasks', ['tasks' => $tasks]);
     }

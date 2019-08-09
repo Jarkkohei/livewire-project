@@ -15,8 +15,13 @@
 
 @include('includes.sortTasks')
 
+@include('includes.paginateTasks')
+
 <div class="accordion mt-4 shadow-sm" id="taskAccordion">
     @foreach($tasks as $task)
         @include('includes.taskListItem', $task)
     @endforeach
 </div>
+
+@include('includes.paginateTasks')
+
