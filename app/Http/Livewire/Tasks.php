@@ -69,16 +69,6 @@ class Tasks extends Component
         Task::find($id)->delete();
     }
 
-    /*
-    public function toggleCompleted($id)
-    {
-        $todo = Todo::find($id);
-
-        $todo->completed = !$todo->completed;
-        $todo->save();
-    }
-    */
-
     public function setTaskStatus($id) 
     {
         $task = Task::find($id);
