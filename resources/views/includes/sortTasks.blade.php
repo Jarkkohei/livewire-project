@@ -11,7 +11,8 @@
 
                 <div class="col-12">
                     <select 
-                        wire:model="sortBy" 
+                        wire:model="sortBy"
+                        wire:change="$set('currentPageNumber', 1)"
                         name="sortBySelect"
                         class="form-control form-control-sm {{ $errors->has('title') ? 'border border-danger' : '' }} shadow-sm"
                         aria-describedby="sortByErrors"
@@ -46,6 +47,7 @@
                 <div class="col-12">
                     <select 
                         wire:model="sortDir"
+                        wire:change="$set('currentPageNumber', 1)"
                         name="sortDirectionSelect"
                         class="form-control form-control-sm {{ $errors->has('title') ? 'border border-danger' : '' }} shadow-sm"
                         aria-describedby="sortDirectionErrors"

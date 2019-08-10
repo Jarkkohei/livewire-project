@@ -11,7 +11,8 @@
 
                 <div class="col-12">
                     <select 
-                        wire:model="itemsPerPage" 
+                        wire:model="itemsPerPage"
+                        wire:change="$set('currentPageNumber', 1)"
                         name="itemsPerPageSelect"
                         class="form-control form-control-sm {{ $errors->has('itemsPerPage') ? 'border border-danger' : '' }} shadow-sm"
                         aria-describedby="itemsPerPageErrors"
