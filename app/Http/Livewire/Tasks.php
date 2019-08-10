@@ -112,7 +112,7 @@ class Tasks extends Component
     {
         $this->validate([
             'title' => 'required',
-            'status' => 'required|integer|min:0|max:5'
+            'status' => 'required|integer|min:0|max:6'
         ]);
 
         $task = Task::find($this->id);
