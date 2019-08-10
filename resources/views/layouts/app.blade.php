@@ -83,4 +83,14 @@
     @livewireAssets
     
 </body>
+
+<footer>
+    <div id="footer-content" class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col">
+                
+            </div>
+        </div>
+    </div>
+</footer>
 </html>
