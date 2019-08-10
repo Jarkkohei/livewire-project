@@ -16,8 +16,9 @@ class Tasks extends Component
         ['value' => 1, 'label' => 'Created', 'class' => 'light'],
         ['value' => 2, 'label' => 'Assigned', 'class' => 'info'],
         ['value' => 3, 'label' => 'In production', 'class' => 'secondary'],
-        ['value' => 4, 'label' => 'Has obstacle', 'class' => 'warning'],
-        ['value' => 5, 'label' => 'Hurry up', 'class' => 'danger'],
+        ['value' => 4, 'label' => 'Blocked', 'class' => 'danger'],
+        ['value' => 5, 'label' => 'Burn in', 'class' => 'warning'],
+        ['value' => 6, 'label' => 'Hurry up', 'class' => 'danger'],
         ['value' => 0, 'label' => 'Completed', 'class' => 'success']
     ];
 

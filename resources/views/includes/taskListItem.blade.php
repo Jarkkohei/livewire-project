@@ -12,12 +12,15 @@
                     <i class="fas fa-user-circle fa-lg text-secondary" title="Assigned" style="cursor: pointer;"></i>
                     @break
                 @case(3)
-                    <i class="fas fa-ban fa-lg text-secondary" title="Blocked" style="cursor: pointer;"></i>
+                    <i class="fas fa-industry fa-lg text-secondary" title="In production" style="cursor: pointer;"></i>
                     @break
                 @case(4)
-                    <i class="fas fa-exclamation-circle fa-lg" title="Burn in" style="cursor: pointer; color: orange;"></i>
+                    <i class="fas fa-ban fa-lg text-secondary" title="Blocked" style="cursor: pointer;"></i>
                     @break
                 @case(5)
+                    <i class="fas fa-exclamation-circle fa-lg" title="Burn in" style="cursor: pointer; color: orange;"></i>
+                    @break
+                @case(6)
                     <i class="fas fa-fire fa-lg text-danger" title="Hurry Up!" style="cursor: pointer;"></i>
                     @break
             @endswitch
