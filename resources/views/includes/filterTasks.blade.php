@@ -68,15 +68,11 @@
 
             </div>
         </div>
+    </div>
 
-        <div class="row mt-3">
-            <div class="form-group col mb-2">
-                <div class="row justify-content-start align-items-center">
-                    <div class="col-12">
-                        Item quantity: {{ $itemsCount }}
-                    </div>
-                </div>
-            </div>
+    <div class="card-body d-flex justify-content-between align-items-center flex-column flex-sm-row flex-lg-column px-0 py-2">
+        <div class="col-12 text-center">
+            Filtered [amount] out of {{ $itemsCount }}
         </div>
     </div>
 
