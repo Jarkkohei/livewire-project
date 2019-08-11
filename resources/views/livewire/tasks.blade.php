@@ -1,4 +1,4 @@
-<div>
+<div class="container">
     @switch($mode)
 
         @case('add')

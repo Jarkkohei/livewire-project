@@ -19,4 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/tasks', 'TaskController@index')->name('tasks');
+Route::livewire('/tasks', 'tasks')->name('tasks');
