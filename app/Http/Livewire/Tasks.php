@@ -53,6 +53,7 @@ class Tasks extends Component
     public function toggleFilter($index)
     {
         $this->taskStatuses[$index]['included'] = !$this->taskStatuses[$index]['included'];
+        $this->currentPageNumber = 1;
     }
 
     public function showPage($index)
