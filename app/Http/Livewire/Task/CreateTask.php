@@ -26,7 +26,6 @@ class CreateTask extends Component
     {
         $this->validate([
             'title' => 'required',
-            'description' => 'string',
         ]);
 
         Task::create([
