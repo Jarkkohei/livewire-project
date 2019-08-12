@@ -4,7 +4,7 @@
         <div>
             <button 
                 class="btn btn-sm btn-primary"
-                wire:click="openAdding"
+                wire:click="create"
                 title="Add new task"
             >
                 <i class="fas fa-plus"></i>

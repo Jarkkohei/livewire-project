@@ -12,6 +12,11 @@ class Tasks extends Component
         $this->redirect('/task/'. $id . '/edit');
     }
 
+    public function create()
+    {
+        $this->redirect('/task/create');
+    }
+
     public $id = null;
     public $title = '';
     public $description = '';
