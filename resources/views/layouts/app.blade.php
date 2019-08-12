@@ -36,7 +36,17 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        @guest
 
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::currentRouteName()==='home'?'active':'' }}" href="{{ route('home') }}">{{ __('Home') }}</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::currentRouteName()==='tasks'?'active':'' }}" href="{{ route('tasks') }}">{{ __('Tasks') }}</a>
+                            </li>
+                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -44,11 +54,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link {{ Route::currentRouteName()==='login'?'active':'' }}" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link {{ Route::currentRouteName()==='register'?'active':'' }}" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
