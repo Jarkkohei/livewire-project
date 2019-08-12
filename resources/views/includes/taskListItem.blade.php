@@ -29,7 +29,7 @@
             <button 
                 type="button" 
                 class="btn btn-sm btn-primary" 
-                wire:click="openEditing({{ $task['id'] }})"
+                wire:click="edit({{ $task['id'] }})"
                 title="Edit"
             >
                 <i class="fas fa-edit"></i>

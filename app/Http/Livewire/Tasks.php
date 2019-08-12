@@ -7,6 +7,11 @@ use App\Task;
 
 class Tasks extends Component
 {
+    public function edit($id)
+    {
+        $this->redirect('/task/'. $id . '/edit');
+    }
+
     public $id = null;
     public $title = '';
     public $description = '';
