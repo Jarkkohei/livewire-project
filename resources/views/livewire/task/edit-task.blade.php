@@ -1,4 +1,4 @@
-<div class="container vh-100">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col col-md-8 col-lg-6">
             <div class="card shadow-sm">

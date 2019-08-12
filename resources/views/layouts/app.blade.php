@@ -90,17 +90,18 @@
         </main>
     </div>
 
-    @livewireAssets
-    
-</body>
-
-<footer>
-    <div id="footer-content" class="container">
-        <div class="row justify-content-center align-items-center">
-            <div class="col">
-                
+    <footer>
+        <div id="footer-content" class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col">
+                    
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
+
+    @livewireAssets
+    
+
+</body>
 </html>
