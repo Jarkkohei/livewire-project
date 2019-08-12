@@ -1,5 +1,5 @@
 <div class="card taskListItem">
-    <div class="card-header shadow-sm d-flex justify-content-between align-items-center px-2 px-md-3" id="heading{{ $task['id'] }}">
+    <div class="card-header shadow-sm d-flex justify-content-between align-items-center px-2 px-md-3" id="heading-{{ $task['id'] }}">
         <div class="text-center" style="min-width: 30px; max-width: 30px;">
             @switch($task['status'])
                 @case(0)
@@ -30,9 +30,9 @@
                 class="btn btn-link" 
                 type="button" 
                 data-toggle="collapse" 
-                data-target="#collapse{{ $task['id'] }}" 
+                data-target="#collapse-{{ $task['id'] }}" 
                 aria-expanded="false" 
-                aria-controls="collapse{{ $task['id'] }}"
+                aria-controls="collapse-{{ $task['id'] }}"
                 style="{{ $task['status'] == 0 ? 'text-decoration: line-through' : '' }}"
                 title="Show task details"
             >
@@ -63,9 +63,9 @@
     </div>
 
     <div 
-        id="collapse{{ $task['id'] }}" 
+        id="collapse-{{ $task['id'] }}" 
         class="collapse hide" 
-        aria-labelledby="heading{{ $task['id'] }}" 
+        aria-labelledby="heading-{{ $task['id'] }}" 
         data-parent="#taskAccordion"
     >
         <div class="card-body d-flex justify-content-between align-items-center">
