@@ -19,14 +19,14 @@
                     >
                         @foreach($sortableFields as $field)
                             <option 
-                                name="{{ $field['name'] }}" 
+                                name="{{ $field['label'] }}" 
                                 value="{{ $field['value'] }}" 
                                 {{ $field['value'] == $sortBy ? 'selected' : '' }}
                             >
-                                {{ $field['name'] == 'user_id' ? 'User' 
-                                    : ($field['name'] == 'created_at' ? 'Creation date' 
-                                    : ($field['name'] == 'updated_at' ? 'Update date' 
-                                    : ucfirst($field['name']))) }}
+                                {{ $field['label'] == 'user_id' ? 'User' 
+                                    : ($field['label'] == 'created_at' ? 'Creation date' 
+                                    : ($field['label'] == 'updated_at' ? 'Update date' 
+                                    : ucfirst($field['label']))) }}
                             </option>
                         @endforeach
                     </select>
@@ -54,11 +54,11 @@
                     >
                         @foreach($sortDirections as $direction)
                             <option 
-                                name="{{ $direction['name'] }}" 
+                                name="{{ $direction['label'] }}" 
                                 value="{{ $direction['value'] }}" 
                                 {{ $direction['value'] == $sortDir ? 'selected' : '' }}
                             >
-                                {{ $direction['name'] == 'asc' ? 'Ascending' : 'Descending' }}
+                                {{ $direction['label'] == 'asc' ? 'Ascending' : 'Descending' }}
                             </option>
                         @endforeach
                     </select>

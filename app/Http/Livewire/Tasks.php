@@ -30,17 +30,17 @@ class Tasks extends Component
     //public $mode = null;
 
     public $sortableFields = [
-        ['value' => 0, 'name' => 'status'],
-        ['value' => 1, 'name' => 'title'],
-        ['value' => 2, 'name' => 'description'],
-        ['value' => 3, 'name' => 'user_id'],
-        ['value' => 4, 'name' => 'created_at'],
-        ['value' => 5, 'name' => 'updated_at']
+        ['value' => 0, 'label' => 'status'],
+        ['value' => 1, 'label' => 'title'],
+        ['value' => 2, 'label' => 'description'],
+        ['value' => 3, 'label' => 'user_id'],
+        ['value' => 4, 'label' => 'created_at'],
+        ['value' => 5, 'label' => 'updated_at']
     ];
 
     public $sortDirections = [
-        ['value' => 0, 'name' => 'asc'],
-        ['value' => 1, 'name' => 'desc']
+        ['value' => 0, 'label' => 'asc'],
+        ['value' => 1, 'label' => 'desc']
     ];
 
     public $sortBy = 0;
@@ -92,7 +92,7 @@ class Tasks extends Component
 
     public function render()
     {
-        $collection = Task::orderBy($this->sortableFields[$this->sortBy]['name'], $this->sortDirections[$this->sortDir]['name'])->get();
+        $collection = Task::orderBy($this->sortableFields[$this->sortBy]['label'], $this->sortDirections[$this->sortDir]['label'])->get();
 
         $this->itemsCount = $collection->count();
 
