@@ -19,4 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/tasks', 'TaskController@index')->name('tasks');
+Route::livewire('/tasks', 'tasks')->name('tasks');
+Route::livewire('/task/create', 'task.create-task')->name('createTask');
+Route::livewire('/task/{id}/edit', 'task.edit-task')->name('editTask');
