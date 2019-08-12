@@ -17,11 +17,6 @@ class Tasks extends Component
         $this->redirect('/task/create');
     }
 
-    public $id = null;
-    public $title = '';
-    public $description = '';
-    public $status = null;
-
     public $taskStatuses = [
         ['value' => 1, 'label' => 'Created', 'classes' => 'fas fa-rocket fa-lg', 'colorClass' => 'text-primary', 'styles' => '', 'included' => 'true'],
         ['value' => 2, 'label' => 'Assigned', 'classes' => 'fas fa-user-circle fa-lg', 'colorClass' => 'text-secondary', 'styles' => '', 'included' => 'true'],
@@ -32,7 +27,7 @@ class Tasks extends Component
         ['value' => 0, 'label' => 'Completed', 'classes' => 'fas fa-check-circle fa-lg', 'colorClass' => 'text-success', 'styles' => '', 'included' => 'true']
     ];
 
-    public $mode = null;
+    //public $mode = null;
 
     public $sortableFields = [
         ['value' => 0, 'name' => 'status'],
@@ -71,76 +66,9 @@ class Tasks extends Component
         $this->currentPageNumber = $index;
     }
 
-    public function openEditing($id)
-    {
-        $task = Task::find($id);
-
-        $this->id = $task->id;
-        $this->title = $task->title;
-        $this->description = $task->description;
-        $this->status = $task->status;
-        $this->mode = 'edit';
-    }
-
-    public function openAdding()
-    {
-        $this->mode = 'add';
-    }
-
-    public function resetTask()
-    {
-        $this->id = null;
-        $this->title = '';
-        $this->description = '';
-        $this->mode = null;
-        $this->status = null;
-    }
-
-    public function addTask()
-    {
-        $this->validate([
-            'title' => 'required'
-        ]);
-
-        Task::create([
-            'user_id' => auth()->id(),
-            'title' => $this->title,
-            'description' => $this->description,
-            'status' => 2
-        ]);
-
-        $this->resetTask();
-    }
-
     public function deleteTask($id)
     {
         Task::find($id)->delete();
-    }
-
-    public function setTaskStatus($id) 
-    {
-        $task = Task::find($id);
-
-        $task->status = $this->status;
-        $task->save();
-
-    }
-
-    public function updateTask()
-    {
-        $this->validate([
-            'title' => 'required',
-            'status' => 'required|integer|min:0|max:6'
-        ]);
-
-        $task = Task::find($this->id);
-
-        $task->title = $this->title;
-        $task->description = $this->description;
-        $task->status = $this->status;
-        $task->save();
-
-        $this->resetTask();
     }
 
     public function setPagesCount()
