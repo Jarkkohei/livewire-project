@@ -59,6 +59,30 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="addTaskStatus">Status</label>
+                        <select 
+                            id="addTaskStatus" 
+                            name="addTaskStatus"  
+                            class="form-control form-control shadow-sm"
+                            wire:model="status" 
+                        >
+                            @foreach($taskStatuses as $taskStatus)
+                                <option 
+                                    name="{{ $taskStatus['label'] }}" 
+                                    value="{{ $taskStatus['value'] }}" 
+                                    {{ $status == $taskStatus['value'] ? 'selected' : '' }}
+                                >
+                                    {{ $taskStatus['label'] }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        @if($errors->has('status'))
+                            <small id="statusErrors" class="form-text text-danger">{{ $errors->first('status') }}</small>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
                         <button 
                             class="btn btn-success form-control" 
                             wire:click="create" 
