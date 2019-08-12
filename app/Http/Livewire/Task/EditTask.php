@@ -22,13 +22,17 @@ class EditTask extends Component
         ['value' => 0, 'label' => 'Completed', 'classes' => 'fas fa-check-circle fa-lg', 'colorClass' => 'text-success', 'styles' => '', 'included' => 'true']
     ];
 
-    public function back()
+    protected function reset()
     {
         $this->id = null;
         $this->title = '';
         $this->description = '';
         $this->status = null;
-        
+    }
+
+    public function back()
+    {
+        $this->reset();
         $this->redirect('/tasks');
     }
 
@@ -56,7 +60,7 @@ class EditTask extends Component
         $task->status = $this->status;
         $task->save();
 
-        $this->redirect('/tasks');
+        $this->back();
     }
 
     public function render()
