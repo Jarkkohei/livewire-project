@@ -82,6 +82,31 @@
                         @endif
                     </div>
 
+                     <div class="form-group">
+                        <label for="addTaskProject">Project</label>
+                        <select 
+                            id="addTaskProject" 
+                            name="addTaskProject"  
+                            class="form-control form-control shadow-sm"
+                            wire:model="projectId" 
+                        >
+                            <option value="">--Select a project--</option>
+                            @foreach($projects as $project)
+                                <option 
+                                    name="{{ $project['title'] }}" 
+                                    value="{{ $project['id'] }}" 
+                                    {{ $projectId == $project['id'] ? 'selected' : '' }}
+                                >
+                                    {{ $project['title'] }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        @if($errors->has('projectId'))
+                            <small id="projectIdErrors" class="form-text text-danger">{{ $errors->first('projectId') }}</small>
+                        @endif
+                    </div>
+
                     <div class="form-group">
                         <button 
                             class="btn btn-success form-control" 

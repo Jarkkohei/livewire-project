@@ -4,12 +4,14 @@ namespace App\Http\Livewire\Task;
 
 use Livewire\Component;
 use App\Task;
+use App\Project;
 
 class CreateTask extends Component
 {
     public $title = '';
     public $description = '';
     public $status = 1;
+    public $projectId = null;
 
     public $taskStatuses = [
         ['value' => 1, 'label' => 'Created', 'classes' => 'fas fa-rocket fa-lg', 'colorClass' => 'text-primary', 'styles' => '', 'included' => 'true'],
@@ -26,6 +28,7 @@ class CreateTask extends Component
         $this->title = '';
         $this->description = '';
         $this->status = 2;
+        $this->projectId = null;
     }
 
     public function back()
@@ -36,16 +39,19 @@ class CreateTask extends Component
 
     public function create()
     {
+        //TODO: Add proper validation for projectId (is present in projects-table jne.)
         $this->validate([
             'title' => 'required',
-            'status' => 'required|integer|min:0|max:6'
+            'status' => 'required|integer|min:0|max:6',
+            'projectId' => 'required|integer|min:1'
         ]);
 
         Task::create([
             'user_id' => auth()->id(),
             'title' => $this->title,
             'description' => $this->description,
-            'status' => $this->status
+            'status' => $this->status,
+            'project_id' => $this->projectId
         ]);
 
         $this->back();
@@ -53,6 +59,10 @@ class CreateTask extends Component
 
     public function render()
     {
-        return view('livewire.task.create-task');
+        $projects = Project::all();
+
+        return view('livewire.task.create-task', [
+            'projects' => $projects
+        ]);
     }
 }
