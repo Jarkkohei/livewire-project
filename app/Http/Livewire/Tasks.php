@@ -76,6 +76,7 @@ class Tasks extends Component
         if($this->filteredItemsCount == 0) {
             //$errors->noTasks = 'No tasks found';
             //$errors['noTasks'] = 'No tasks found';
+            $this->pagesCount = 1;
         } else {
             if($this->filteredItemsCount <= $this->itemsPerPage) {
                 // All items can be shown on the first page
