@@ -17,7 +17,7 @@ class ProjectsTableSeeder extends Seeder
             'title' => 'Test',
             'description' => 'Test Project',
             'parent_id' => null,
-            'level' => 0,
+            'level' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
