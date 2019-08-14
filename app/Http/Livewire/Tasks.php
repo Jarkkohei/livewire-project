@@ -11,6 +11,41 @@ class Tasks extends Component
     public $currentProjectId = null;
     public $projects = null;
 
+    public $taskStatuses = [
+        ['value' => 1, 'label' => 'Created', 'classes' => 'fas fa-rocket fa-lg', 'colorClass' => 'text-primary', 'styles' => '', 'included' => 'true'],
+        ['value' => 2, 'label' => 'Assigned', 'classes' => 'fas fa-user-circle fa-lg', 'colorClass' => 'text-secondary', 'styles' => '', 'included' => 'true'],
+        ['value' => 3, 'label' => 'In production', 'classes' => 'fas fa-industry fa-lg', 'colorClass' => 'text-secondary', 'styles' => '', 'included' => 'true'],
+        ['value' => 4, 'label' => 'Blocked', 'classes' => 'fas fa-ban fa-lg', 'colorClass' => 'text-secondary', 'styles' => '', 'included' => 'true'],
+        ['value' => 5, 'label' => 'Burn in', 'classes' => 'fas fa-exclamation-circle fa-lg', 'colorClass' => '', 'styles' => 'color: orange', 'included' => 'true'],
+        ['value' => 6, 'label' => 'Hurry up', 'classes' => 'fas fa-fire fa-lg', 'colorClass' => 'text-danger', 'styles' => '', 'included' => 'true'],
+        ['value' => 0, 'label' => 'Completed', 'classes' => 'fas fa-check-circle fa-lg', 'colorClass' => 'text-success', 'styles' => '', 'included' => 'true']
+    ];
+
+    public $sortableFields = [
+        ['value' => 0, 'label' => 'status'],
+        ['value' => 1, 'label' => 'title'],
+        ['value' => 2, 'label' => 'description'],
+        ['value' => 3, 'label' => 'user_id'],
+        ['value' => 4, 'label' => 'created_at'],
+        ['value' => 5, 'label' => 'updated_at']
+    ];
+
+    public $sortDirections = [
+        ['value' => 0, 'label' => 'asc'],
+        ['value' => 1, 'label' => 'desc']
+    ];
+
+    public $sortBy = 0;
+    public $sortDir = 1;
+
+    public $itemsCount = null;
+    public $filteredItemsCount = null;
+    public $itemsPerPageOptions = [5, 10, 25, 50, 100];
+
+    public $currentPageNumber = 1;
+    public $itemsPerPage = 10;
+    public $pagesCount = 1;
+
     public function mount($id = null)
     {
         //$projects = Project::with('tasks')->get();
@@ -43,43 +78,6 @@ class Tasks extends Component
     {
         $this->redirect('/task/create');
     }
-
-    public $taskStatuses = [
-        ['value' => 1, 'label' => 'Created', 'classes' => 'fas fa-rocket fa-lg', 'colorClass' => 'text-primary', 'styles' => '', 'included' => 'true'],
-        ['value' => 2, 'label' => 'Assigned', 'classes' => 'fas fa-user-circle fa-lg', 'colorClass' => 'text-secondary', 'styles' => '', 'included' => 'true'],
-        ['value' => 3, 'label' => 'In production', 'classes' => 'fas fa-industry fa-lg', 'colorClass' => 'text-secondary', 'styles' => '', 'included' => 'true'],
-        ['value' => 4, 'label' => 'Blocked', 'classes' => 'fas fa-ban fa-lg', 'colorClass' => 'text-secondary', 'styles' => '', 'included' => 'true'],
-        ['value' => 5, 'label' => 'Burn in', 'classes' => 'fas fa-exclamation-circle fa-lg', 'colorClass' => '', 'styles' => 'color: orange', 'included' => 'true'],
-        ['value' => 6, 'label' => 'Hurry up', 'classes' => 'fas fa-fire fa-lg', 'colorClass' => 'text-danger', 'styles' => '', 'included' => 'true'],
-        ['value' => 0, 'label' => 'Completed', 'classes' => 'fas fa-check-circle fa-lg', 'colorClass' => 'text-success', 'styles' => '', 'included' => 'true']
-    ];
-
-    //public $mode = null;
-
-    public $sortableFields = [
-        ['value' => 0, 'label' => 'status'],
-        ['value' => 1, 'label' => 'title'],
-        ['value' => 2, 'label' => 'description'],
-        ['value' => 3, 'label' => 'user_id'],
-        ['value' => 4, 'label' => 'created_at'],
-        ['value' => 5, 'label' => 'updated_at']
-    ];
-
-    public $sortDirections = [
-        ['value' => 0, 'label' => 'asc'],
-        ['value' => 1, 'label' => 'desc']
-    ];
-
-    public $sortBy = 0;
-    public $sortDir = 1;
-
-    public $itemsCount = null;
-    public $filteredItemsCount = null;
-    public $itemsPerPageOptions = [5, 10, 25, 50, 100];
-
-    public $currentPageNumber = 1;
-    public $itemsPerPage = 10;
-    public $pagesCount = 1;
 
 
     public function toggleFilter($index)
