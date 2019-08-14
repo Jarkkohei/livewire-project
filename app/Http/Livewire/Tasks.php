@@ -52,7 +52,7 @@ class Tasks extends Component
 
     public $currentPageNumber = 1;
     public $itemsPerPage = 10;
-    public $pagesCount = null;
+    public $pagesCount = 1;
 
 
     public function toggleFilter($index)
