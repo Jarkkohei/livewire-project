@@ -4,9 +4,36 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Task;
+use App\Project;
 
 class Tasks extends Component
 {
+    public $currentProjectId = null;
+    public $projects = null;
+
+    public function mount($id = null)
+    {
+        //$projects = Project::with('tasks')->get();
+        $projects = Project::all();
+        $this->projects = $projects;
+
+        if($currentProject = $projects->find(1)) {
+            $this->currentProjectId = $currentProject->id;
+        }
+    }
+
+    public function setCurrentProjectId($id)
+    {
+        $currentProject = Project::find($id);
+
+        if($currentProject) {
+            $this->currentProjectId = $currentProject->id;
+        }
+
+        $this->currentPageNumber = 1;
+        $this->setPagesCount();
+    }
+
     public function edit($id)
     {
         $this->redirect('/task/'. $id . '/edit');
@@ -93,7 +120,7 @@ class Tasks extends Component
 
     public function render()
     {
-        $collection = Task::orderBy($this->sortableFields[$this->sortBy]['label'], $this->sortDirections[$this->sortDir]['label'])->get();
+        $collection = Task::where('project_id', $this->currentProjectId)->orderBy($this->sortableFields[$this->sortBy]['label'], $this->sortDirections[$this->sortDir]['label'])->get();
 
         $this->itemsCount = $collection->count();
 
