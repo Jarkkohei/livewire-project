@@ -13,6 +13,6 @@ class Task extends Model
 
     public function user()
     {
-        $this->belongTo('App\User');
+        return $this->belongsTo('App\User');
     }
 }
