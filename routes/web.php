@@ -19,6 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::livewire('/tasks', 'tasks')->name('tasks');
-Route::livewire('/task/create', 'task.create-task')->name('createTask');
-Route::livewire('/task/{id}/edit', 'task.edit-task')->name('editTask');
+Route::group(['middleware'=>'auth', 'prefix'=>'admin'], function () {
+    Route::livewire('/tasks', 'tasks')->name('tasks');
+    Route::livewire('/task/create', 'task.create-task')->name('createTask');
+    Route::livewire('/task/{id}/edit', 'task.edit-task')->name('editTask');
+});
+
+//Route::livewire('/project/{id}/tasks', 'tasks')->name('tasks');
