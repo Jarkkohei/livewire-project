@@ -71,12 +71,12 @@ class Tasks extends Component
 
     public function edit($id)
     {
-        $this->redirect('/task/'. $id . '/edit');
+        $this->redirect('/admin/task/'. $id . '/edit');
     }
 
     public function create()
     {
-        $this->redirect('/task/create');
+        $this->redirect('/admin/task/create');
     }
 
 

@@ -33,7 +33,7 @@ class EditTask extends Component
     public function back()
     {
         $this->reset();
-        $this->redirect('/tasks');
+        $this->redirect('/admin/tasks');
     }
 
     public function mount($id)

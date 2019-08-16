@@ -34,7 +34,7 @@ class CreateTask extends Component
     public function back()
     {
         $this->reset();
-        $this->redirect('/tasks');
+        $this->redirect('/admin/tasks');
     }
 
     public function create()
