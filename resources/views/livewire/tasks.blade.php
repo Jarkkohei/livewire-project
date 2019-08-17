@@ -49,15 +49,22 @@
                 </div>
             </div>
 
-            @include('includes.paginateTasks')
+            @if(count($tasks))
+                @include('includes.paginateTasks')
+            @endif
 
             <div class="accordion mt-3 shadow-sm" id="taskAccordion">
-                @foreach($tasks as $task)
+                @forelse($tasks as $task)
                     @include('includes.taskListItem', $task)
-                @endforeach
+                @empty
+                    <p>No tasks to show</p>
+                @endforelse
             </div>
 
-            @include('includes.paginateTasks')
+            @if(count($tasks))
+                @include('includes.paginateTasks')
+            @endif
+
         </div>
     </div>
 </div>
