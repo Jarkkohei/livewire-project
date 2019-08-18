@@ -8,8 +8,8 @@ use App\Project;
 
 class Tasks extends Component
 {
-    public $currentProjectId = null;
-    public $projects = null;
+    public $currentProjectId = 1;
+    public $projects = [];
 
     public $taskStatuses = [
         ['value' => 1, 'label' => 'Created', 'classes' => 'fas fa-rocket fa-lg', 'colorClass' => 'text-primary', 'styles' => '', 'included' => 'true'],
@@ -48,22 +48,86 @@ class Tasks extends Component
 
     public function mount($id = null)
     {
-        //$projects = Project::with('tasks')->get();
-        $projects = Project::all();
-        $this->projects = $projects;
+        $projects = Project::where('level', 1)->with('children', 'parent')->orderBy('title', 'asc')->get();
+        $this->initializeChildren($projects);
+    }
 
-        if($currentProject = $projects->find(1)) {
-            $this->currentProjectId = $currentProject->id;
+    public function initializeChildren($projects)
+    {
+        foreach($projects as $project) {
+            $project['visible'] = false;
+            $project['showChildren'] = false;
+
+            if($project['level'] == 1) {
+                $project['visible'] = true;
+            }
+
+            $this->projects[] = $project;
+
+            if(count($project['children'])) {
+                $this->initializeChildren($project['children']);
+            }
         }
+    }
+
+    public function showChildren($id)
+    {
+        $newProjectsTree = [];
+
+        foreach($this->projects as $project)
+        {
+            if($project['id'] == $id) {
+                $project['showChildren'] = true;
+            } else if($project['parent_id'] == $id) {
+                $project['visible'] = true;
+                $this->showChildren($project['id']);
+            }
+            $newProjectsTree[] = $project;
+        }
+
+        $this->projects = $newProjectsTree;
+    }
+
+    protected function parentProjectIsVisible($id)
+    {
+        foreach($this->projects as $project)
+        {
+            if($project['id'] == $id) {
+                return $project['visible'] == true;
+            }
+        }
+    }
+
+    public function hideChildren($id)
+    {
+        $newProjectsTree = [];
+
+        foreach($this->projects as $project)
+        {
+            if($project['id'] == $id) {
+                $project['showChildren'] = false;
+            } else if($project['parent_id'] == $id) {
+                $project['visible'] = false;
+                $project['showChildren'] = false;
+                $this->hideChildren($project['id']);
+            }
+
+            if(!$this->parentProjectIsVisible($id)) {
+                $project['showChildren'] = false;
+                $project['visible'] = false;
+            }
+
+            $newProjectsTree[] = $project;
+        }
+
+        $this->projects = $newProjectsTree;
     }
 
     public function setCurrentProjectId($id)
     {
-        $currentProject = Project::find($id);
+        $this->currentProjectId = $id;
 
-        if($currentProject) {
-            $this->currentProjectId = $currentProject->id;
-        }
+        //$this->updateProjectTree($id);
 
         $this->currentPageNumber = 1;
         $this->setPagesCount();
@@ -136,11 +200,11 @@ class Tasks extends Component
         });
 
         $this->filteredItemsCount = $filtered->count();
-
         $this->setPagesCount();
-
         $tasks = $filtered->forPage($this->currentPageNumber, $this->itemsPerPage);
 
-        return view('livewire.tasks', ['tasks' => $tasks]);
+        return view('livewire.tasks', [
+            'tasks' => $tasks
+        ]);
     }
 }

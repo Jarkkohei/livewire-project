@@ -1,30 +1,46 @@
 <div class="container">
     <div class="row">
-
         <div class="col-12 col-lg-4 col-xl-3 mt-3">
-            <div class="card shadow-sm">
 
+            <div class="card shadow-sm">
                 <div class="card-header d-flex justify-content-start align-items-center projectsListCardHeader">
                     <div>Projects</div>        
                 </div>
 
-                <div class="card-body d-flex justify-content-start flex-column p-0 projectsListCardBody">
+                <ul class="list-group list-group-flush">
                     @foreach($projects as $project)
-                        <div 
-                            class="projectsListItem {{ $project['id'] == $currentProjectId ? 'active' : '' }}" 
-                            title="{{ $project['description'] }}"
-                            wire:click="setCurrentProjectId({{ $project['id'] }})"
-                        >
-                            {{ $project['title'] }}
-                        </div>
+                        @if($project['visible'])
+                            <li id="projectListItem-{{ $project['id'] }}"
+                                class="list-group-item projectsListItem {{ $project['id'] == $currentProjectId ? 'active' : '' }}"
+                                title="{{ $project['description'] }}"
+                                wire:click="setCurrentProjectId({{ $project['id'] }})"
+                            >
+                                <span style="padding-left: {{ ($project['level'] * 10) - 10 }}px">{{ $project['title'] }}</span>
+
+                                @if(count($project['children']))
+                                    @if($project['showChildren'])
+                                        <i id="projectListItemCaret-{{ $project['id'] }}" 
+                                            class="float-right fas fa-caret-down fa-lg px-2 py-1"
+                                            wire:click="hideChildren({{ $project['id'] }})"
+                                        ></i>
+                                    @else
+                                        <i id="projectListItemCaret-{{ $project['id'] }}" 
+                                            class="float-right fas fa-caret-right fa-lg px-2 py-1"
+                                            wire:click="showChildren({{ $project['id'] }})"
+                                        ></i>
+                                    @endif
+                                @endif
+                            </li>
+                        @endif
                     @endforeach
-                </div>
+                </ul>
+                
             </div>
 
         </div>
 
-
         <div class="col-12 col-lg-8 col-xl-9 mt-3">
+
             <div class="card shadow-sm">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div>Tasks</div>        
