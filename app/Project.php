@@ -20,4 +20,14 @@ class Project extends Model
     {
         return $this->hasMany('App\Task');
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id')->with('parent');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(self::class, 'parent_id')->with('children')->orderBy('title', 'asc');
+    }
 }
