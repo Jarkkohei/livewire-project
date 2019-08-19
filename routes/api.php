@@ -26,17 +26,17 @@ Route::get('/tasks', function () {
 });
 
 /* Get Task by id */
-Route::get('/task/{id}', function ($id) {
+Route::get('/tasks/{id}', function ($id) {
     return new TaskCollection(Task::where('id', $id)->get());
 });
 
 /* Get all Tasks for a User */
-Route::get('/user/{id}/tasks', function ($id) {
+Route::get('/users/{id}/tasks', function ($id) {
     return new TaskCollection(Task::where('user_id', $id)->get());
 });
 
 /* Get all Projects for the selected user */
-Route::get('/user/{id}/projects', function ($id) {
+Route::get('/users/{id}/projects', function ($id) {
     $user = User::find($id);
     return new ProjectCollection($user->projects());
 });
