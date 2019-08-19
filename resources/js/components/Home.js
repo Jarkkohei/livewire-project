@@ -1,6 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import rootReducer from '../reducers/combiner';
+
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+
+const store = createStore(rootReducer);
 
 import Projects from './Projects';
 import Tasks from './Tasks';
@@ -31,7 +38,9 @@ export default Home;
 
 if (document.getElementById('home')) {
     ReactDOM.render(
-        <Home />,
+        <Provider store={store}>
+            <Home />
+        </Provider>,
         document.getElementById('home')
     );
 }
