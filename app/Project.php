@@ -11,9 +11,9 @@ class Project extends Model
 
     protected $fillable = ['title', 'description', 'parent_id', 'level'];
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo('App\User');
+        return $this->hasMany('App\User');
     }
 
     public function tasks()
