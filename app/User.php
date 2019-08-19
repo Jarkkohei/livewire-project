@@ -45,6 +45,6 @@ class User extends Authenticatable
 
     public function projects()
     {
-       return $this->belongsToMany('App\Project')->orderBy('title', 'desc')->get();
+       return $this->belongsToMany('App\Project');
     }
 }

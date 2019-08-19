@@ -37,6 +37,5 @@ Route::get('/users/{id}/tasks', function ($id) {
 
 /* Get all Projects for the selected user */
 Route::get('/users/{id}/projects', function ($id) {
-    $user = User::find($id);
-    return new ProjectCollection($user->projects());
+    return new ProjectCollection(User::find($id)->projects()->orderBy('title', 'asc')->get());
 });
