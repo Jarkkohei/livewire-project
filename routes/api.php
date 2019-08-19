@@ -34,3 +34,9 @@ Route::get('/task/{id}', function ($id) {
 Route::get('/user/{id}/tasks', function ($id) {
     return new TaskCollection(Task::where('user_id', $id)->get());
 });
+
+/* Get all Projects for the selected user */
+Route::get('/user/{id}/projects', function ($id) {
+    $user = User::find($id);
+    return new ProjectCollection($user->projects());
+});
