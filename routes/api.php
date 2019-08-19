@@ -35,7 +35,7 @@ Route::get('/tasks/{id}', function ($id) {
 
 /* Get all Tasks for a User */
 Route::get('/users/{id}/tasks', function ($id) {
-    return new TaskCollection(Task::where('user_id', $id)->get());
+    return new TaskCollection(User::find($id)->tasks()->orderBy('status', 'desc')->paginate(10));
 });
 
 /* Get all Projects for the selected user */
