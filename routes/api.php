@@ -3,7 +3,10 @@
 use Illuminate\Http\Request;
 
 use App\Task;
+use App\Project;
+use App\User;
 use App\Http\Resources\TaskCollection;
+use App\Http\Resources\ProjectCollection;
 
 /*
 |--------------------------------------------------------------------------
