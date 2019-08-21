@@ -6,6 +6,7 @@ import { setCurrentProject } from '../actions/projects';
 const Projects = (props) => {
 
     const projects = useSelector(state => state.projects.projects);
+    const currentProject = useSelector(state => state.projects.currentProject);
     const dispatch = useDispatch();
 
     return (
@@ -16,7 +17,7 @@ const Projects = (props) => {
 
             <ul className="list-group list-group-flush">
                 {projects.map(project => (
-                    <li className="list-group-item projectsListItem" 
+                    <li className={project.id == currentProject.id ? 'list-group-item projectsListItem active' : 'list-group-item projectsListItem'} 
                         title={project.description} 
                         key={project.id}
                         onClick={() => dispatch(setCurrentProject(project.id))}
