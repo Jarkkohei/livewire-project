@@ -26,3 +26,8 @@ Route::group(['middleware'=>'auth', 'prefix'=>'admin'], function () {
 });
 
 //Route::livewire('/project/{id}/tasks', 'tasks')->name('tasks');
+
+
+Route::middleware('auth')->get('{any}', function () {
+    return view('home'); // or wherever your React app is bootstrapped.
+})->where('any', '.*');
