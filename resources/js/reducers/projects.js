@@ -19,7 +19,7 @@ export const projects = (state = initialState, action) => {
                 ...state,
                 pending: false,
                 projects: action.projects,
-                currentProjectId: action.projects[0]
+                currentProject: action.projects[0]
             }
         case FETCH_PROJECTS_ERROR:
             return {
@@ -28,9 +28,13 @@ export const projects = (state = initialState, action) => {
                 error: action.error
             }
         case SET_CURRENT_PROJECT:
+            const currentProjects = state.projects.filter((project) => {
+                return project.id == action.currentProjectId
+            });
+
             return {
                 ...state,
-                currentProject: action.currentProject
+                currentProject: currentProjects[0]
             }
         default:
             return state;

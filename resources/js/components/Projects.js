@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCurrentProject } from '../actions/projects';
 
 const Projects = (props) => {
 
     const projects = useSelector(state => state.projects.projects);
+    const dispatch = useDispatch();
 
     return (
         <div className="card shadow-sm">
@@ -14,7 +16,11 @@ const Projects = (props) => {
 
             <ul className="list-group list-group-flush">
                 {projects.map(project => (
-                    <li className="list-group-item projectsListItem" title={project.description} key={project.id}>
+                    <li className="list-group-item projectsListItem" 
+                        title={project.description} 
+                        key={project.id}
+                        onClick={() => dispatch(setCurrentProject(project.id))}
+                    >
                         <span>{project.title}</span>
                     </li> 
                 ))}
