@@ -18,7 +18,7 @@ class Project extends Model
 
     public function tasks()
     {
-        return $this->hasMany('App\Task');
+        return $this->hasMany('App\Task')->orderBy('status', 'desc');
     }
 
     public function parent()
