@@ -7,8 +7,6 @@ import Projects from './Projects';
 import Tasks from './Tasks';
 
 const Home = (props) => {
-    const tasks = useSelector(state => state.tasks.tasks);
-    //const projects = useSelector(state => state.projects.projects);
 
     return ( 
         <div className="container">
