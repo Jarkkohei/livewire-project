@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import { useSelector } from 'react-redux';
 
 const Projects = (props) => {
+
+    const projects = useSelector(state => state.projects.projects);
+
     return (
         <div className="card shadow-sm">
             <div className="card-header d-flex justify-content-start align-items-center projectsListCardHeader">
@@ -8,33 +13,11 @@ const Projects = (props) => {
             </div>
 
             <ul className="list-group list-group-flush">
-                {/*}
-                    @foreach($projects as $project)
-                        @if($project['visible'])
-                            <li id="projectListItem-{{ $project['id'] }}"
-                                    className="list-group-item projectsListItem {{ $project['id'] == $currentProjectId ? 'active' : '' }}"
-                                    title="{{ $project['description'] }}"
-                                    wire: click="setCurrentProjectId({{ $project['id'] }})"
-                            >
-                                <span style="padding-left: {{ ($project['level'] * 10) - 10 }}px">{{ $project['title'] }}</span>
-
-                                @if(count($project['children']))
-                                    @if($project['showChildren'])
-                                        <i id="projectListItemCaret-{{ $project['id'] }}"
-                                            className="float-right fas fa-caret-down fa-lg px-2 py-1"
-                                            wire: click="hideChildren({{ $project['id'] }})"
-                                        ></i>
-                                    @else
-                                        <i id="projectListItemCaret-{{ $project['id'] }}"
-                                            className="float-right fas fa-caret-right fa-lg px-2 py-1"
-                                            wire: click="showChildren({{ $project['id'] }})"
-                                        ></i>
-                                    @endif
-                                @endif
-                            </li>
-                        @endif
-                    @endforeach
-                    */}
+                {projects.map(project => (
+                    <li className="list-group-item projectsListItem" title={project.description} key={project.id}>
+                        <span>{project.title}</span>
+                    </li> 
+                ))}
             </ul>
 
         </div> 

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
+import { useSelector, useDispatch, useActions } from 'react-redux';
 
 import Projects from './Projects';
 import Tasks from './Tasks';
 
-const Home = (props) => { 
+const Home = (props) => {
+    const tasks = useSelector(state => state.tasks.tasks);
+    //const projects = useSelector(state => state.projects.projects);
+
     return ( 
         <div className="container">
             <div className="row">

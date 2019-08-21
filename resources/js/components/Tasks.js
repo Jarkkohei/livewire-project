@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-const Tasks = () => {
+import { useSelector } from 'react-redux';
+
+const Tasks = (props) => {
+
+    const currentProject = useSelector(state => state.projects.currentProject);
+
     return (
         <div>
             <div className="card shadow-sm">
@@ -35,6 +40,74 @@ const Tasks = () => {
                 */}
 
             <div className="accordion mt-3 shadow-sm" id="taskAccordion">
+                {currentProject.tasks && currentProject.tasks.map(task => (
+                    <div className="card taskListItem" key={task.id}>
+                        <div className="card-header shadow-sm d-flex justify-content-between align-items-center px-2 px-md-3">
+                            <div className="text-center" style={{ minWidth: 30, maxWidth: 30}}>
+                                {/*
+                                @foreach($taskStatuses as $taskStatus)
+                                    @if($taskStatus['value'] == $task['status'])
+                                        <i
+                                            className="{{ $taskStatus['classes'] }} {{ $taskStatus['colorClass'] }}"
+                                            title="{{ $taskStatus['label'] }}"
+                                            style="cursor: pointer; {{ $taskStatus['styles'] }}"
+                                        ></i>
+                                    @endif
+                                @endforeach
+                                */}
+                            </div>
+
+                            <h2 className="mb-0">
+                                <button
+                                    className="btn btn-link"
+                                    type="button"
+                                    data-toggle="collapse"
+                                    data-target="#collapse-{task.id'}"
+                                    aria-expanded="false"
+                                    aria-controls="collapse-{{ $task['id'] }}"
+                                    style={ task.status == 0 ? {textDecoration: 'line-through'} : {} }
+                                    title="Show task details"
+                                >
+                                    {task.title}
+                                </button>
+                            </h2>
+
+                            <div style={{ minWidth: 65, marginLeft: 10}}>
+                                <button
+                                    type="button"
+                                    className="btn btn-sm btn-primary"
+                                    onClick={() => {}}
+                                    title="Edit"
+                                >
+                                    <i className="fas fa-edit"></i>
+                                </button>
+
+                                <button
+                                    className="btn btn-sm btn-danger"
+                                    onClick={() => {}}
+                                    title="Delete"
+                                >
+                                    <i className="far fa-trash-alt"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                                
+                        <div
+                            id="collapse-{{ $task['id'] }}"
+                            className="collapse hide"
+                            aria-labelledby="heading-{{ $task['id'] }}"
+                            data-parent="#taskAccordion"
+                        >
+                            <div className="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    {task.description}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+
                 {/*
                     @forelse($tasks as $task)
                         @include('includes.taskListItem', $task)
