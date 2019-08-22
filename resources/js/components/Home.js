@@ -5,6 +5,7 @@ import { useSelector, useDispatch, useActions } from 'react-redux';
 
 import Projects from './Projects';
 import Tasks from './Tasks';
+import EditTask from './EditTask';
 
 const Home = (props) => {
 
@@ -20,6 +21,7 @@ const Home = (props) => {
                     <div className="col-12 col-lg-8 col-xl-9 mt-3">
                         <Switch>
                             <Route path='/home' exact component={Tasks} />
+                            <Route path='/home/edit' exact component={EditTask} />
                         </Switch>
                     </div>
                     
