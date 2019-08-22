@@ -12,7 +12,7 @@ const EditTask = ({ match }) => {
                         Edit task
                     </div>
                     <div>
-                        <NavLink className="btn btn-sm btn-outline-secondary" to={`/projects/${match.params.id}`} title="go back">
+                        <NavLink className="btn btn-sm btn-outline-secondary" to={`/projects/${match.params.project_id}`} title="go back">
                             <i className="fas fa-arrow-left"></i> Back
                         </NavLink>
                     </div>
