@@ -21,8 +21,8 @@
     }
 
     &:focus {
-        outline: $pagination-focus-outline;
-        box-shadow: $pagination-focus-box-shadow;
+        //outline: $pagination-focus-outline;
+        //box-shadow: $pagination-focus-box-shadow;
     }
     &.active {
         color: $pagination-active-color;
