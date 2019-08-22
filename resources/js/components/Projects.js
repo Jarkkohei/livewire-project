@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentProject } from '../actions/projects';
 
-const Projects = (props) => {
+const Projects = ({ match }) => {
 
     const projects = useSelector(state => state.projects.projects);
     const currentProject = useSelector(state => state.projects.currentProject);
@@ -17,13 +18,14 @@ const Projects = (props) => {
 
             <ul className="list-group list-group-flush">
                 {projects.map(project => (
-                    <li className={project.id == currentProject.id ? 'list-group-item projectsListItem active' : 'list-group-item projectsListItem'} 
-                        title={project.description} 
+                    <NavLink 
+                        className="list-group-item projectsListItem" 
+                        to={ `/projects/${project.id}`} 
+                        title={project.description}
                         key={project.id}
-                        onClick={() => dispatch(setCurrentProject(project.id))}
                     >
                         <span>{project.title}</span>
-                    </li> 
+                    </NavLink>
                 ))}
             </ul>
 

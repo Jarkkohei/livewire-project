@@ -2,9 +2,11 @@ import React, { useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
-const Tasks = (props) => {
+const Tasks = ({ match }) => {
 
     const currentProject = useSelector(state => state.projects.currentProject);
+
+    // useEffect dispatch setCurrentProject(match.params.id)
 
     return (
         <div>
