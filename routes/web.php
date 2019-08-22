@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/projects', 'ProjectController@index')->name('projects');
+
 Route::group(['middleware'=>'auth', 'prefix'=>'admin'], function () {
     Route::livewire('/tasks', 'tasks')->name('tasks');
     Route::livewire('/task/create', 'task.create-task')->name('createTask');
@@ -29,5 +31,5 @@ Route::group(['middleware'=>'auth', 'prefix'=>'admin'], function () {
 
 
 Route::middleware('auth')->get('{any}', function () {
-    return view('home'); // or wherever your React app is bootstrapped.
+    return view('projects'); // or wherever your React app is bootstrapped.
 })->where('any', '.*');
