@@ -40,10 +40,10 @@ Route::get('/users/{id}/tasks', function ($id) {
 
 /* Get all Projects for the selected user */
 Route::get('/users/{id}/projects', function ($id) {
-    return new ProjectCollection(User::find($id)->projects()->with('tasks')->get());
+    return new ProjectCollection(User::find($id)->projects()->with(['children', 'tasks'])->get());
 });
 
 /* Get all Tasks for selected Project for the selected user */
 Route::get('/users/{user_id}/projects/{project_id}', function ($user_id, $project_id) {
-    return new ProjectCollection(User::find($user_id)->projects()->with('tasks')->where('project_id', $project_id)->get());
+    return new ProjectCollection(User::find($user_id)->projects()->with(['children', 'tasks'])->where('project_id', $project_id)->get());
 });
