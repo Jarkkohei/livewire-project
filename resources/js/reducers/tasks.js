@@ -2,7 +2,7 @@ import { FETCH_TASKS_PENDING, FETCH_TASKS_SUCCESS, FETCH_TASKS_ERROR } from '../
 
 const initialState = {
     pending: false,
-    tasks: [{ id: 1, title: 'Titteli', description: 'Kuvaus', status: 1, }],
+    tasks: [],
     error: null
 }
 

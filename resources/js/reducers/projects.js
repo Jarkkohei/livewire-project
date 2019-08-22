@@ -2,8 +2,7 @@ import { FETCH_PROJECTS_PENDING, FETCH_PROJECTS_SUCCESS, FETCH_PROJECTS_ERROR, S
 
 const initialState = {
     pending: false,
-    projects: [{ id: 1, title: 'Titteli', description: 'Kuvaus'}],
-    currentProject: { id: 1, title: 'Titteli', description: 'Kuvaus' },
+    projects: [],
     error: null
 }
 
