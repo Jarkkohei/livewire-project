@@ -11,13 +11,9 @@ const EditTask = (props) => {
                         Edit task
                     </div>
                     <div>
-                        <button
-                            class="btn btn-sm btn-outline-secondary"
-                            onClick={() => {}}
-                            title="go back"
-                        >
-                            <i class="fas fa-arrow-left"></i> Back
-                        </button>
+                        <NavLink class="btn btn-sm btn-outline-secondary" to="/home" title="go back">
+                            <i className="fas fa-arrow-left"></i> Back
+                        </NavLink>
                     </div>
                 </div>
 
