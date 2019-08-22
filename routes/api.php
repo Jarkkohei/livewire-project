@@ -2,12 +2,6 @@
 
 use Illuminate\Http\Request;
 
-use App\Task;
-use App\Project;
-use App\User;
-use App\Http\Resources\TaskCollection;
-use App\Http\Resources\ProjectCollection;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,21 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 /* Get all tasks */
-Route::get('/tasks', function () {
-    return new TaskCollection(Task::all());
-});
+Route::get('/tasks', 'API\TaskController@index');
 
 /* Get Task by id */
-Route::get('/tasks/{id}', function ($id) {
-    return new TaskCollection(Task::where('id', $id)->get());
-});
+Route::get('/tasks/{id}', 'API\TaskController@show');
 
 /* Get all Projects */
-Route::get('/projects', function () {
-    return new ProjectCollection(Project::with(['parent', 'children'])->get());
-});
+Route::get('/projects', 'API\ProjectController@index');
 
 /* Get all Tasks for the selected Project */
-Route::get('/projects/{project_id}/tasks', function ($project_id) {
-    return new ProjectCollection(Task::where('project_id', $project_id)->get());
-});
+Route::get('/projects/{id}/tasks', 'API\TaskController@tasksForProject');
