@@ -1,4 +1,4 @@
-import { FETCH_PROJECTS_PENDING, FETCH_PROJECTS_SUCCESS, FETCH_PROJECTS_ERROR, SET_CURRENT_PROJECT } from '../actions/projects';
+import { FETCH_PROJECTS_PENDING, FETCH_PROJECTS_SUCCESS, FETCH_PROJECTS_ERROR } from '../actions/projects';
 
 const initialState = {
     pending: false,
@@ -18,22 +18,12 @@ export const projects = (state = initialState, action) => {
                 ...state,
                 pending: false,
                 projects: action.projects,
-                currentProject: action.projects[0]
             }
         case FETCH_PROJECTS_ERROR:
             return {
                 ...state,
                 pending: false,
                 error: action.error
-            }
-        case SET_CURRENT_PROJECT:
-            const currentProjects = state.projects.filter((project) => {
-                return project.id == action.currentProjectId
-            });
-
-            return {
-                ...state,
-                currentProject: currentProjects[0]
             }
         default:
             return state;

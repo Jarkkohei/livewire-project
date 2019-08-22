@@ -17,12 +17,7 @@ export const fetchProjectsError = (error) => ({
     error: error
 });
 
-export const setCurrentProject = (currentProjectId) => ({
-    type: SET_CURRENT_PROJECT,
-    currentProjectId: currentProjectId
-});
-
-const baseUrl = 'http://localhost:8000/api/users/1';
+const baseUrl = 'http://localhost:8000/api';
 
 export const fetchProjects = () => {
     return dispatch => {
@@ -34,7 +29,6 @@ export const fetchProjects = () => {
                     throw (res.error);
                 }
                 dispatch(fetchProjectsSuccess(res.data));
-                dispatch(setCurrentProject(res.data[0].id));
                 return res.data;
             })
             .catch(error => {
@@ -42,14 +36,3 @@ export const fetchProjects = () => {
             })
     }
 }
-
-/*
-export const fetchTasks = () => ({
-    type: 'FETCH_TASKS',
-});
-
-export const addTask = task => ({
-    type: 'ADD_TASK',
-    task
-});
-*/

@@ -2,13 +2,18 @@ import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setCurrentProject } from '../actions/projects';
+
+import { fetchProjects } from '../actions/projects';
 
 const Projects = (props) => {
 
-    const projects = useSelector(state => state.projects.projects);
-    const currentProject = useSelector(state => state.projects.currentProject);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchProjects());
+    }, []);
+
+    const projects = useSelector(state => state.projects.projects);
 
     return (
         <div className="card shadow-sm">
@@ -40,7 +45,7 @@ const ProjectsListItem = ({ project }) => {
                 key={project.id}
             >
                 <span>{project.title}</span>
-                {project.children.length > 0 ?
+                {project.children.length && project.children.length > 0 ?
                     (project.showChildren ? (
                         <i className="fas fa-caret-down"></i>
                     ) : (
@@ -49,7 +54,7 @@ const ProjectsListItem = ({ project }) => {
                     ) : ''}
             </NavLink>
 
-            {project.children.length > 0 ? project.children.map(child => (
+            {project.children.length && project.children.length > 0 ? project.children.map(child => (
                 <ProjectsListItem project={child} key={child.id} />
             ))
              : ''}

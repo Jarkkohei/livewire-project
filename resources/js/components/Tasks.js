@@ -1,13 +1,19 @@
 import React, { useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { fetchTasks } from '../actions/tasks';
 
 const Tasks = ({ match }) => {
 
-    const currentProject = useSelector(state => state.projects.currentProject);
+    const dispatch = useDispatch();
 
-    // useEffect dispatch setCurrentProject(match.params.id)
+    useEffect(() => {
+        dispatch(fetchTasks(match.params.project_id));
+    }, [match.params.project_id]);
 
+    const tasks = useSelector(state => state.tasks.tasks);
+    
     return (
         <div>
             <div className="card shadow-sm">
@@ -42,7 +48,7 @@ const Tasks = ({ match }) => {
                 */}
 
             <div className="accordion mt-3 shadow-sm" id="taskAccordion">
-                {currentProject.tasks && currentProject.tasks.map(task => (
+                {tasks && tasks.map(task => (
                     <div className="card taskListItem" key={task.id}>
                         <div className="card-header shadow-sm d-flex justify-content-between align-items-center px-2 px-md-3">
                             <div className="text-center" style={{ minWidth: 30, maxWidth: 30}}>
@@ -57,6 +63,9 @@ const Tasks = ({ match }) => {
                                     @endif
                                 @endforeach
                                 */}
+
+                                <i>{task.status }</i>
+                                
                             </div>
 
                             <h2 className="mb-0">

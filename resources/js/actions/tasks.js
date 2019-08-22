@@ -16,19 +16,18 @@ export const fetchTasksError = (error) => ({
     error: error
 });
 
-const baseUrl = 'http://localhost:8000/api/users/1/projects';
+const baseUrl = 'http://localhost:8000/api';
 
 
 export const fetchTasks = (project_id) => {
     return dispatch => {
         dispatch(fetchTasksPending());
-        fetch(`${baseUrl}/${project_id}/tasks`)
+        fetch(`${baseUrl}/projects/${project_id}/tasks`)
             .then(res => res.json())
             .then(res => {
                 if (res.error) {
                     throw (res.error);
                 }
-                //console.log(res.data);
                 dispatch(fetchTasksSuccess(res.data));
                 return res.data;
             })
@@ -37,14 +36,3 @@ export const fetchTasks = (project_id) => {
             })
     }
 }
-
-/*
-export const fetchTasks = () => ({
-    type: 'FETCH_TASKS',
-});
-
-export const addTask = task => ({
-    type: 'ADD_TASK',
-    task
-});
-*/

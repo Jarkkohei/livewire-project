@@ -33,17 +33,12 @@ Route::get('/tasks/{id}', function ($id) {
     return new TaskCollection(Task::where('id', $id)->get());
 });
 
-/* Get all Tasks for a User */
-Route::get('/users/{id}/tasks', function ($id) {
-    return new TaskCollection(User::find($id)->tasks()->orderBy('status', 'desc')->paginate(10));
+/* Get all Projects */
+Route::get('/projects', function () {
+    return new ProjectCollection(Project::with(['parent', 'children'])->get());
 });
 
-/* Get all Projects for the selected user */
-Route::get('/users/{id}/projects', function ($id) {
-    return new ProjectCollection(User::find($id)->projects()->with(['children', 'tasks'])->get());
-});
-
-/* Get all Tasks for selected Project for the selected user */
-Route::get('/users/{user_id}/projects/{project_id}', function ($user_id, $project_id) {
-    return new ProjectCollection(User::find($user_id)->projects()->with(['children', 'tasks'])->where('project_id', $project_id)->get());
+/* Get all Tasks for the selected Project */
+Route::get('/projects/{project_id}/tasks', function ($project_id) {
+    return new ProjectCollection(Task::where('project_id', $project_id)->get());
 });
