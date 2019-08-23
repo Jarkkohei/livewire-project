@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-
-import { useSelector, useDispatch, useActions } from 'react-redux';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Projects from './Projects';
 import Tasks from './Tasks';
