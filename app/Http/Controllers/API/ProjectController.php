@@ -26,7 +26,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return new ProjectCollection(Project::with(['parent', 'children'])->get());
+        return new ProjectCollection(Project::with(['parent'])->get());
     }
 
     /**
@@ -48,7 +48,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return new ProjectCollection(Project::with(['parent', 'children'])->find($id));
+        return new ProjectCollection(Project::with(['parent'])->find($id));
     }
 
     /**

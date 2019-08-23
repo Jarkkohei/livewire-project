@@ -13,18 +13,32 @@ export const projects = (state = initialState, action) => {
                 ...state,
                 pending: true
             }
+        
         case FETCH_PROJECTS_SUCCESS:
+
+            const projects = action.projects.map((project) => {
+                project.showChildren = false;
+                return project;
+            });
+
+            const projectsWithChildren = projects.map((project) => {
+                project.children = projects.filter(p => p.parent_id == project.id);
+                return project;
+            });
+
             return {
                 ...state,
                 pending: false,
-                projects: action.projects,
+                projects: projectsWithChildren
             }
+        
         case FETCH_PROJECTS_ERROR:
             return {
                 ...state,
                 pending: false,
                 error: action.error
             }
+            
         default:
             return state;
     }

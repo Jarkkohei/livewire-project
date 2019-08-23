@@ -54,7 +54,7 @@ const ProjectsListItem = ({ project }) => {
                     ) : ''}
             </NavLink>
 
-            {project.children.length && project.children.length > 0 ? project.children.map(child => (
+            {project.children.length && project.children.length > 0 && project.showChildren ? project.children.map(child => (
                 <ProjectsListItem project={child} key={child.id} />
             ))
              : ''}
