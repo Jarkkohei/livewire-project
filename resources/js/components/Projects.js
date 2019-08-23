@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
 
 import { fetchProjects, toggleProjectShowChildren } from '../actions/projects';
 
@@ -41,11 +42,21 @@ const ProjectsListItem = ({ project }) => {
         dispatch(toggleProjectShowChildren(project.id));
     }
 
+    const CaretButton = styled.button`
+        color: inherit;
+        min-width: 26px;
+
+        &:hover {
+            box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.1);
+            color: inherit;
+        }
+    `;
+
     return (
         <>
             <NavLink
                 style={styles}
-                className="list-group-item projectsListItem d-flex align-items-center justify-content-between"
+                className="projectsListItem list-group-item d-flex align-items-center justify-content-between"
                 to={`/projects/${project.id}`}
                 title={project.description}
                 key={project.id}
@@ -53,9 +64,13 @@ const ProjectsListItem = ({ project }) => {
                 <span>{project.title}</span>
                 {project.children.length && project.children.length > 0 ?
                     (project.showChildren ? (
-                        <i className="fas fa-caret-down" onClick={toggleShowChildren}></i>
+                        <CaretButton className="btn btn-sm" type="button" onClick={toggleShowChildren} title="Hide subprojects">
+                            <i className="fas fa-caret-down"></i>
+                        </CaretButton>
                     ) : (
-                            <i className="fas fa-caret-right" onClick={toggleShowChildren}></i>
+                        <CaretButton className="btn btn-sm" type="button" onClick={toggleShowChildren} title="Show subprojects">
+                            <i className="fas fa-caret-right"></i>
+                        </CaretButton>
                         )
                     ) : ''}
             </NavLink>
