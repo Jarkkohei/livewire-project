@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchProjects } from '../actions/projects';
+import { fetchProjects, toggleProjectShowChildren } from '../actions/projects';
 
 const Projects = (props) => {
 
@@ -33,7 +33,13 @@ const Projects = (props) => {
 
 const ProjectsListItem = ({ project }) => {
 
+    const dispatch = useDispatch();
     const styles = { paddingLeft: project.level * 10 + 10 };
+    const canShowChildren = project.showChildren && project.children.length && project.children.length > 0;
+
+    const toggleShowChildren = () => {
+        dispatch(toggleProjectShowChildren(project.id));
+    }
 
     return (
         <>
@@ -47,14 +53,14 @@ const ProjectsListItem = ({ project }) => {
                 <span>{project.title}</span>
                 {project.children.length && project.children.length > 0 ?
                     (project.showChildren ? (
-                        <i className="fas fa-caret-down"></i>
+                        <i className="fas fa-caret-down" onClick={toggleShowChildren}></i>
                     ) : (
-                            <i className="fas fa-caret-right"></i>
+                            <i className="fas fa-caret-right" onClick={toggleShowChildren}></i>
                         )
                     ) : ''}
             </NavLink>
 
-            {project.children.length && project.children.length > 0 && project.showChildren ? project.children.map(child => (
+            {canShowChildren ? project.children.map(child => (
                 <ProjectsListItem project={child} key={child.id} />
             ))
              : ''}

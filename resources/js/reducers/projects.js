@@ -1,4 +1,9 @@
-import { FETCH_PROJECTS_PENDING, FETCH_PROJECTS_SUCCESS, FETCH_PROJECTS_ERROR } from '../actions/projects';
+import { 
+    FETCH_PROJECTS_PENDING, 
+    FETCH_PROJECTS_SUCCESS, 
+    FETCH_PROJECTS_ERROR, 
+    TOGGLE_PROJECT_SHOW_CHILDREN 
+} from '../actions/projects';
 
 const initialState = {
     pending: false,
@@ -38,7 +43,20 @@ export const projects = (state = initialState, action) => {
                 pending: false,
                 error: action.error
             }
-            
+
+        case TOGGLE_PROJECT_SHOW_CHILDREN:
+            const newProjects = state.projects.map((project) => {
+                if (project.id == action.projectId) {
+                    project.showChildren = !project.showChildren;
+                }
+                return project;
+            });
+
+            return {
+                ...state,
+                projects: newProjects
+            }
+
         default:
             return state;
     }
