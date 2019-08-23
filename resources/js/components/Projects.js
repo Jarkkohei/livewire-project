@@ -1,20 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-
-import { fetchProjects, toggleProjectShowChildren } from '../actions/projects';
 
 const Projects = (props) => {
 
-    const dispatch = useDispatch();
+    const [projects, setProjects] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const baseUrl = 'http://localhost:8000/api';
 
     useEffect(() => {
-        dispatch(fetchProjects());
+        setIsLoading(true);
+        fetch(`${baseUrl}/projects`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.error) {
+                    throw (res.error);
+                }
+
+                const data = res.data.map((project) => {
+                    project.showChildren = false;
+                    return project;
+                });
+
+                const projectsWithChildren = data.map((project) => {
+                    project.children = data.filter(p => p.parent_id == project.id);
+                    return project;
+                });
+
+                setProjects(projectsWithChildren);
+                setIsLoading(false);
+            })
+            .catch(error => {
+                setIsLoading(false);
+                throw new Error(error);
+            });
     }, []);
 
-    const projects = useSelector(state => state.projects.projects);
+    const toggleShowChildren = (id) => {
+        const newProjects = projects.map((project) => {
+            if (project.id == id) {
+                project.showChildren = !project.showChildren;
+            }
+            return project;
+        });
+        setProjects(newProjects);
+    }
 
     return (
         <div className="card shadow-sm">
@@ -23,8 +55,9 @@ const Projects = (props) => {
             </div>
 
             <ul className="list-group list-group-flush">
-                {projects.map(project => project.level == 1 && (
-                    <ProjectsListItem project={project} key={project.id}/>
+                {isLoading && (<p>Loading projects...</p>)}
+                {!isLoading && projects.map(project => project.level == 1 && (
+                    <ProjectsListItem project={project} key={project.id} toggleShowChildren={toggleShowChildren}/>
                 ))}
             </ul>
 
@@ -32,15 +65,10 @@ const Projects = (props) => {
     );
 }
 
-const ProjectsListItem = ({ project }) => {
+const ProjectsListItem = ({ project, toggleShowChildren }) => {
 
-    const dispatch = useDispatch();
     const styles = { paddingLeft: project.level * 10 + 10 };
     const canShowChildren = project.showChildren && project.children.length && project.children.length > 0;
-
-    const toggleShowChildren = () => {
-        dispatch(toggleProjectShowChildren(project.id));
-    }
 
     const CaretButton = styled.button`
         color: inherit;
@@ -50,6 +78,11 @@ const ProjectsListItem = ({ project }) => {
             box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.1);
             color: inherit;
         }
+    `;
+
+    const ChildWrapper = styled.div`
+        animation: slide-up 0.4s ease;
+        display: ${props => (props.show ? 'block' : 'none')};
     `;
 
     return (
@@ -64,21 +97,23 @@ const ProjectsListItem = ({ project }) => {
                 <span>{project.title}</span>
                 {project.children.length && project.children.length > 0 ?
                     (project.showChildren ? (
-                        <CaretButton className="btn btn-sm" type="button" onClick={toggleShowChildren} title="Hide subprojects">
+                        <CaretButton className="btn btn-sm" type="button" onClick={() => toggleShowChildren(project.id)} title="Hide subprojects">
                             <i className="fas fa-caret-down"></i>
                         </CaretButton>
                     ) : (
-                        <CaretButton className="btn btn-sm" type="button" onClick={toggleShowChildren} title="Show subprojects">
+                        <CaretButton className="btn btn-sm" type="button" onClick={() => toggleShowChildren(project.id)} title="Show subprojects">
                             <i className="fas fa-caret-right"></i>
                         </CaretButton>
                         )
                     ) : ''}
             </NavLink>
 
-            {canShowChildren ? project.children.map(child => (
-                <ProjectsListItem project={child} key={child.id} />
-            ))
-             : ''}
+            <ChildWrapper show={canShowChildren}>
+                {project.children.map((child) => (
+                    <ProjectsListItem project={child} key={child.id} toggleShowChildren={toggleShowChildren}/>
+                ))}
+            </ChildWrapper>
+
         </>
     );
 }

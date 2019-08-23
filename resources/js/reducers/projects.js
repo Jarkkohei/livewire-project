@@ -1,8 +1,8 @@
+// NOTHING IN THIS FILE IS USED AT THE MOMENT
 import { 
     FETCH_PROJECTS_PENDING, 
     FETCH_PROJECTS_SUCCESS, 
-    FETCH_PROJECTS_ERROR, 
-    TOGGLE_PROJECT_SHOW_CHILDREN 
+    FETCH_PROJECTS_ERROR
 } from '../actions/projects';
 
 const initialState = {
@@ -20,21 +20,10 @@ export const projects = (state = initialState, action) => {
             }
         
         case FETCH_PROJECTS_SUCCESS:
-
-            const projects = action.projects.map((project) => {
-                project.showChildren = false;
-                return project;
-            });
-
-            const projectsWithChildren = projects.map((project) => {
-                project.children = projects.filter(p => p.parent_id == project.id);
-                return project;
-            });
-
             return {
                 ...state,
                 pending: false,
-                projects: projectsWithChildren
+                projects: projects
             }
         
         case FETCH_PROJECTS_ERROR:
@@ -42,19 +31,6 @@ export const projects = (state = initialState, action) => {
                 ...state,
                 pending: false,
                 error: action.error
-            }
-
-        case TOGGLE_PROJECT_SHOW_CHILDREN:
-            const newProjects = state.projects.map((project) => {
-                if (project.id == action.projectId) {
-                    project.showChildren = !project.showChildren;
-                }
-                return project;
-            });
-
-            return {
-                ...state,
-                projects: newProjects
             }
 
         default:
