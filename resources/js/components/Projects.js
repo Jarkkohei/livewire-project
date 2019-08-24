@@ -80,11 +80,6 @@ const ProjectsListItem = ({ project, toggleShowChildren }) => {
         }
     `;
 
-    const ChildWrapper = styled.div`
-        animation: slide-up 0.4s ease;
-        display: ${props => (props.show ? 'block' : 'none')};
-    `;
-
     return (
         <>
             <NavLink
@@ -108,11 +103,9 @@ const ProjectsListItem = ({ project, toggleShowChildren }) => {
                     ) : ''}
             </NavLink>
 
-            <ChildWrapper show={canShowChildren}>
-                {project.children.map((child) => (
-                    <ProjectsListItem project={child} key={child.id} toggleShowChildren={toggleShowChildren}/>
-                ))}
-            </ChildWrapper>
+            {canShowChildren && project.children.map((child) => (
+                <ProjectsListItem project={child} key={child.id} toggleShowChildren={toggleShowChildren}/>
+            ))}
 
         </>
     );
