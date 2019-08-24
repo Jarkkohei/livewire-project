@@ -19,13 +19,8 @@ const Projects = (props) => {
                     throw (res.error);
                 }
 
-                const data = res.data.map((project) => {
-                    project.showChildren = false;
-                    return project;
-                });
-
-                const projectsWithChildren = data.map((project) => {
-                    project.children = data.filter(p => p.parent_id == project.id);
+                const projectsWithChildren = res.data.map((project) => {
+                    project.children = res.data.filter(p => p.parent_id == project.id);
                     return project;
                 });
 
@@ -38,16 +33,6 @@ const Projects = (props) => {
             });
     }, []);
 
-    const toggleShowChildren = (id) => {
-        const newProjects = projects.map((project) => {
-            if (project.id == id) {
-                project.showChildren = !project.showChildren;
-            }
-            return project;
-        });
-        setProjects(newProjects);
-    }
-
     return (
         <div className="card shadow-sm">
             <div className="card-header d-flex justify-content-start align-items-center projectsListCardHeader">
@@ -57,7 +42,7 @@ const Projects = (props) => {
             <ul className="list-group list-group-flush">
                 {isLoading && (<p>Loading projects...</p>)}
                 {!isLoading && projects.map(project => project.level == 1 && (
-                    <ProjectsListItem project={project} key={project.id} toggleShowChildren={toggleShowChildren}/>
+                    <ProjectsListItem project={project} key={project.id} />
                 ))}
             </ul>
 
@@ -65,11 +50,15 @@ const Projects = (props) => {
     );
 }
 
-const ProjectsListItem = ({ project, toggleShowChildren }) => {
+const ProjectsListItem = ({ project }) => {
 
-    const styles = { paddingLeft: project.level * 10 + 10 };
-    const canShowChildren = project.showChildren && project.children.length && project.children.length > 0;
+    const styles = { paddingLeft: project.level * 10 + 10, minHeight: 45, maxHeight: 45 };
 
+    const childWrapperElementId = `childWrapper-${project.id}`;
+
+    const hasChildren = project.children && project.children.length > 0;
+    const [showChildren, setShowChildren] = useState(false);
+    
     const CaretButton = styled.button`
         color: inherit;
         min-width: 26px;
@@ -79,6 +68,12 @@ const ProjectsListItem = ({ project, toggleShowChildren }) => {
             color: inherit;
         }
     `;
+
+    const toggleShowChildren = () => {
+        const childWrapper = document.getElementById(childWrapperElementId);
+        childWrapper.classList.toggle('d-none');
+        setShowChildren(!showChildren);
+    }
 
     return (
         <>
@@ -90,23 +85,20 @@ const ProjectsListItem = ({ project, toggleShowChildren }) => {
                 key={project.id}
             >
                 <span>{project.title}</span>
-                {project.children.length && project.children.length > 0 ?
-                    (project.showChildren ? (
-                        <CaretButton className="btn btn-sm" type="button" onClick={() => toggleShowChildren(project.id)} title="Hide subprojects">
-                            <i className="fas fa-caret-down"></i>
-                        </CaretButton>
-                    ) : (
-                        <CaretButton className="btn btn-sm" type="button" onClick={() => toggleShowChildren(project.id)} title="Show subprojects">
-                            <i className="fas fa-caret-right"></i>
-                        </CaretButton>
-                        )
-                    ) : ''}
+
+                {hasChildren && (
+                    <CaretButton className="btn btn-sm" type="button" onClick={toggleShowChildren} title={showChildren ? 'Hide sub-projects' : 'Show sub-projects'}>
+                        <i className={showChildren ? 'fas fa-caret-down' : 'fas fa-caret-right'}></i>
+                    </CaretButton>
+                )}
             </NavLink>
 
-            {canShowChildren && project.children.map((child) => (
-                <ProjectsListItem project={child} key={child.id} toggleShowChildren={toggleShowChildren}/>
-            ))}
-
+            <div id={childWrapperElementId} className="childWrapper d-none">
+                {project.children.map((child) => (
+                    <ProjectsListItem project={child} key={child.id} toggleShowChildren={toggleShowChildren} />
+                ))}
+            </div>
+        
         </>
     );
 }
