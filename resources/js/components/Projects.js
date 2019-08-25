@@ -84,8 +84,17 @@ const ProjectsListItem = ({ project }) => {
                 title={project.description}
                 key={project.id}
             >
-                <span>{project.title}</span>
-
+                <span>{project.title} 
+                    {project.tasks.length > 0 && (
+                        <span 
+                            className="ml-2 badge badge-secondary" 
+                            title={`has ${project.tasks.length} task${project.tasks.length > 1 ? 's' : ''}`}
+                        >
+                            {project.tasks.length}
+                        </span>
+                    )}
+                </span> 
+                
                 {hasChildren && (
                     <CaretButton className="btn btn-sm" type="button" onClick={toggleShowChildren} title={showChildren ? 'Hide sub-projects' : 'Show sub-projects'}>
                         <i className={showChildren ? 'fas fa-caret-down' : 'fas fa-caret-right'}></i>

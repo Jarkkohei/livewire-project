@@ -26,7 +26,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return new ProjectCollection(Project::orderBy('title', 'asc')->get());
+        return new ProjectCollection(Project::with('tasks')->orderBy('title', 'asc')->get());
     }
 
     /**
