@@ -36,3 +36,21 @@ export const fetchTasks = (project_id) => {
             })
     }
 }
+
+export const fetchRecentTasks = () => {
+    return dispatch => {
+        dispatch(fetchTasksPending());
+        fetch(`${baseUrl}/tasks/recent`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.error) {
+                    throw (res.error);
+                }
+                dispatch(fetchTasksSuccess(res.data));
+                return res.data;
+            })
+            .catch(error => {
+                dispatch(fetchTasksError(error));
+            })
+    }
+}

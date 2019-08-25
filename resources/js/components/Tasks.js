@@ -1,15 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchTasks } from '../actions/tasks';
+import { fetchTasks, fetchRecentTasks } from '../actions/tasks';
 
 const Tasks = ({ match }) => {
 
     const dispatch = useDispatch();
+    const [isRecentVisible, setIsRecentVisible] = useState(false);
 
     useEffect(() => {
-        dispatch(fetchTasks(match.params.project_id));
+
+        if(typeof match.params.project_id === 'undefined') {
+            setIsRecentVisible(true);
+            dispatch(fetchRecentTasks());
+        } else {
+            dispatch(fetchTasks(match.params.project_id));
+            setIsRecentVisible(false);
+        }
+        
     }, [match.params.project_id]);
 
     const tasks = useSelector(state => state.tasks.tasks);
@@ -18,16 +27,23 @@ const Tasks = ({ match }) => {
         <div>
             <div className="card shadow-sm">
                 <div className="card-header d-flex justify-content-between align-items-center">
-                    <div>Tasks</div>
-                    <div>
-                        <button
-                            className="btn btn-sm btn-primary"
-                            onClick={() => { }}
-                            title="Add new task"
-                        >
-                            <i className="fas fa-plus"></i>
-                        </button>
-                    </div>
+                    {isRecentVisible ? (
+                        <div>Recent Tasks</div>
+                    ) : (
+                        <>
+                        <div>Tasks</div>
+                        <div>
+                            <button
+                                className="btn btn-sm btn-primary"
+                                onClick={() => { }}
+                                title="Add new task"
+                            >
+                                <i className="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        </>
+                    )}
+                    
                 </div>
             </div>
 

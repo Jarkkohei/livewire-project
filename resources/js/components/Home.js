@@ -18,6 +18,7 @@ const Home = (props) => {
                     
                     <div className="col-12 col-lg-8 col-xl-9 mt-3">
                         <Switch>
+                            <Route path='/projects' exact component={Tasks} />
                             <Route path='/projects/:project_id' exact component={Tasks} />
                             <Route path='/projects/:project_id/edit' exact component={EditTask} />
                         </Switch>

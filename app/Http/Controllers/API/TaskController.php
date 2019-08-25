@@ -84,4 +84,14 @@ class TaskController extends Controller
     {
         return new TaskCollection(Task::where('project_id', $projectId)->get());
     }
+
+    /**
+     * Display a listing of recent Tasks.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function recent(Request $request)
+    {
+        return new TaskCollection(Task::orderBy('created_at', 'desc')->take(10)->get());
+    }
 }
