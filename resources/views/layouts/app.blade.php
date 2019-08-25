@@ -90,7 +90,7 @@
         </main>
     </div>
 
-    <footer>
+    <footer class="mt-4">
         <div id="footer-content" class="container">
             <div class="row justify-content-center align-items-center">
                 <div class="col">
