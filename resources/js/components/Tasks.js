@@ -147,7 +147,7 @@ const TasksListItem = ({ task }) => {
                     </button>
                 </h2>
 
-                <div style={{ minWidth: 65, marginLeft: 10 }}>
+                <div style={{ minWidth: 75, marginLeft: 10 }}>
                     <button
                         type="button"
                         className="btn btn-sm btn-primary"
@@ -158,7 +158,7 @@ const TasksListItem = ({ task }) => {
                     </button>
 
                     <button
-                        className="btn btn-sm btn-danger"
+                        className="btn btn-sm btn-danger ml-1"
                         onClick={() => { }}
                         title="Delete"
                     >
