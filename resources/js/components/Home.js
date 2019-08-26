@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Projects from './Projects';
 import Tasks from './Tasks';
-import EditTask from './EditTask';
+import TaskEdit from './TaskEdit';
 
 const Home = (props) => {
 
@@ -20,7 +20,7 @@ const Home = (props) => {
                         <Switch>
                             <Route path='/projects' exact component={Tasks} />
                             <Route path='/projects/:project_id' exact component={Tasks} />
-                            <Route path='/projects/:project_id/edit' exact component={EditTask} />
+                            <Route path='/projects/:project_id/tasks/:task_id/edit' exact component={TaskEdit} />
                         </Switch>
                     </div>
                     

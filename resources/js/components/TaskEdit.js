@@ -1,7 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const EditTask = ({ match }) => {
+const TaskEdit = ({ match }) => {
+
+    const backUrl = `/projects/${match.params.project_id}`;
 
     return (
         <>
@@ -12,7 +14,7 @@ const EditTask = ({ match }) => {
                         Edit task
                     </div>
                     <div>
-                        <NavLink className="btn btn-sm btn-outline-secondary" to={`/projects/${match.params.project_id}`} title="go back">
+                        <NavLink className="btn btn-sm btn-outline-secondary" to={backUrl} title="go back">
                             <i className="fas fa-arrow-left"></i> Back
                         </NavLink>
                     </div>
@@ -105,4 +107,4 @@ const EditTask = ({ match }) => {
     );
 }
 
-export default EditTask;
+export default TaskEdit;
