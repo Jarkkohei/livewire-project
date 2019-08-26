@@ -1,32 +1,3 @@
 .taskListItem:hover {
     background-color: rgba(0, 0, 0, 0);
 }
-
-.projectsListCardHeader {
-    height: 53px;
-    //border-bottom: none;
-}
-
-.projectsListItem {
-    cursor: pointer;
-    color: $pagination-color;
-    background-color: $pagination-bg;
-    border: $pagination-border-width solid $pagination-border-color;
-
-    &:hover {
-        color: $pagination-hover-color;
-        text-decoration: none;
-        background-color: $pagination-hover-bg;
-        border-color: $pagination-hover-border-color;
-    }
-
-    &:focus {
-        //outline: $pagination-focus-outline;
-        //box-shadow: $pagination-focus-box-shadow;
-    }
-    &.active {
-        color: $pagination-active-color;
-        background-color: $pagination-active-bg;
-        border-color: $pagination-active-border-color;
-    }
-}
