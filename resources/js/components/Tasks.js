@@ -23,7 +23,7 @@ const Tasks = ({ match }) => {
     }, [match.params.project_id]);
 
     const tasks = useSelector(state => state.tasks.tasks);
-    const { links, meta } = useSelector(state => state.tasks.pagination);
+    const { meta } = useSelector(state => state.tasks.pagination);
 
     //console.log(links, meta);
 
@@ -64,7 +64,7 @@ const Tasks = ({ match }) => {
                 </div>
                 
                 {!isRecentVisible && (
-                    <Pagination links={links} meta={meta} project_id={match.params.project_id} />
+                    <Pagination meta={meta} project_id={match.params.project_id} />
                 )}
 
                 <div className="accordion mt-3 shadow-sm" id="taskAccordion">
@@ -82,7 +82,7 @@ const Tasks = ({ match }) => {
                 </div>
 
                 {!isRecentVisible && (
-                    <Pagination links={links} meta={meta} project_id={match.params.project_id} />
+                    <Pagination meta={meta} project_id={match.params.project_id} />
                 )}
             </div>
         )}
@@ -182,7 +182,7 @@ const TasksListItem = ({ task }) => {
     );
 }
 
-const Pagination = ({ links, meta, project_id }) => {
+const Pagination = ({ meta, project_id }) => {
 
     const dispatch = useDispatch();
 
