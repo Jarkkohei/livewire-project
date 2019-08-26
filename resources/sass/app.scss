@@ -26,6 +26,12 @@ body {
     flex: 1 0 auto;
 }
 
+.nav-link.active {
+    color: $primary !important;
+    font-weight: bold;
+    border-bottom: 2px solid $primary;
+}
+
 footer {
     width: 100%;
     height: 200px;
