@@ -186,7 +186,11 @@ const Pagination = ({ links, meta, project_id }) => {
 
     const dispatch = useDispatch();
 
+    const showPagination = meta.last_page > 1;
+
     return (
+        <>
+        {showPagination && (
         <div className="card shadow-sm mt-3">
             <div className="card-header d-flex justify-content-center align-items-center">
                 <nav aria-label="Task pagination links">
@@ -273,5 +277,7 @@ const Pagination = ({ links, meta, project_id }) => {
                 </nav>
             </div>
         </div>
+        )}
+        </>
     );
 }
