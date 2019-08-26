@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -127,6 +128,9 @@ const TaskStatusIcon = ({ status }) => {
 
 
 const TasksListItem = ({ task }) => {
+
+    const editLinkUrl = `/projects/${task.project_id}/tasks/${task.id}`;
+
     return (
         <div className="card taskListItem" key={task.id}>
             <div className="card-header shadow-sm d-flex justify-content-between align-items-center px-2 px-md-3">
@@ -148,14 +152,16 @@ const TasksListItem = ({ task }) => {
                 </h2>
 
                 <div style={{ minWidth: 75, marginLeft: 10 }}>
-                    <button
-                        type="button"
-                        className="btn btn-sm btn-primary ml-1"
-                        onClick={() => { }}
-                        title="Edit"
-                    >
-                        <i className="fas fa-edit"></i>
-                    </button>
+                    <Link to={editLinkUrl}>
+                        <button
+                            type="button"
+                            className="btn btn-sm btn-primary ml-1"
+                            onClick={() => { }}
+                            title="Edit"
+                        >
+                            <i className="fas fa-edit"></i>
+                        </button>
+                    </Link>
 
                     <button
                         type="button"

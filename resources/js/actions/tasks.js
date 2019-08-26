@@ -54,3 +54,21 @@ export const fetchRecentTasks = () => {
             })
     }
 }
+
+export const fetchTask = (task_id) => {
+    return dispatch => {
+        dispatch(fetchTasksPending());
+        fetch(`${baseUrl}/tasks/${task_id}`)
+            .then(res => res.json())
+            .then(res => {
+                if (res.error) {
+                    throw (res.error);
+                }
+                dispatch(fetchTasksSuccess(res.data));
+                return res.data;
+            })
+            .catch(error => {
+                dispatch(fetchTasksError(error));
+            })
+    }
+}
