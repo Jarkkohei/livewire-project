@@ -82,7 +82,7 @@ class TaskController extends Controller
      */
     public function tasksForProject($projectId)
     {
-        return new TaskCollection(Task::where('project_id', $projectId)->get());
+        return new TaskCollection(Task::where('project_id', $projectId)->paginate(10));
     }
 
     /**

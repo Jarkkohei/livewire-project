@@ -16,74 +16,77 @@ const Tasks = ({ match }) => {
             setIsRecentVisible(true);
             dispatch(fetchRecentTasks());
         } else {
-            dispatch(fetchTasks(match.params.project_id));
+            dispatch(fetchTasks({project_id: match.params.project_id, page: 1}));
             setIsRecentVisible(false);
         }
         
     }, [match.params.project_id]);
 
     const tasks = useSelector(state => state.tasks.tasks);
-    
+    const { links, meta } = useSelector(state => state.tasks.pagination);
+
+    //console.log(links, meta);
+
     return (
-        <div>
-            <div className="card shadow-sm">
-                <div className="card-header d-flex justify-content-between align-items-center">
-                    {isRecentVisible ? (
-                        <div>Recent Tasks</div>
-                    ) : (
-                        <>
-                        <div>Tasks</div>
-                        <div>
-                            <button
-                                className="btn btn-sm btn-primary"
-                                onClick={() => { }}
-                                title="Add new task"
-                            >
-                                <i className="fas fa-plus"></i>
-                            </button>
-                        </div>
-                        </>
-                    )}
-                    
-                </div>
-            </div>
-
-            <div className="row">
-                <div className="col-12 col-lg-6">
-                    {/*@include('includes.sortTasks')*/}
+        <>
+        {tasks && (
+            <div>
+                <div className="card shadow-sm">
+                    <div className="card-header d-flex justify-content-between align-items-center">
+                        {isRecentVisible ? (
+                            <div>Recent Tasks</div>
+                        ) : (
+                            <>
+                            <div>Tasks</div>
+                            <div>
+                                <button
+                                    className="btn btn-sm btn-primary"
+                                    onClick={() => { }}
+                                    title="Add new task"
+                                >
+                                    <i className="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            </>
+                        )}
+                        
+                    </div>
                 </div>
 
-                <div className="col-12 col-lg-6">
-                    {/*@include('includes.filterTasks')*/}
+                <div className="row">
+                    <div className="col-12 col-lg-6">
+                        {/*@include('includes.sortTasks')*/}
+                    </div>
+
+                    <div className="col-12 col-lg-6">
+                        {/*@include('includes.filterTasks')*/}
+                    </div>
                 </div>
+                
+                {!isRecentVisible && (
+                    <Pagination links={links} meta={meta} project_id={match.params.project_id} />
+                )}
+
+                <div className="accordion mt-3 shadow-sm" id="taskAccordion">
+                    {tasks && tasks.map(task => (
+                        <TasksListItem task={task} key={task.id}/>
+                    ))}
+
+                    {/*
+                        @forelse($tasks as $task)
+                            @include('includes.taskListItem', $task)
+                        @empty
+                            <p>No tasks to show</p>
+                        @endforelse
+                        */}
+                </div>
+
+                {!isRecentVisible && (
+                    <Pagination links={links} meta={meta} project_id={match.params.project_id} />
+                )}
             </div>
-
-            {/*
-                @if(count($tasks))
-                    @include('includes.paginateTasks')
-                @endif
-                */}
-
-            <div className="accordion mt-3 shadow-sm" id="taskAccordion">
-                {tasks && tasks.map(task => (
-                    <TasksListItem task={task} key={task.id}/>
-                ))}
-
-                {/*
-                    @forelse($tasks as $task)
-                        @include('includes.taskListItem', $task)
-                    @empty
-                        <p>No tasks to show</p>
-                    @endforelse
-                    */}
-            </div>
-
-            {/*
-                @if(count($tasks))
-                    @include('includes.paginateTasks')
-                @endif
-            */}
-        </div>
+        )}
+        </> 
     );
 }
 
@@ -174,6 +177,101 @@ const TasksListItem = ({ task }) => {
                         {task.description}
                     </div>
                 </div>
+            </div>
+        </div>
+    );
+}
+
+const Pagination = ({ links, meta, project_id }) => {
+
+    const dispatch = useDispatch();
+
+    return (
+        <div className="card shadow-sm mt-3">
+            <div className="card-header d-flex justify-content-center align-items-center">
+                <nav aria-label="Task pagination links">
+                    <ul className="pagination mb-0">
+
+                        <li className="page-item">
+                            {/*
+                            <a className="page-link" href={links.first} aria-label="First" title="First">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                            */}
+                            <button 
+                                className="page-link" 
+                                onClick={() => dispatch(fetchTasks({project_id: project_id, page: 1}))} 
+                                aria-label="First" 
+                                title="First"
+                                disabled={meta.current_page == 1}
+                            >
+                                <span aria-hidden="true">&laquo;</span>
+                            </button>
+                        </li>
+
+                        <li className="page-item">
+                            {/*}
+                            <a className="page-link" href={links.prev} aria-label="Previous" title="Previous">
+                                <span aria-hidden="true">&lsaquo;</span>
+                            </a>
+                            */}
+                            <button 
+                                className="page-link" 
+                                onClick={() => dispatch(fetchTasks({ project_id: project_id, page: meta.current_page - 1}))} 
+                                aria-label="Previous" 
+                                title="Previous"
+                                disabled={meta.current_page == 1}
+                            >
+                                <span aria-hidden="true">&lsaquo;</span>
+                            </button>
+                        </li>
+
+                        <li className="page-item active" aria-current="page">
+                            <a 
+                                className="page-link" 
+                                href="#" 
+                                title="Last"
+                            >
+                                {meta.current_page} of {meta.last_page} <span className="sr-only">(current)</span>
+                            </a>
+                        </li>
+
+                        <li className="page-item">
+                            {/*}
+                            <a className="page-link" href={links.next} aria-label="Next" title="Next">
+                                <span aria-hidden="true">&rsaquo; </span>
+                            </a>
+                            */}
+                            <button 
+                                className="page-link" 
+                                onClick={() => dispatch(fetchTasks({ project_id: project_id, page: meta.current_page + 1}))} 
+                                aria-label="Next" 
+                                title="Next"
+                                disabled={meta.current_page == meta.last_page}
+                            >
+                                <span aria-hidden="true">&rsaquo;</span>
+                            </button>
+                        </li>
+
+                        <li className="page-item">
+                            {/*}
+                            <a className="page-link" href={links.last} aria-label="Last" title="Last">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                            */}
+                            <button 
+                                className="page-link" 
+                                onClick={() => dispatch(fetchTasks({ project_id: project_id, page: meta.last_page}))} 
+                                aria-label="Last" 
+                                title="Last"
+                                disabled={meta.current_page == meta.last_page}
+                            >
+                                <span aria-hidden="true">&raquo;</span>
+                            </button>
+                        </li>
+
+                    </ul>
+                </nav>
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import { FETCH_TASKS_PENDING, FETCH_TASKS_SUCCESS, FETCH_TASKS_ERROR } from '../actions/tasks';
+import { FETCH_TASKS_PENDING, FETCH_TASKS_SUCCESS, FETCH_TASKS_ERROR, SET_TASKS_PAGINATION } from '../actions/tasks';
 
 const initialState = {
     pending: false,
@@ -13,6 +13,23 @@ const initialState = {
         { value: 6, label: 'Hurry up',      classes: 'fas fa-fire fa-lg',               colorClass: 'text-danger',      colorStyle: '',         included: true },
         { value: 0, label: 'Completed',     classes: 'fas fa-check-circle fa-lg',       colorClass: 'text-success',     colorStyle: '',         included: true }
     ],
+    pagination: {
+        links: {
+            first: "",
+            last: "",
+            next: "",
+            prev: null,
+        },
+        meta: {
+            current_page: null,
+            from: null,
+            last_page: null,
+            path: "",
+            per_page: null,
+            to: null,
+            total: null,
+        }
+    }
 }
 
 export const tasks = (state = initialState, action) => {
@@ -33,6 +50,15 @@ export const tasks = (state = initialState, action) => {
                 ...state,
                 pending: false,
                 error: action.error
+            }
+
+        case SET_TASKS_PAGINATION:
+            return {
+                ...state,
+                pagination: {
+                    links: action.links,
+                    meta: action.meta
+                }
             }
         default:
             return state;
