@@ -40,6 +40,10 @@
 
                         @else
                             <li class="nav-item">
+                                <a class="nav-link {{ Route::currentRouteName()==='home'?'active':'' }}" href="{{ route('home') }}">{{ __('Home') }}</a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link {{ Route::currentRouteName()==='projects'?'active':'' }}" href="{{ route('projects') }}">{{ __('Projects') }}</a>
                             </li>
 
