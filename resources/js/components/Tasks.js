@@ -91,19 +91,7 @@ export default Tasks;
 
 const TaskStatusIcon = ({ status }) => {
 
-    const statusObjects = [
-        { value: 1, label: 'Created',       classes: 'fas fa-rocket fa-lg',             colorClass: 'text-primary',     colorStyle: '',                 included: true },
-        { value: 2, label: 'Assigned',      classes: 'fas fa-user-circle fa-lg',        colorClass: 'text-secondary',   colorStyle: '',                 included: true },
-        { value: 3, label: 'In production', classes: 'fas fa-industry fa-lg',           colorClass: 'text-secondary',   colorStyle: '',                 included: true },
-        { value: 4, label: 'Blocked',       classes: 'fas fa-ban fa-lg',                colorClass: 'text-secondary',   colorStyle: '',                 included: true },
-        { value: 5, label: 'Burn in',       classes: 'fas fa-exclamation-circle fa-lg', colorClass: '',                 colorStyle: 'orange',           included: true },
-        { value: 6, label: 'Hurry up',      classes: 'fas fa-fire fa-lg',               colorClass: 'text-danger',      colorStyle: '',                 included: true },
-        { value: 0, label: 'Completed',     classes: 'fas fa-check-circle fa-lg',       colorClass: 'text-success',     colorStyle: '',                 included: true }
-    ];
-
-    const taskStatusObject = statusObjects.find((s) => {
-        return s.value == status;
-    });
+    const taskStatusObject = useSelector(state => state.tasks.statusIcons.find((s) => (s.value == status)));
 
     let styles = { cursor: 'pointer' };
 
