@@ -80,7 +80,7 @@ const ProjectsListItem = ({ project }) => {
             <NavLink
                 style={styles}
                 className="projectsListItem list-group-item d-flex align-items-center justify-content-between"
-                to={`/projects/${project.id}`}
+                to={`/projects/${project.id}/tasks`}
                 title={project.description}
                 key={project.id}
             >

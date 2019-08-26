@@ -6,7 +6,7 @@ import { fetchTask } from '../actions/tasks';
 
 const TaskShow = ({ match }) => {
 
-    const backUrl = `/projects/${match.params.project_id}`;
+    const backUrl = `/projects/${match.params.project_id}/tasks`;
     const dispatch = useDispatch();
 
     useEffect(() => {

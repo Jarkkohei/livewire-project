@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const TaskEdit = ({ match }) => {
 
-    const backUrl = `/projects/${match.params.project_id}`;
+    const backUrl = `/projects/${match.params.project_id}/tasks`;
 
     return (
         <>
