@@ -230,7 +230,6 @@ const Pagination = ({ links, meta, project_id }) => {
                             <a 
                                 className="page-link" 
                                 href="#" 
-                                title="Last"
                             >
                                 {meta.current_page} of {meta.last_page} <span className="sr-only">(current)</span>
                             </a>
