@@ -150,7 +150,7 @@ const TasksListItem = ({ task }) => {
                 <div style={{ minWidth: 75, marginLeft: 10 }}>
                     <button
                         type="button"
-                        className="btn btn-sm btn-primary"
+                        className="btn btn-sm btn-primary ml-1"
                         onClick={() => { }}
                         title="Edit"
                     >
@@ -158,6 +158,7 @@ const TasksListItem = ({ task }) => {
                     </button>
 
                     <button
+                        type="button"
                         className="btn btn-sm btn-danger ml-1"
                         onClick={() => { }}
                         title="Delete"
