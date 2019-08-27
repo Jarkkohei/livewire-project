@@ -1,4 +1,9 @@
-import { FETCH_TASKS_PENDING, FETCH_TASKS_SUCCESS, FETCH_TASKS_ERROR, SET_TASKS_PAGINATION } from '../actions/tasks';
+import { 
+    FETCH_TASKS_PENDING, 
+    FETCH_TASKS_SUCCESS,
+     FETCH_TASKS_ERROR, 
+     SET_TASKS_PAGINATION
+} from '../actions/tasks';
 
 const initialState = {
     pending: false,

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import { useSelector, useDispatch } from 'react-redux';
-
 import { fetchTasks, fetchRecentTasks } from '../actions/tasks';
 
 import Spinner from './Spinner';
@@ -27,8 +25,6 @@ const TaskList = ({ match }) => {
     const tasks = useSelector(state => state.tasks.tasks);
     const isLoading = useSelector(state => state.tasks.pending);
     const { meta } = useSelector(state => state.tasks.pagination);
-
-    //console.log(links, meta);
 
     return (
         <>
@@ -108,7 +104,7 @@ export default TaskList;
 const TaskStatusIcon = ({ status }) => {
 
     const taskStatusObject = useSelector(state => state.tasks.statusIcons.find((s) => (s.value == status)));
-
+    const wrapperStyles = { minWidth: 30, maxWidth: 30 };
     let styles = { cursor: 'pointer' };
 
     if(taskStatusObject.colorStyle != '') {
@@ -118,7 +114,7 @@ const TaskStatusIcon = ({ status }) => {
         };
     }
 
-    const wrapperStyles = { minWidth: 30, maxWidth: 30 };
+    
 
     return (
         <div className="text-center" style={wrapperStyles}>
@@ -198,7 +194,6 @@ const TasksListItem = ({ task }) => {
 const Pagination = ({ meta, project_id }) => {
 
     const dispatch = useDispatch();
-
     const showPagination = meta.last_page > 1;
 
     return (

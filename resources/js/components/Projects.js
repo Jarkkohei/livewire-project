@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-
 import { useSelector, useDispatch } from 'react-redux';
-
 import { fetchProjects } from '../actions/projects';
-
 import styled from 'styled-components';
-
 import Spinner from './Spinner';
 
 const Projects = (props) => {
@@ -48,9 +44,7 @@ const Projects = (props) => {
 const ProjectsListItem = ({ project }) => {
 
     const styles = { paddingLeft: project.level * 10 + 10, minHeight: 45, maxHeight: 45 };
-
     const childWrapperElementId = `childWrapper-${project.id}`;
-
     const hasChildren = project.children && project.children.length > 0;
     const [showChildren, setShowChildren] = useState(false);
     
