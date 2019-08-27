@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchTasks, fetchRecentTasks } from '../actions/tasks';
 
+import Spinner from './Spinner';
+
 const TaskList = ({ match }) => {
 
     const dispatch = useDispatch();
@@ -23,6 +25,7 @@ const TaskList = ({ match }) => {
     }, [match.params.project_id]);
 
     const tasks = useSelector(state => state.tasks.tasks);
+    const isLoading = useSelector(state => state.tasks.pending);
     const { meta } = useSelector(state => state.tasks.pagination);
 
     //console.log(links, meta);
@@ -53,36 +56,46 @@ const TaskList = ({ match }) => {
                     </div>
                 </div>
 
-                <div className="row">
-                    <div className="col-12 col-lg-6">
-                        {/*@include('includes.sortTasks')*/}
+                {isLoading ? (
+                    <div className="card shadow-sm mt-3">
+                        <div className="card-header d-flex justify-content-center align-items-center">
+                            <Spinner />
+                        </div>
+                    </div>
+                ) : (
+                <>     
+                    <div className="row">
+                        <div className="col-12 col-lg-6">
+                            {/*@include('includes.sortTasks')*/}
+                        </div>
+
+                        <div className="col-12 col-lg-6">
+                            {/*@include('includes.filterTasks')*/}
+                        </div>
+                    </div>
+                    
+                    {!isRecentVisible && (
+                        <Pagination meta={meta} project_id={match.params.project_id} />
+                    )}
+
+                    <div className="accordion mt-3 shadow-sm" id="taskAccordion">
+                        {tasks && tasks.map(task => (
+                            <TasksListItem task={task} key={task.id}/>
+                        ))}
+
+                        {/*
+                            @forelse($tasks as $task)
+                                @include('includes.taskListItem', $task)
+                            @empty
+                                <p>No tasks to show</p>
+                            @endforelse
+                            */}
                     </div>
 
-                    <div className="col-12 col-lg-6">
-                        {/*@include('includes.filterTasks')*/}
-                    </div>
-                </div>
-                
-                {!isRecentVisible && (
-                    <Pagination meta={meta} project_id={match.params.project_id} />
-                )}
-
-                <div className="accordion mt-3 shadow-sm" id="taskAccordion">
-                    {tasks && tasks.map(task => (
-                        <TasksListItem task={task} key={task.id}/>
-                    ))}
-
-                    {/*
-                        @forelse($tasks as $task)
-                            @include('includes.taskListItem', $task)
-                        @empty
-                            <p>No tasks to show</p>
-                        @endforelse
-                        */}
-                </div>
-
-                {!isRecentVisible && (
-                    <Pagination meta={meta} project_id={match.params.project_id} />
+                    {!isRecentVisible && (
+                        <Pagination meta={meta} project_id={match.params.project_id} />
+                    )}
+                </>
                 )}
             </div>
         )}
