@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchTasks, fetchRecentTasks } from '../actions/tasks';
 
-const Tasks = ({ match }) => {
+const TaskList = ({ match }) => {
 
     const dispatch = useDispatch();
     const [isRecentVisible, setIsRecentVisible] = useState(false);
@@ -90,7 +90,7 @@ const Tasks = ({ match }) => {
     );
 }
 
-export default Tasks;
+export default TaskList;
 
 const TaskStatusIcon = ({ status }) => {
 
