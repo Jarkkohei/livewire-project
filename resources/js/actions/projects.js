@@ -1,4 +1,3 @@
-// NOTHING IN THIS FILE IS USED AT THE MOMENT
 export const FETCH_PROJECTS_PENDING = 'FETCH_PROJECTS_PENDING';
 export const FETCH_PROJECTS_SUCCESS = 'FETCH_PROJECTS_SUCCESS';
 export const FETCH_PROJECTS_ERROR = 'FETCH_PROJECTS_ERROR';
@@ -28,7 +27,12 @@ export const fetchProjects = () => {
                 if (res.error) {
                     throw (res.error);
                 }
-                dispatch(fetchProjectsSuccess(res.data));
+
+                const projectsWithChildren = res.data.map((project) => {
+                    project.children = res.data.filter(p => p.parent_id == project.id);
+                    return project;
+                });
+                dispatch(fetchProjectsSuccess(projectsWithChildren));
                 return res.data;
             })
             .catch(error => {

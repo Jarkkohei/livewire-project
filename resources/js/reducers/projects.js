@@ -1,4 +1,3 @@
-// NOTHING IN THIS FILE IS USED AT THE MOMENT
 import { 
     FETCH_PROJECTS_PENDING, 
     FETCH_PROJECTS_SUCCESS, 
@@ -23,7 +22,7 @@ export const projects = (state = initialState, action) => {
             return {
                 ...state,
                 pending: false,
-                projects: projects
+                projects: action.projects
             }
         
         case FETCH_PROJECTS_ERROR:

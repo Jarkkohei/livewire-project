@@ -1,52 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
+import { useSelector, useDispatch } from 'react-redux';
+
+import { fetchProjects } from '../actions/projects';
+
 import styled from 'styled-components';
+
+import Spinner from './Spinner';
 
 const Projects = (props) => {
 
-    const [projects, setProjects] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-
-    const baseUrl = 'http://localhost:8000/api';
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        setIsLoading(true);
-        fetch(`${baseUrl}/projects`)
-            .then(res => res.json())
-            .then(res => {
-                if (res.error) {
-                    throw (res.error);
-                }
-
-                const projectsWithChildren = res.data.map((project) => {
-                    project.children = res.data.filter(p => p.parent_id == project.id);
-                    return project;
-                });
-
-                setProjects(projectsWithChildren);
-                setIsLoading(false);
-            })
-            .catch(error => {
-                setIsLoading(false);
-                throw new Error(error);
-            });
+        dispatch(fetchProjects());
     }, []);
 
+    const projects = useSelector(state => state.projects.projects);
+    const isLoading = useSelector(state => state.projects.pending);
+
     return (
-        <div className="card shadow-sm">
-            <div className="card-header d-flex justify-content-start align-items-center projectsListCardHeader">
-                <div>Projects</div>
-            </div>
+        <>
+        {projects && (
+            <div className="card shadow-sm">
+                <div className="card-header d-flex justify-content-start align-items-center projectsListCardHeader">
+                    <div>Projects</div>
+                </div>
 
-            <ul className="list-group list-group-flush">
-                {isLoading && (<p>Loading projects...</p>)}
-                {!isLoading && projects.map(project => project.level == 1 && (
-                    <ProjectsListItem project={project} key={project.id} />
-                ))}
-            </ul>
-
-        </div> 
+                {isLoading ? (
+                        <div className="list-group-item d-flex justify-content-center align-items-center">
+                        <Spinner />
+                    </div>
+                ) : (
+                    <ul className="list-group list-group-flush">
+                        {projects.map(project => project.level == 1 && (
+                            <ProjectsListItem project={project} key={project.id} />
+                        ))}
+                    </ul>
+                )}
+            </div> 
+        )}
+        </>
     );
 }
 
