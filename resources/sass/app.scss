@@ -26,6 +26,12 @@ body {
     flex: 1 0 auto;
 }
 
+.pagination > .page-item > .page-link {
+    &:focus {
+        box-shadow: none;
+    }
+}
+
 .nav-link.active {
     color: $primary !important;
     font-weight: bold;
