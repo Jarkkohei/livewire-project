@@ -1,31 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchTasks, fetchRecentTasks } from '../actions/tasks';
+import { fetchTasks, fetchRecentTasks, setSortOption } from '../actions/tasks';
 
 import Spinner from './Spinner';
+import Sorting from './Sorting';
 
 const TaskList = ({ match }) => {
 
     const dispatch = useDispatch();
     const [isRecentVisible, setIsRecentVisible] = useState(false);
 
-    useEffect(() => {
+    const tasks = useSelector(state => state.tasks.tasks);
+    const isLoading = useSelector(state => state.tasks.pending);
 
+    const { meta } = useSelector(state => state.tasks.pagination);
+
+    const currentSortOption = useSelector(state => state.tasks.currentSortOption);
+    const sortOptions = useSelector(state => state.tasks.sortOptions);
+
+    const setSortValues = (event) => {
+        dispatch(setSortOption(event.target.value));
+    }
+
+    useEffect(() => {
         if(typeof match.params.project_id === 'undefined') {
             setIsRecentVisible(true);
             dispatch(fetchRecentTasks());
         } else {
-            dispatch(fetchTasks({project_id: match.params.project_id, page: 1}));
+            dispatch(fetchTasks({
+                project_id: match.params.project_id,
+                page: 1,
+                ...currentSortOption
+            }));
             setIsRecentVisible(false);
         }
         
-    }, [match.params.project_id]);
-
-    const tasks = useSelector(state => state.tasks.tasks);
-    const isLoading = useSelector(state => state.tasks.pending);
-    const { meta } = useSelector(state => state.tasks.pagination);
-
+    }, [match.params.project_id, currentSortOption]);
+    
     return (
         <>
         {tasks && (
@@ -61,8 +73,8 @@ const TaskList = ({ match }) => {
                 ) : (
                 <>     
                     <div className="row">
-                        <div className="col-12 col-lg-6">
-                            {/*@include('includes.sortTasks')*/}
+                        <div className="col-12 col-sm-6">
+                            <Sorting currentSortOptionId={currentSortOption.id} options={sortOptions} setSortValues={setSortValues}/>
                         </div>
 
                         <div className="col-12 col-lg-6">
