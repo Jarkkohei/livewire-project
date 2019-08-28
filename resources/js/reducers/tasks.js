@@ -1,8 +1,9 @@
 import { 
     FETCH_TASKS_PENDING, 
     FETCH_TASKS_SUCCESS,
-     FETCH_TASKS_ERROR, 
-     SET_TASKS_PAGINATION
+    FETCH_TASKS_ERROR, 
+    SET_TASKS_PAGINATION,
+    SET_TASKS_CURRENT_SORT_OPTION,
 } from '../actions/tasks';
 
 const initialState = {
@@ -34,7 +35,22 @@ const initialState = {
             to: null,
             total: null,
         }
-    }
+    },
+    sortOptions: [
+        { id: 1,    label: 'Most urgent first',             sortBy: 'status',       sortDir: 'desc' },
+        { id: 2,    label: 'Most urgent last',              sortBy: 'status',       sortDir: 'asc' },
+        { id: 3,    label: 'Title A-Z',                     sortBy: 'title',        sortDir: 'asc' },
+        { id: 4,    label: 'Title Z-A',                     sortBy: 'title',        sortDir: 'desc' },
+        { id: 5,    label: 'Description A-Z',               sortBy: 'description',  sortDir: 'asc' },
+        { id: 6,    label: 'Description Z-A',               sortBy: 'description',  sortDir: 'desc' },
+        { id: 7,    label: 'Assignee A-Z',                  sortBy: 'user.name',    sortDir: 'asc' },
+        { id: 8,    label: 'Assignee Z-A',                  sortBy: 'user.name',    sortDir: 'desc' },
+        { id: 9,    label: 'Newest first',                  sortBy: 'created_at',   sortDir: 'desc' },
+        { id: 10,   label: 'Oldest first',                  sortBy: 'created_at',   sortDir: 'asc' },
+        { id: 11,   label: 'Most recently updated first',   sortBy: 'updated_at',   sortDir: 'desc' },
+        { id: 12,   label: 'Most recently updated last',    sortBy: 'updated_at',   sortDir: 'asc' },
+    ],
+    currentSortOption: { id: 1, label: 'Most urgent first', sortBy: 'status', sortDir: 'desc' },
 }
 
 export const tasks = (state = initialState, action) => {
@@ -64,6 +80,13 @@ export const tasks = (state = initialState, action) => {
                     links: action.links,
                     meta: action.meta
                 }
+            }
+
+        case SET_TASKS_CURRENT_SORT_OPTION:
+            const currentSortOption = state.sortOptions.find(option => (option.id == action.sortOptionId));
+            return {
+                ...state,
+                currentSortOption: currentSortOption
             }
         default:
             return state;

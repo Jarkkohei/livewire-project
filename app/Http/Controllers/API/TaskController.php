@@ -80,9 +80,12 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function tasksForProject($projectId)
+    public function tasksForProject($projectId, Request $request)
     {
-        return new TaskCollection(Task::where('project_id', $projectId)->paginate(10));
+        $sortBy = $request->query('sortBy', 'status');
+        $sortDir = $request->query('sortDir', 'desc');
+
+        return new TaskCollection(Task::where('project_id', $projectId)->orderBy($sortBy, $sortDir)->paginate(10));
     }
 
     /**
