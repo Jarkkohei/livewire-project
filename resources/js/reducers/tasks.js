@@ -4,11 +4,13 @@ import {
     FETCH_TASKS_ERROR, 
     SET_TASKS_PAGINATION,
     SET_TASKS_CURRENT_SORT_OPTION,
+    SET_CURRENT_TASK,
 } from '../actions/tasks';
 
 const initialState = {
     pending: false,
     tasks: [],
+    currentTask: null,
     error: null,
     statusIcons: [
         { value: 1, label: 'Created',       classes: 'fas fa-rocket fa-lg',             colorClass: 'text-primary',     colorStyle: '',         included: true },
@@ -64,7 +66,8 @@ export const tasks = (state = initialState, action) => {
             return {
                 ...state,
                 pending: false,
-                tasks: action.tasks
+                tasks: action.tasks,
+                currentTask : null
             }
         case FETCH_TASKS_ERROR:
             return {
@@ -88,6 +91,20 @@ export const tasks = (state = initialState, action) => {
                 ...state,
                 currentSortOption: currentSortOption
             }
+        
+        case SET_CURRENT_TASK:
+            if(action.taskId == null) {
+                return {
+                    ...state,
+                    currentTask: null
+                }
+            }
+            const currentTask = state.tasks.find(task => (task.id == action.taskId));
+            return {
+                ...state,
+                currentTask: currentTask
+            }
+
         default:
             return state;
     }

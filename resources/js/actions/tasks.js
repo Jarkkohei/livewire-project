@@ -3,6 +3,7 @@ export const FETCH_TASKS_SUCCESS = 'FETCH_TASKS_SUCCESS';
 export const FETCH_TASKS_ERROR = 'FETCH_TASKS_ERROR';
 export const SET_TASKS_PAGINATION = 'SET_TASKS_PAGINATION';
 export const SET_TASKS_CURRENT_SORT_OPTION = 'SET_TASKS_CURRENT_SORT_OPTION';
+export const SET_CURRENT_TASK = 'SET_CURRENT_TASK';
 
 export const fetchTasksPending = () => ({
     type: FETCH_TASKS_PENDING
@@ -27,6 +28,11 @@ const setTasksPagination = (response) => ({
 export const setSortOption = (sortOptionId) => ({
     type: SET_TASKS_CURRENT_SORT_OPTION,
     sortOptionId: sortOptionId
+});
+
+export const setCurrentTask = (task_id) => ({
+    type: SET_CURRENT_TASK,
+    taskId: task_id
 });
 
 const baseUrl = 'http://localhost:8000/api';
@@ -69,6 +75,7 @@ export const fetchRecentTasks = () => {
     }
 }
 
+/*
 export const fetchTask = (task_id) => {
     return dispatch => {
         dispatch(fetchTasksPending());
@@ -86,3 +93,4 @@ export const fetchTask = (task_id) => {
             })
     }
 }
+*/

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchTask } from '../actions/tasks';
+import { setCurrentTask } from '../actions/tasks';
 
 const TaskShow = ({ match }) => {
 
@@ -10,10 +10,10 @@ const TaskShow = ({ match }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchTask(match.params.task_id));
+        dispatch(setCurrentTask(match.params.task_id));
     }, []);
 
-    const [task] = useSelector(state => state.tasks.tasks);
+    const task = useSelector(state => state.tasks.currentTask);
 
     return (
         <>
