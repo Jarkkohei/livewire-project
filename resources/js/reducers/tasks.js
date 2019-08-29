@@ -2,9 +2,10 @@ import {
     FETCH_TASKS_PENDING, 
     FETCH_TASKS_SUCCESS,
     FETCH_TASKS_ERROR, 
-    SET_TASKS_PAGINATION,
+    SET_TASKS_PAGINATION_BY_RESPONSE,
     SET_TASKS_CURRENT_SORT_OPTION,
     SET_CURRENT_TASK,
+    SET_TASKS_PAGINATION,
 } from '../actions/tasks';
 
 const initialState = {
@@ -76,7 +77,7 @@ export const tasks = (state = initialState, action) => {
                 error: action.error
             }
 
-        case SET_TASKS_PAGINATION:
+        case SET_TASKS_PAGINATION_BY_RESPONSE:
             return {
                 ...state,
                 pagination: {
@@ -89,7 +90,14 @@ export const tasks = (state = initialState, action) => {
             const currentSortOption = state.sortOptions.find(option => (option.id == action.sortOptionId));
             return {
                 ...state,
-                currentSortOption: currentSortOption
+                currentSortOption: currentSortOption,
+                pagination: {
+                    ...state.pagination,
+                    meta: {
+                        ...state.pagination.meta,
+                        current_page: 1
+                    }
+                }
             }
         
         case SET_CURRENT_TASK:
@@ -103,6 +111,19 @@ export const tasks = (state = initialState, action) => {
             return {
                 ...state,
                 currentTask: currentTask
+            }
+
+        case SET_TASKS_PAGINATION:
+            return {
+                ...state,
+                pagination: {
+                    ...state.pagination,
+                    meta: {
+                        ...state.pagination.meta,
+                        current_page: action.pageNumber,
+                        per_page: action.perPage
+                    }
+                }
             }
 
         default:

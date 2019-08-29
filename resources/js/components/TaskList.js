@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchTasks, fetchRecentTasks, setSortOption } from '../actions/tasks';
+import { fetchTasks, fetchRecentTasks, setSortOption, setPagination } from '../actions/tasks';
 
 import Spinner from './Spinner';
 import Sorting from './Sorting';
@@ -23,6 +23,11 @@ const TaskList = ({ match }) => {
         dispatch(setSortOption(event.target.value));
     }
 
+    const setPaginationValues = ({pageNumber, perPage}) => {
+        dispatch(setPagination({ pageNumber, perPage }));
+        
+    }
+
     useEffect(() => {
         if(typeof match.params.project_id === 'undefined') {
             setIsRecentVisible(true);
@@ -30,13 +35,14 @@ const TaskList = ({ match }) => {
         } else {
             dispatch(fetchTasks({
                 project_id: match.params.project_id,
-                page: 1,
+                page: meta.current_page,
+                perPage: meta.per_page,
                 ...currentSortOption
             }));
             setIsRecentVisible(false);
         }
         
-    }, [match.params.project_id, currentSortOption]);
+    }, [match.params.project_id, currentSortOption, meta.current_page, meta.per_page]);
     
     return (
         <>
@@ -83,7 +89,7 @@ const TaskList = ({ match }) => {
                     </div>
                     
                     {!isRecentVisible && (
-                        <Pagination meta={meta} project_id={match.params.project_id} />
+                        <Pagination meta={meta} setPaginationValues={setPaginationValues}/>
                     )}
 
                     <div className="accordion mt-3 shadow-sm" id="taskAccordion">
@@ -101,7 +107,7 @@ const TaskList = ({ match }) => {
                     </div>
 
                     {!isRecentVisible && (
-                        <Pagination meta={meta} project_id={match.params.project_id} />
+                        <Pagination meta={meta} setPaginationValues={setPaginationValues} />
                     )}
                 </>
                 )}
@@ -203,10 +209,10 @@ const TasksListItem = ({ task }) => {
     );
 }
 
-const Pagination = ({ meta, project_id }) => {
+const Pagination = ({ meta, setPaginationValues }) => {
 
-    const dispatch = useDispatch();
     const showPagination = meta.last_page > 1;
+    const perPage = meta.per_page;
 
     return (
         <>
@@ -217,14 +223,9 @@ const Pagination = ({ meta, project_id }) => {
                     <ul className="pagination mb-0">
 
                         <li className="page-item">
-                            {/*
-                            <a className="page-link" href={links.first} aria-label="First" title="First">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                            */}
                             <button 
                                 className="page-link" 
-                                onClick={() => dispatch(fetchTasks({project_id: project_id, page: 1}))} 
+                                onClick={() => { setPaginationValues({ pageNumber: 1, perPage: perPage }) }}
                                 aria-label="First" 
                                 title="First"
                                 disabled={meta.current_page == 1}
@@ -234,14 +235,9 @@ const Pagination = ({ meta, project_id }) => {
                         </li>
 
                         <li className="page-item">
-                            {/*}
-                            <a className="page-link" href={links.prev} aria-label="Previous" title="Previous">
-                                <span aria-hidden="true">&lsaquo;</span>
-                            </a>
-                            */}
                             <button 
                                 className="page-link" 
-                                onClick={() => dispatch(fetchTasks({ project_id: project_id, page: meta.current_page - 1}))} 
+                                 onClick={() => { setPaginationValues({ pageNumber: meta.current_page - 1, perPage: perPage }) }}
                                 aria-label="Previous" 
                                 title="Previous"
                                 disabled={meta.current_page == 1}
@@ -260,14 +256,9 @@ const Pagination = ({ meta, project_id }) => {
                         </li>
 
                         <li className="page-item">
-                            {/*}
-                            <a className="page-link" href={links.next} aria-label="Next" title="Next">
-                                <span aria-hidden="true">&rsaquo; </span>
-                            </a>
-                            */}
                             <button 
                                 className="page-link" 
-                                onClick={() => dispatch(fetchTasks({ project_id: project_id, page: meta.current_page + 1}))} 
+                                onClick={() => { setPaginationValues({ pageNumber: meta.current_page + 1, perPage: perPage }) }}
                                 aria-label="Next" 
                                 title="Next"
                                 disabled={meta.current_page == meta.last_page}
@@ -277,14 +268,9 @@ const Pagination = ({ meta, project_id }) => {
                         </li>
 
                         <li className="page-item">
-                            {/*}
-                            <a className="page-link" href={links.last} aria-label="Last" title="Last">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                            */}
                             <button 
                                 className="page-link" 
-                                onClick={() => dispatch(fetchTasks({ project_id: project_id, page: meta.last_page}))} 
+                                onClick={() => { setPaginationValues({ pageNumber: meta.last_page, perPage: perPage }) }}
                                 aria-label="Last" 
                                 title="Last"
                                 disabled={meta.current_page == meta.last_page}

@@ -84,8 +84,9 @@ class TaskController extends Controller
     {
         $sortBy = $request->query('sortBy', 'status');
         $sortDir = $request->query('sortDir', 'desc');
+        $perPage = $request->query('perPage', 10);
 
-        return new TaskCollection(Task::where('project_id', $projectId)->orderBy($sortBy, $sortDir)->paginate(10));
+        return new TaskCollection(Task::where('project_id', $projectId)->orderBy($sortBy, $sortDir)->paginate($perPage));
     }
 
     /**
