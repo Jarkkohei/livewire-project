@@ -89,7 +89,7 @@ const TaskList = ({ match }) => {
                         </div>
                     </div>
                     
-                    {!isRecentVisible && (
+                    {!isRecentVisible && tasks.length > 0 && (
                         <Pagination meta={meta} perPageOptions={perPageOptions} setPaginationValues={setPaginationValues}/>
                     )}
 
@@ -107,7 +107,7 @@ const TaskList = ({ match }) => {
                             */}
                     </div>
 
-                    {!isRecentVisible && (
+                    {!isRecentVisible && tasks.length > 0 && (
                         <Pagination meta={meta} perPageOptions={perPageOptions} setPaginationValues={setPaginationValues} />
                     )}
                 </>
