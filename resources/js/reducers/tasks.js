@@ -29,11 +29,11 @@ const initialState = {
             prev: null,
         },
         meta: {
-            current_page: null,
+            current_page: 1,
             from: null,
             last_page: null,
             path: "",
-            per_page: null,
+            per_page: 10,
             to: null,
             total: null,
         }
