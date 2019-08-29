@@ -87,27 +87,29 @@ const TaskList = ({ match }) => {
                     </div>
                     ) : (
                     <>
-                        <div className="row">
-                            <div className="col-12 col-sm-6">
-                                <Sorting currentSortOptionId={currentSortOption.id} options={sortOptions} setSortValues={setSortValues} />
+                        {!isRecentVisible && (
+                            <>
+                            <div className="row">
+                                <div className="col-12 col-sm-6">
+                                    <Sorting currentSortOptionId={currentSortOption.id} options={sortOptions} setSortValues={setSortValues} />
+                                </div>
+
+                                <div className="col-12 col-lg-6">
+                                    {/*@include('includes.filterTasks')*/}
+                                </div>
                             </div>
 
-                            <div className="col-12 col-lg-6">
-                                {/*@include('includes.filterTasks')*/}
-                            </div>
-                        </div>
-
-                        {!isRecentVisible && tasks.length > 0 && (
                             <Pagination meta={meta} perPageOptions={perPageOptions} setPaginationValues={setPaginationValues} />
+                            </>
                         )}
 
                         <div className="accordion mt-3 shadow-sm" id="taskAccordion">
-                            {tasks && tasks.map(task => (
+                            {tasks.map(task => (
                                 <TasksListItem task={task} key={task.id} />
                             ))}
                         </div>
 
-                        {!isRecentVisible && tasks.length > 0 && (
+                        {!isRecentVisible && (
                             <Pagination meta={meta} perPageOptions={perPageOptions} setPaginationValues={setPaginationValues} />
                         )}
                     </>
