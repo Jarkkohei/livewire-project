@@ -78,37 +78,39 @@ const TaskList = ({ match }) => {
                         </div>
                     </div>
                 ) : (
-                <>     
-                    <div className="row">
-                        <div className="col-12 col-sm-6">
-                            <Sorting currentSortOptionId={currentSortOption.id} options={sortOptions} setSortValues={setSortValues}/>
-                        </div>
-
-                        <div className="col-12 col-lg-6">
-                            {/*@include('includes.filterTasks')*/}
+                <>
+                {tasks.length == 0 ? (
+                    <div className="card shadow-sm mt-3">
+                        <div className="card-header d-flex justify-content-center align-items-center">
+                            <p className="mb-0">No tasks for this project</p>
                         </div>
                     </div>
-                    
-                    {!isRecentVisible && tasks.length > 0 && (
-                        <Pagination meta={meta} perPageOptions={perPageOptions} setPaginationValues={setPaginationValues}/>
-                    )}
+                    ) : (
+                    <>
+                        <div className="row">
+                            <div className="col-12 col-sm-6">
+                                <Sorting currentSortOptionId={currentSortOption.id} options={sortOptions} setSortValues={setSortValues} />
+                            </div>
 
-                    <div className="accordion mt-3 shadow-sm" id="taskAccordion">
-                        {tasks && tasks.map(task => (
-                            <TasksListItem task={task} key={task.id}/>
-                        ))}
+                            <div className="col-12 col-lg-6">
+                                {/*@include('includes.filterTasks')*/}
+                            </div>
+                        </div>
 
-                        {/*
-                            @forelse($tasks as $task)
-                                @include('includes.taskListItem', $task)
-                            @empty
-                                <p>No tasks to show</p>
-                            @endforelse
-                            */}
-                    </div>
+                        {!isRecentVisible && tasks.length > 0 && (
+                            <Pagination meta={meta} perPageOptions={perPageOptions} setPaginationValues={setPaginationValues} />
+                        )}
 
-                    {!isRecentVisible && tasks.length > 0 && (
-                        <Pagination meta={meta} perPageOptions={perPageOptions} setPaginationValues={setPaginationValues} />
+                        <div className="accordion mt-3 shadow-sm" id="taskAccordion">
+                            {tasks && tasks.map(task => (
+                                <TasksListItem task={task} key={task.id} />
+                            ))}
+                        </div>
+
+                        {!isRecentVisible && tasks.length > 0 && (
+                            <Pagination meta={meta} perPageOptions={perPageOptions} setPaginationValues={setPaginationValues} />
+                        )}
+                    </>
                     )}
                 </>
                 )}
