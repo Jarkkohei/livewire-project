@@ -15,6 +15,7 @@ const TaskList = ({ match }) => {
     const isLoading = useSelector(state => state.tasks.pending);
 
     const { meta } = useSelector(state => state.tasks.pagination);
+    const perPageOptions = useSelector(state => state.tasks.perPageOptions);
 
     const currentSortOption = useSelector(state => state.tasks.currentSortOption);
     const sortOptions = useSelector(state => state.tasks.sortOptions);
@@ -89,7 +90,7 @@ const TaskList = ({ match }) => {
                     </div>
                     
                     {!isRecentVisible && (
-                        <Pagination meta={meta} setPaginationValues={setPaginationValues}/>
+                        <Pagination meta={meta} perPageOptions={perPageOptions} setPaginationValues={setPaginationValues}/>
                     )}
 
                     <div className="accordion mt-3 shadow-sm" id="taskAccordion">
@@ -107,7 +108,7 @@ const TaskList = ({ match }) => {
                     </div>
 
                     {!isRecentVisible && (
-                        <Pagination meta={meta} setPaginationValues={setPaginationValues} />
+                        <Pagination meta={meta} perPageOptions={perPageOptions} setPaginationValues={setPaginationValues} />
                     )}
                 </>
                 )}
@@ -209,17 +210,31 @@ const TasksListItem = ({ task }) => {
     );
 }
 
-const Pagination = ({ meta, setPaginationValues }) => {
+const Pagination = ({ meta, perPageOptions, setPaginationValues }) => {
 
-    const showPagination = meta.last_page > 1;
     const perPage = meta.per_page;
 
     return (
-        <>
-        {showPagination && (
         <div className="card shadow-sm mt-3">
-            <div className="card-header d-flex justify-content-center align-items-center">
-                <nav aria-label="Task pagination links">
+            <div className="card-header d-flex justify-content-between align-items-center flex-column flex-sm-row">
+
+                <div className="form-group row justify-content-between align-items-center mb-0">
+                    <label htmlFor="perPageSelect" className="col col-form-label">Per page:</label>
+                    <div className="col">
+                        <select 
+                            name="perPageSelect"
+                            className="form-control form-control-sm shadow-sm"
+                            value={perPage}
+                            onChange={(e) => { setPaginationValues({ pageNumber: 1, perPage: e.target.value })}}
+                        >
+                            {perPageOptions.map(option => (
+                                <option key={option} value={option}>{option}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
+                <nav aria-label="Task pagination links" className="mt-2 mt-sm-0">
                     <ul className="pagination mb-0">
 
                         <li className="page-item">
@@ -283,7 +298,5 @@ const Pagination = ({ meta, setPaginationValues }) => {
                 </nav>
             </div>
         </div>
-        )}
-        </>
     );
 }

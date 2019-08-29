@@ -54,6 +54,9 @@ const initialState = {
         { id: 12,   label: 'Most recently updated last',    sortBy: 'updated_at',   sortDir: 'asc' },
     ],
     currentSortOption: { id: 1, label: 'Most urgent first', sortBy: 'status', sortDir: 'desc' },
+    perPageOptions: [
+        5, 10, 25, 50, 100, 200
+    ],
 }
 
 export const tasks = (state = initialState, action) => {
