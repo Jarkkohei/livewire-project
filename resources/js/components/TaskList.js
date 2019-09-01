@@ -210,6 +210,17 @@ const TasksListItem = ({ task }) => {
 const Pagination = ({ meta, perPageOptions, setPaginationValues }) => {
 
     const perPage = meta.per_page;
+    const [goToPage, setGoToPage] = useState(meta.current_page);
+
+    const handleGoToPage = (e) => {
+        if (e.target.value < 1) {
+            setGoToPage(1);
+        } else if (e.target.value > meta.last_page) {
+            setGoToPage(meta.last_page);
+        } else {
+            setGoToPage(e.target.value);
+        }
+    }
 
     return (
         <div className="card shadow-sm mt-3">
@@ -299,6 +310,29 @@ const Pagination = ({ meta, perPageOptions, setPaginationValues }) => {
 
                                 </ul>
                             </nav>
+                        </div>
+                    </div>
+
+                    <div className="col-auto">
+                        <div className="form-group row justify-content-center align-items-center mb-0">
+                            <div className="input-group input-group-sm mt-3 mt-sm-0 mr-2 ml-auto" style={{ maxWidth: 115 }}>
+                                <input 
+                                    type="text" 
+                                    className="form-control form-control-sm shadow-sm"
+                                    min="1"
+                                    max={meta.last_page}
+                                    placeholder="Go to page"
+                                    autoComplete="off"
+                                    onChange={handleGoToPage}
+                                />
+                                <div className="input-group-append">
+                                    <button 
+                                        className="btn btn-primary btn-sm" 
+                                        onClick={() => { setPaginationValues({ pageNumber: goToPage, perPage: perPage }) }}
+                                        disabled={false}
+                                    >Go</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
