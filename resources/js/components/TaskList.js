@@ -31,7 +31,8 @@ const TaskList = ({ match }) => {
                 project_id: match.params.project_id,
                 page: meta.current_page,
                 perPage: meta.per_page,
-                ...currentSortOption
+                sortBy: currentSortOption.sortBy,
+                sortDir: currentSortOption.sortDir,
             }));
             setIsRecentVisible(false);
         }
