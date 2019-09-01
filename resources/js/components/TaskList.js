@@ -9,16 +9,9 @@ import Sorting from './Sorting';
 const TaskList = ({ match }) => {
 
     const dispatch = useDispatch();
+
     const [isRecentVisible, setIsRecentVisible] = useState(false);
-
-    const tasks = useSelector(state => state.tasks.tasks);
-    const isLoading = useSelector(state => state.tasks.pending);
-
-    const { meta } = useSelector(state => state.tasks.pagination);
-    const perPageOptions = useSelector(state => state.tasks.perPageOptions);
-
-    const currentSortOption = useSelector(state => state.tasks.currentSortOption);
-    const sortOptions = useSelector(state => state.tasks.sortOptions);
+    const {tasks, pending, pagination: { meta }, perPageOptions, currentSortOption, sortOptions} = useSelector(state => state.tasks);
 
     const setSortValues = (event) => {
         dispatch(setSortOption(event.target.value));
@@ -71,7 +64,7 @@ const TaskList = ({ match }) => {
                     </div>
                 </div>
 
-                {isLoading ? (
+                {pending ? (
                     <div className="card shadow-sm mt-3">
                         <div className="card-header d-flex justify-content-center align-items-center">
                             <Spinner />
