@@ -4,7 +4,6 @@ import {
     FETCH_TASKS_ERROR, 
     SET_TASKS_PAGINATION_BY_RESPONSE,
     SET_TASKS_CURRENT_SORT_OPTION,
-    SET_CURRENT_TASK,
     SET_TASKS_PAGINATION,
     TOGGLE_FILTER_TASK_STATUS,
 } from '../actions/tasks';
@@ -12,7 +11,6 @@ import {
 const initialState = {
     pending: false,
     tasks: [],
-    currentTask: null,
     error: null,
     statusIcons: [
         { id: 1, label: 'Created',       classes: 'fas fa-rocket fa-lg',             colorClass: 'text-primary',     colorStyle: '',         included: true },
@@ -89,13 +87,13 @@ export const tasks = (state = initialState, action) => {
             return {
                 ...state,
                 pagination: {
-                    links: action.links,
-                    meta: action.meta
+                    links: action.payload.links,
+                    meta: action.payload.meta
                 }
             }
 
         case SET_TASKS_CURRENT_SORT_OPTION:
-            const currentSortOption = state.sortOptions.find(option => (option.id == action.sortOptionId));
+            const currentSortOption = state.sortOptions.find(option => (option.id == action.payload));
             return {
                 ...state,
                 currentSortOption: currentSortOption,
@@ -107,19 +105,6 @@ export const tasks = (state = initialState, action) => {
                     }
                 }
             }
-        
-        case SET_CURRENT_TASK:
-            if(action.taskId == null) {
-                return {
-                    ...state,
-                    currentTask: null
-                }
-            }
-            const currentTask = state.tasks.find(task => (task.id == action.taskId));
-            return {
-                ...state,
-                currentTask: currentTask
-            }
 
         case SET_TASKS_PAGINATION:
             return {
@@ -128,8 +113,8 @@ export const tasks = (state = initialState, action) => {
                     ...state.pagination,
                     meta: {
                         ...state.pagination.meta,
-                        current_page: action.pageNumber,
-                        per_page: action.perPage
+                        current_page: action.payload.pageNumber,
+                        per_page: action.payload.perPage
                     }
                 }
             }
@@ -137,7 +122,7 @@ export const tasks = (state = initialState, action) => {
         case TOGGLE_FILTER_TASK_STATUS:
 
             const newStatusIcons = state.statusIcons.map(statIcon => {
-                if (statIcon.id == action.statusIconId) {
+                if (statIcon.id == action.payload) {
                     statIcon.included = !statIcon.included
                 }
                 return statIcon;

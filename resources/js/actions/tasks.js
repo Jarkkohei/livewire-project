@@ -3,7 +3,6 @@ export const FETCH_TASKS_SUCCESS = 'FETCH_TASKS_SUCCESS';
 export const FETCH_TASKS_ERROR = 'FETCH_TASKS_ERROR';
 export const SET_TASKS_PAGINATION_BY_RESPONSE = 'SET_TASKS_PAGINATION_BY_RESPONSE';
 export const SET_TASKS_CURRENT_SORT_OPTION = 'SET_TASKS_CURRENT_SORT_OPTION';
-export const SET_CURRENT_TASK = 'SET_CURRENT_TASK';
 export const SET_TASKS_PAGINATION = 'SET_TASKS_PAGINATION';
 export const TOGGLE_FILTER_TASK_STATUS = 'TOGGLE_FILTER_TASK_STATUS';
 
@@ -21,33 +20,6 @@ export const fetchTasksError = (error) => ({
     error: error
 });
 
-const setTasksPaginationByResponse = (response) => ({
-    type: SET_TASKS_PAGINATION_BY_RESPONSE,
-    links: response.links,
-    meta: response.meta
-});
-
-export const setSortOption = (sortOptionId) => ({
-    type: SET_TASKS_CURRENT_SORT_OPTION,
-    sortOptionId: sortOptionId
-});
-
-export const setCurrentTask = (task_id) => ({
-    type: SET_CURRENT_TASK,
-    taskId: task_id
-});
-
-export const setPagination = ({pageNumber, perPage}) => ({
-    type: SET_TASKS_PAGINATION,
-    pageNumber: pageNumber,
-    perPage: perPage
-});
-
-export const toggleFilterTaskStatus = (statusIconId) => ({
-    type: TOGGLE_FILTER_TASK_STATUS,
-    statusIconId: statusIconId
-});
-
 const baseUrl = 'http://localhost:8000/api';
 
 
@@ -60,7 +32,8 @@ export const fetchTasks = ({ project_id, page, perPage, sortBy, sortDir, filter 
                 if (res.error) {
                     throw (res.error);
                 }
-                dispatch(setTasksPaginationByResponse(res));
+                //dispatch(setTasksPaginationByResponse(res));
+                dispatch({ type: 'SET_TASKS_PAGINATION_BY_RESPONSE', payload: res});
                 dispatch(fetchTasksSuccess(res.data));
                 return res.data;
             })

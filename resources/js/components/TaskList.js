@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchTasks, fetchRecentTasks, setSortOption, setPagination, toggleFilterTaskStatus} from '../actions/tasks';
+import { fetchTasks, fetchRecentTasks, SET_TASKS_CURRENT_SORT_OPTION, SET_TASKS_PAGINATION, TOGGLE_FILTER_TASK_STATUS } from '../actions/tasks';
+
+import { 
+    fetchTasks, 
+    fetchRecentTasks, 
+    SET_TASKS_CURRENT_SORT_OPTION, 
+    SET_TASKS_PAGINATION, 
+    TOGGLE_FILTER_TASK_STATUS
+} from '../actions/tasks';
 
 import Spinner from './Spinner';
 import Sorting from './Sorting';
@@ -15,15 +23,15 @@ const TaskList = ({ match }) => {
     const {tasks, pending, pagination: { meta }, perPageOptions, currentSortOption, sortOptions, statusIcons, availableTasksCount} = useSelector(state => state.tasks);
 
     const setSortValues = (event) => {
-        dispatch(setSortOption(event.target.value));
+        dispatch({ type: SET_TASKS_CURRENT_SORT_OPTION, payload: event.target.value });
     }
 
     const setPaginationValues = ({pageNumber, perPage}) => {
-        dispatch(setPagination({ pageNumber, perPage }));   
+        dispatch({ type: SET_TASKS_PAGINATION, payload: { pageNumber, perPage } });
     }
 
     const setFilterValues = (statusIconId) => {
-        dispatch(toggleFilterTaskStatus(statusIconId));
+        dispatch({ type: TOGGLE_FILTER_TASK_STATUS, payload: statusIconId});
     }
 
     useEffect(() => {
