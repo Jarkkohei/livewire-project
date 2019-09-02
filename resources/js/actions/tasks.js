@@ -5,6 +5,7 @@ export const SET_TASKS_PAGINATION_BY_RESPONSE = 'SET_TASKS_PAGINATION_BY_RESPONS
 export const SET_TASKS_CURRENT_SORT_OPTION = 'SET_TASKS_CURRENT_SORT_OPTION';
 export const SET_CURRENT_TASK = 'SET_CURRENT_TASK';
 export const SET_TASKS_PAGINATION = 'SET_TASKS_PAGINATION';
+export const TOGGLE_FILTER_TASK_STATUS = 'TOGGLE_FILTER_TASK_STATUS';
 
 export const fetchTasksPending = () => ({
     type: FETCH_TASKS_PENDING
@@ -42,13 +43,18 @@ export const setPagination = ({pageNumber, perPage}) => ({
     perPage: perPage
 });
 
+export const toggleFilterTaskStatus = (statusIconId) => ({
+    type: TOGGLE_FILTER_TASK_STATUS,
+    statusIconId: statusIconId
+});
+
 const baseUrl = 'http://localhost:8000/api';
 
 
-export const fetchTasks = ({ project_id, page, perPage, sortBy, sortDir }) => {
+export const fetchTasks = ({ project_id, page, perPage, sortBy, sortDir, filter }) => {
     return dispatch => {
         dispatch(fetchTasksPending());
-        fetch(`${baseUrl}/projects/${project_id}/tasks?page=${page}&perPage=${perPage}&sortBy=${sortBy}&sortDir=${sortDir}`)
+        fetch(`${baseUrl}/projects/${project_id}/tasks?page=${page}&perPage=${perPage}&sortBy=${sortBy}&sortDir=${sortDir}&filter=${JSON.stringify(filter)}`)
             .then(res => res.json())
             .then(res => {
                 if (res.error) {

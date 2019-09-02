@@ -6,6 +6,7 @@ import {
     SET_TASKS_CURRENT_SORT_OPTION,
     SET_CURRENT_TASK,
     SET_TASKS_PAGINATION,
+    TOGGLE_FILTER_TASK_STATUS,
 } from '../actions/tasks';
 
 const initialState = {
@@ -14,13 +15,13 @@ const initialState = {
     currentTask: null,
     error: null,
     statusIcons: [
-        { value: 1, label: 'Created',       classes: 'fas fa-rocket fa-lg',             colorClass: 'text-primary',     colorStyle: '',         included: true },
-        { value: 2, label: 'Assigned',      classes: 'fas fa-user-circle fa-lg',        colorClass: 'text-secondary',   colorStyle: '',         included: true },
-        { value: 3, label: 'In production', classes: 'fas fa-industry fa-lg',           colorClass: 'text-secondary',   colorStyle: '',         included: true },
-        { value: 4, label: 'Blocked',       classes: 'fas fa-ban fa-lg',                colorClass: 'text-secondary',   colorStyle: '',         included: true },
-        { value: 5, label: 'Burn in',       classes: 'fas fa-exclamation-circle fa-lg', colorClass: '',                 colorStyle: 'orange',   included: true },
-        { value: 6, label: 'Hurry up',      classes: 'fas fa-fire fa-lg',               colorClass: 'text-danger',      colorStyle: '',         included: true },
-        { value: 0, label: 'Completed',     classes: 'fas fa-check-circle fa-lg',       colorClass: 'text-success',     colorStyle: '',         included: true }
+        { id: 1, label: 'Created',       classes: 'fas fa-rocket fa-lg',             colorClass: 'text-primary',     colorStyle: '',         included: true },
+        { id: 2, label: 'Assigned',      classes: 'fas fa-user-circle fa-lg',        colorClass: 'text-secondary',   colorStyle: '',         included: true },
+        { id: 3, label: 'In production', classes: 'fas fa-industry fa-lg',           colorClass: 'text-secondary',   colorStyle: '',         included: true },
+        { id: 4, label: 'Blocked',       classes: 'fas fa-ban fa-lg',                colorClass: 'text-secondary',   colorStyle: '',         included: true },
+        { id: 5, label: 'Burn in',       classes: 'fas fa-exclamation-circle fa-lg', colorClass: '',                 colorStyle: 'orange',   included: true },
+        { id: 6, label: 'Hurry up',      classes: 'fas fa-fire fa-lg',               colorClass: 'text-danger',      colorStyle: '',         included: true },
+        { id: 0, label: 'Completed',     classes: 'fas fa-check-circle fa-lg',       colorClass: 'text-success',     colorStyle: '',         included: true }
     ],
     pagination: {
         links: {
@@ -57,6 +58,7 @@ const initialState = {
     perPageOptions: [
         5, 10, 25, 50, 100, 200
     ],
+    availableTasksCount: null
 }
 
 export const tasks = (state = initialState, action) => {
@@ -67,11 +69,14 @@ export const tasks = (state = initialState, action) => {
                 pending: true
             }
         case FETCH_TASKS_SUCCESS:
+            const included = state.statusIcons.filter(statIcon => (statIcon.included));
+
             return {
                 ...state,
                 pending: false,
                 tasks: action.tasks,
-                currentTask : null
+                currentTask : null,
+                availableTasksCount: included.length == state.statusIcons.length ? state.pagination.meta.total : state.availableTasksCount
             }
         case FETCH_TASKS_ERROR:
             return {
@@ -127,6 +132,20 @@ export const tasks = (state = initialState, action) => {
                         per_page: action.perPage
                     }
                 }
+            }
+
+        case TOGGLE_FILTER_TASK_STATUS:
+
+            const newStatusIcons = state.statusIcons.map(statIcon => {
+                if (statIcon.id == action.statusIconId) {
+                    statIcon.included = !statIcon.included
+                }
+                return statIcon;
+            });
+
+            return {
+                ...state,
+                statusIcons: newStatusIcons
             }
 
         default:
