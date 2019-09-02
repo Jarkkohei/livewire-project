@@ -34,7 +34,7 @@ const TaskList = ({ match }) => {
             const filteredStatusIds = statusIcons
                 .filter(statIcon => (statIcon.included))
                 .map(statIcon => {
-                    return statIcon.value;
+                    return statIcon.id;
                 });
 
             dispatch(fetchTasks({
@@ -133,7 +133,7 @@ export default TaskList;
 
 const TaskStatusIcon = ({ status }) => {
 
-    const taskStatusObject = useSelector(state => state.tasks.statusIcons.find((s) => (s.value == status)));
+    const taskStatusObject = useSelector(state => state.tasks.statusIcons.find((s) => (s.id == status)));
     const wrapperStyles = { minWidth: 30, maxWidth: 30 };
     let styles = { cursor: 'pointer' };
 

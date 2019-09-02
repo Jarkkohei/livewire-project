@@ -18,10 +18,10 @@ const Filtering = ({ statusIcons, setFilterValues }) => {
                             
                             return (
                                 <i className={classes}
-                                    key={statusIcon.value}
+                                    key={statusIcon.id}
                                     title={statusIcon.label}
                                     style={{ cursor: 'pointer'}}
-                                    onClick={() => setFilterValues(statusIcon.value)}
+                                    onClick={() => setFilterValues(statusIcon.id)}
                                 ></i>
                             );
                         })}
