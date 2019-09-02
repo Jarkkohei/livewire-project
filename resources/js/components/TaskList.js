@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchTasks, fetchRecentTasks, setSortOption, setPagination } from '../actions/tasks';
+import { fetchTasks, fetchRecentTasks, setSortOption, setPagination, toggleFilterTaskStatus} from '../actions/tasks';
 
 import Spinner from './Spinner';
 import Sorting from './Sorting';
+import Filtering from './Filtering';
 
 const TaskList = ({ match }) => {
 
     const dispatch = useDispatch();
 
     const [isRecentVisible, setIsRecentVisible] = useState(false);
-    const {tasks, pending, pagination: { meta }, perPageOptions, currentSortOption, sortOptions} = useSelector(state => state.tasks);
+    const {tasks, pending, pagination: { meta }, perPageOptions, currentSortOption, sortOptions, statusIcons} = useSelector(state => state.tasks);
 
     const setSortValues = (event) => {
         dispatch(setSortOption(event.target.value));
     }
 
     const setPaginationValues = ({pageNumber, perPage}) => {
-        dispatch(setPagination({ pageNumber, perPage }));
-        
+        dispatch(setPagination({ pageNumber, perPage }));   
+    }
+
+    const setFilterValues = (statusIconId) => {
+        dispatch(toggleFilterTaskStatus(statusIconId));
     }
 
     useEffect(() => {
@@ -27,17 +31,26 @@ const TaskList = ({ match }) => {
             setIsRecentVisible(true);
             dispatch(fetchRecentTasks());
         } else {
+            const filteredStatusIds = statusIcons
+                .filter(statIcon => (statIcon.included))
+                .map(statIcon => {
+                    return statIcon.value;
+                });
+
             dispatch(fetchTasks({
                 project_id: match.params.project_id,
                 page: meta.current_page,
                 perPage: meta.per_page,
                 sortBy: currentSortOption.sortBy,
                 sortDir: currentSortOption.sortDir,
+                filter: {
+                    statuses: filteredStatusIds
+                }
             }));
             setIsRecentVisible(false);
         }
         
-    }, [match.params.project_id, currentSortOption, meta.current_page, meta.per_page]);
+    }, [match.params.project_id, currentSortOption, meta.current_page, meta.per_page, statusIcons]);
     
     return (
         <>
@@ -88,8 +101,8 @@ const TaskList = ({ match }) => {
                                     <Sorting currentSortOptionId={currentSortOption.id} options={sortOptions} setSortValues={setSortValues} />
                                 </div>
 
-                                <div className="col-12 col-lg-6">
-                                    {/*@include('includes.filterTasks')*/}
+                                <div className="col-12 col-sm-6">
+                                    <Filtering statusIcons={statusIcons} setFilterValues={setFilterValues} />
                                 </div>
                             </div>
 

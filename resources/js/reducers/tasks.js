@@ -6,6 +6,7 @@ import {
     SET_TASKS_CURRENT_SORT_OPTION,
     SET_CURRENT_TASK,
     SET_TASKS_PAGINATION,
+    TOGGLE_FILTER_TASK_STATUS,
 } from '../actions/tasks';
 
 const initialState = {
@@ -127,6 +128,20 @@ export const tasks = (state = initialState, action) => {
                         per_page: action.perPage
                     }
                 }
+            }
+
+        case TOGGLE_FILTER_TASK_STATUS:
+
+            const newStatusIcons = state.statusIcons.map(statIcon => {
+                if(statIcon.value == action.statusIconId) {
+                    statIcon.included = !statIcon.included
+                }
+                return statIcon;
+            });
+
+            return {
+                ...state,
+                statusIcons: newStatusIcons
             }
 
         default:
