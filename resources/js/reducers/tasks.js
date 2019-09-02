@@ -58,6 +58,7 @@ const initialState = {
     perPageOptions: [
         5, 10, 25, 50, 100, 200
     ],
+    availableTasksCount: null
 }
 
 export const tasks = (state = initialState, action) => {
@@ -68,11 +69,14 @@ export const tasks = (state = initialState, action) => {
                 pending: true
             }
         case FETCH_TASKS_SUCCESS:
+            const included = state.statusIcons.filter(statIcon => (statIcon.included));
+
             return {
                 ...state,
                 pending: false,
                 tasks: action.tasks,
-                currentTask : null
+                currentTask : null,
+                availableTasksCount: included.length == state.statusIcons.length ? state.pagination.meta.total : state.availableTasksCount
             }
         case FETCH_TASKS_ERROR:
             return {
