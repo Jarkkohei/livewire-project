@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Route, Link, withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchTasks, fetchRecentTasks, SET_TASKS_CURRENT_SORT_OPTION, SET_TASKS_PAGINATION, TOGGLE_FILTER_TASK_STATUS } from '../actions/tasks';
 
 import { 
     fetchTasks, 
@@ -15,9 +14,21 @@ import Spinner from './Spinner';
 import Sorting from './Sorting';
 import Filtering from './Filtering';
 
-const TaskList = ({ match }) => {
+import TaskModal from './TaskModal';
+
+const TaskList = ({ match, history }) => {
 
     const dispatch = useDispatch();
+
+    const routeUrls = {
+        taskEdit: `/projects/${match.params.project_id}/tasks/${match.params.task_id}/edit`,
+        taskCreate: `/projects/${match.params.project_id}/tasks/create`
+    };
+
+    const modalModes = {
+        EDIT: 'EDIT',
+        CREATE: 'CREATE'
+    };
 
     const [isRecentVisible, setIsRecentVisible] = useState(false);
     const {tasks, pending, pagination: { meta }, perPageOptions, currentSortOption, sortOptions, statusIcons, availableTasksCount} = useSelector(state => state.tasks);
@@ -72,6 +83,7 @@ const TaskList = ({ match }) => {
                             <>
                             <div>Tasks</div>
                             <div>
+                                {/*
                                 <button
                                     className="btn btn-sm btn-primary"
                                     onClick={() => { }}
@@ -79,6 +91,17 @@ const TaskList = ({ match }) => {
                                 >
                                     <i className="fas fa-plus"></i>
                                 </button>
+                                */}
+
+                                <Link to={`${match.url}/create`}>
+                                    <button
+                                        className="btn btn-sm btn-primary"
+                                        onClick={() => {}}
+                                        title="Add new task"
+                                    >
+                                        <i className="fas fa-plus"></i>
+                                    </button>
+                                </Link>
                             </div>
                             </>
                         )}
@@ -133,11 +156,40 @@ const TaskList = ({ match }) => {
                 )}
             </div>
         )}
+
+        <Route
+            path={routeUrls.taskEdit}
+            exact 
+            render={() => (
+                <TaskModal
+                    match={match}
+                    title="Edit Task"
+                    mode={modalModes.EDIT}
+                    closeHandler={() => { history.replace(`/projects/${match.params.project_id}/tasks`) }}
+                    confirmHandler={() => { }}
+                />
+            )}
+        />
+
+        <Route
+            path={routeUrls.taskCreate}
+            exact 
+            render={() => (
+                <TaskModal
+                    match={match}
+                    title="Create Task"
+                    mode={modalModes.CREATE}
+                    closeHandler={() => { history.replace(`/projects/${match.params.project_id}/tasks`) }}
+                    confirmHandler={() => { }}
+                />
+            )}
+        />
+
         </> 
     );
 }
 
-export default TaskList;
+export default withRouter(TaskList);
 
 const TaskStatusIcon = ({ status }) => {
 
@@ -167,7 +219,7 @@ const TaskStatusIcon = ({ status }) => {
 
 const TasksListItem = ({ task }) => {
 
-    const editLinkUrl = `/projects/${task.project_id}/tasks/${task.id}`;
+    const editLinkUrl = `/projects/${task.project_id}/tasks/${task.id}/edit`;
 
     return (
         <div className="card taskListItem" key={task.id}>
@@ -190,6 +242,19 @@ const TasksListItem = ({ task }) => {
                 </h2>
 
                 <div style={{ minWidth: 75, marginLeft: 10 }}>
+                    {/*
+                    <Link to={editLinkUrl}>
+                        <button
+                            type="button"
+                            className="btn btn-sm btn-primary ml-1"
+                            onClick={() => { }}
+                            title="Edit"
+                        >
+                            <i className="fas fa-edit"></i>
+                        </button>
+                    </Link>
+                    */}
+
                     <Link to={editLinkUrl}>
                         <button
                             type="button"

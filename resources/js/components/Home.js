@@ -6,9 +6,12 @@ import TaskList from './TaskList';
 import TaskShow from './TaskShow';
 import TaskEdit from './TaskEdit';
 
-const Home = (props) => {
+const Home = () => {
 
-    return ( 
+    return (
+        <>
+        <div id="modal_root"></div>
+        
         <div className="container">
             <div className="row">
                 <Router>
@@ -21,15 +24,21 @@ const Home = (props) => {
                         <Switch>
                             <Route exact path="/projects" render={() => <Redirect to="/projects/recent" />} />
                             <Route path='/projects/recent' exact component={TaskList} />
+                            <Route path='/projects/:project_id/tasks/:task_id' component={TaskList} />
+                            <Route path='/projects/:project_id/tasks' component={TaskList} />
+                            
+                            {/*
                             <Route path='/projects/:project_id/tasks' exact component={TaskList} />
                             <Route path='/projects/:project_id/tasks/:task_id' exact component={TaskShow} />
                             <Route path='/projects/:project_id/tasks/:task_id/edit' exact component={TaskEdit} />
+                            */}
                         </Switch>
                     </div>
                     
                 </Router>
             </div>
         </div> 
+        </>
     );
 }
 

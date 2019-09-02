@@ -22,7 +22,6 @@ export const fetchTasksError = (error) => ({
 
 const baseUrl = 'http://localhost:8000/api';
 
-
 export const fetchTasks = ({ project_id, page, perPage, sortBy, sortDir, filter }) => {
     return dispatch => {
         dispatch(fetchTasksPending());
