@@ -12,7 +12,7 @@ const TaskList = ({ match }) => {
     const dispatch = useDispatch();
 
     const [isRecentVisible, setIsRecentVisible] = useState(false);
-    const {tasks, pending, pagination: { meta }, perPageOptions, currentSortOption, sortOptions, statusIcons} = useSelector(state => state.tasks);
+    const {tasks, pending, pagination: { meta }, perPageOptions, currentSortOption, sortOptions, statusIcons, availableTasksCount} = useSelector(state => state.tasks);
 
     const setSortValues = (event) => {
         dispatch(setSortOption(event.target.value));
@@ -102,7 +102,7 @@ const TaskList = ({ match }) => {
                                 </div>
 
                                 <div className="col-12 col-sm-6">
-                                    <Filtering statusIcons={statusIcons} setFilterValues={setFilterValues} />
+                                    <Filtering statusIcons={statusIcons} setFilterValues={setFilterValues} filteredTotal={meta.total} total={availableTasksCount} />
                                 </div>
                             </div>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Filtering = ({ statusIcons, setFilterValues }) => {
+const Filtering = ({ statusIcons, setFilterValues, filteredTotal, total }) => {
 
     return (
         <div className="card shadow-sm mt-3">
@@ -10,6 +10,14 @@ const Filtering = ({ statusIcons, setFilterValues }) => {
                     <label htmlFor="sortBySelect">
                         Filter by status:
                     </label>
+                    
+                    <span
+                        className="ml-2 badge badge-pill badge-light float-right"
+                        style={{ fontSize: 14, cursor: 'default' }}
+                        title={`Showing ${filteredTotal} filtered tasks of total ${total} `}
+                    >
+                        {filteredTotal} / {total}
+                    </span>
 
                     <div className="row justify-content-between align-items-center px-2 text-center py-2">
                         {statusIcons.map(statusIcon => {
