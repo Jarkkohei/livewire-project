@@ -145,7 +145,7 @@ const TaskList = ({ match, history }) => {
 
                         <div className="accordion mt-3 shadow-sm" id="taskAccordion">
                             {tasks.map(task => (
-                                <TasksListItem task={task} key={task.id} />
+                                <TaskListItem task={task} key={task.id} />
                             ))}
                         </div>
 
@@ -219,7 +219,7 @@ const TaskStatusIcon = ({ status }) => {
 }
 
 
-const TasksListItem = ({ task }) => {
+const TaskListItem = ({ task }) => {
 
     const editLinkUrl = `/projects/${task.project_id}/tasks/${task.id}/edit`;
 
