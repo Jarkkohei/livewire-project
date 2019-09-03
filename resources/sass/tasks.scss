@@ -1,3 +1,12 @@
 .taskListItem:hover {
     background-color: rgba(0, 0, 0, 0);
 }
+
+.taskDetailsCollapse {
+    height: 0px;
+    transition: height 1s;
+}
+
+.taskDetailsCollapse.show {
+    height: 100px;
+}

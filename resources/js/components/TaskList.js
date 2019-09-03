@@ -210,6 +210,10 @@ const TaskListItem = ({ task }) => {
 
     const editLinkUrl = `/projects/${task.project_id}/tasks/${task.id}/edit`;
 
+    const [isDetailsVisible, setIsDetailsVisible] = useState(false);
+
+    const detailsClassNames = isDetailsVisible ? 'taskDetailsCollapse show' : 'taskDetailsCollapse';
+
     return (
         <div className="card taskListItem" key={task.id}>
             <div className="card-header shadow-sm d-flex justify-content-between align-items-center px-2 px-md-3">
@@ -219,12 +223,9 @@ const TaskListItem = ({ task }) => {
                     <button
                         className="btn btn-link"
                         type="button"
-                        data-toggle="collapse"
-                        data-target="#collapse-{task.id'}"
-                        aria-expanded="false"
-                        aria-controls="collapse-{{ $task['id'] }}"
                         style={task.status == 0 ? { textDecoration: 'line-through' } : {}}
                         title="Show task details"
+                        onClick={() => setIsDetailsVisible(!isDetailsVisible) }
                     >
                         {task.title}
                     </button>
@@ -255,18 +256,14 @@ const TaskListItem = ({ task }) => {
 
             </div>
 
-            <div
-                id="collapse-{{ $task['id'] }}"
-                className="collapse hide"
-                aria-labelledby="heading-{{ $task['id'] }}"
-                data-parent="#taskAccordion"
-            >
+            <div className={detailsClassNames}>
                 <div className="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        {task.description}
+                        Description: {task.description}
                     </div>
                 </div>
             </div>
+
         </div>
     );
 }
