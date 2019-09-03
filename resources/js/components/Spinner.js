@@ -1,3 +1,4 @@
+// Instantiated in components/TaskList.js, components/Projects.js
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 

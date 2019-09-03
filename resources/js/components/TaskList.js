@@ -1,3 +1,4 @@
+// Instantiated in components/Home.js
 import React, { useEffect, useState } from 'react';
 import { Route, Link, withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';

@@ -1,3 +1,4 @@
+// Instantiated in components/TaskList.js
 import React from 'react';
 
 const Sorting = ({ currentSortOptionId, options, setSortValues }) => {
