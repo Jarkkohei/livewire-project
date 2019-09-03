@@ -31,7 +31,6 @@ export const fetchTasks = ({ project_id, page, perPage, sortBy, sortDir, filter 
                 if (res.error) {
                     throw (res.error);
                 }
-                //dispatch(setTasksPaginationByResponse(res));
                 dispatch({ type: 'SET_TASKS_PAGINATION_BY_RESPONSE', payload: res});
                 dispatch(fetchTasksSuccess(res.data));
                 return res.data;
