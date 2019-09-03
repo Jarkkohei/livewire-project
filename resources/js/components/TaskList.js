@@ -15,6 +15,7 @@ import Spinner from './Spinner';
 import Sorting from './Sorting';
 import Filtering from './Filtering';
 import Pagination from './Pagination';
+import Breadcrumbs from './Breadcrumbs';
 
 import TaskModal from './TaskModal';
 
@@ -32,8 +33,12 @@ const TaskList = ({ match, history }) => {
         CREATE: 'CREATE'
     };
 
+    const [breadcrumbs, setBreadcrumbs] = useState([]);
+
     const [isRecentVisible, setIsRecentVisible] = useState(false);
     const {tasks, pending, pagination: { meta }, perPageOptions, currentSortOption, sortOptions, statusIcons, availableTasksCount} = useSelector(state => state.tasks);
+
+    const projects = useSelector(state => state.projects.projects);
 
     const setSortValues = (event) => {
         dispatch({ type: SET_TASKS_CURRENT_SORT_OPTION, payload: event.target.value });
@@ -46,6 +51,23 @@ const TaskList = ({ match, history }) => {
     const setFilterValues = (statusIconId) => {
         dispatch({ type: TOGGLE_FILTER_TASK_STATUS, payload: statusIconId});
     }
+
+    useEffect(() => {
+        if (typeof match.params.project_id !== 'undefined') {
+            setBreadcrumbs([]);
+            const newBreadcrumbs = [];
+            
+            const breadcrumbBuilder = (project_id) => {
+                const project = projects.find(p => (p.id == project_id));
+                if(project.parent_id != null) {
+                    breadcrumbBuilder(project.parent_id);
+                }
+                newBreadcrumbs.push(project);
+            }
+            breadcrumbBuilder(match.params.project_id);
+            setBreadcrumbs(newBreadcrumbs);
+        }
+    }, [match.params.project_id]);
 
     useEffect(() => {
         if(typeof match.params.project_id === 'undefined') {
@@ -72,34 +94,41 @@ const TaskList = ({ match, history }) => {
         }
         
     }, [match.params.project_id, currentSortOption, meta.current_page, meta.per_page, statusIcons]);
-    
+
     return (
         <>
         {tasks && (
             <div>
-                <div className="card shadow-sm">
-                    <div className="card-header d-flex justify-content-between align-items-center">
-                        {isRecentVisible ? (
-                            <div>Recent Tasks</div>
-                        ) : (
-                            <>
-                            <div>Tasks</div>
-                            <div>
+                {!isRecentVisible && (
+                    <>
+                    
+
+                    <div className="card shadow-sm">
+                        <div className="card-header d-flex justify-content-between align-items-center">
+                            <Breadcrumbs projects={breadcrumbs} active_id={match.params.project_id} />
+                            <div className="ml-3">
                                 <Link to={`${match.url}/create`}>
                                     <button
                                         className="btn btn-sm btn-primary"
-                                        onClick={() => {}}
+                                        onClick={() => { }}
                                         title="Add new task"
                                     >
                                         <i className="fas fa-plus"></i>
                                     </button>
                                 </Link>
                             </div>
-                            </>
-                        )}
-                        
+                        </div>
+                    </div>
+                    </>
+                )}
+
+                {isRecentVisible && (
+                <div className="card shadow-sm">
+                    <div className="recentTasksCardHeader card-header d-flex justify-content-between align-items-center">
+                        <div>Recent Tasks</div>     
                     </div>
                 </div>
+                )}
 
                 {tasks.length == 0 ? (
                     <>
