@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
 
     const styles = {
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
         left: 0,
         width: '100%',
@@ -70,7 +70,7 @@ export default TaskModal;
 const BackDrop = () => {
 
     const styles = {
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
         left: 0,
         width: '100%',
