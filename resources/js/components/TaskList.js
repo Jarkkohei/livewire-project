@@ -101,35 +101,37 @@ const TaskList = ({ match, history }) => {
                     </div>
                 </div>
 
-                {pending ? (
-                    <div className="card shadow-sm mt-3">
-                        <div className="card-header d-flex justify-content-center align-items-center">
-                            <Spinner />
-                        </div>
-                    </div>
-                ) : (
-                <>
                 {tasks.length == 0 ? (
-                    <div className="card shadow-sm mt-3">
-                        <div className="card-header d-flex justify-content-center align-items-center">
-                            <p className="mb-0">No tasks for this project</p>
+                    <>
+                    {pending ? (
+                        <div className="card shadow-sm mt-3">
+                            <div className="card-header d-flex justify-content-center align-items-center">
+                                <Spinner />
+                            </div>
                         </div>
-                    </div>
                     ) : (
+                        <div className="card shadow-sm mt-3">
+                            <div className="card-header d-flex justify-content-center align-items-center">
+                                <p className="mb-0">No tasks for this project</p>
+                            </div>
+                        </div>
+                    )}
+                    </>
+                ) : (
                     <>
                         {!isRecentVisible && (
                             <>
-                            <div className="row">
-                                <div className="col-12 col-sm-6">
-                                    <Sorting currentSortOptionId={currentSortOption.id} options={sortOptions} setSortValues={setSortValues} />
+                                <div className="row">
+                                    <div className="col-12 col-sm-6">
+                                        <Sorting currentSortOptionId={currentSortOption.id} options={sortOptions} setSortValues={setSortValues} />
+                                    </div>
+
+                                    <div className="col-12 col-sm-6">
+                                        <Filtering statusIcons={statusIcons} setFilterValues={setFilterValues} filteredTotal={meta.total} total={availableTasksCount} />
+                                    </div>
                                 </div>
 
-                                <div className="col-12 col-sm-6">
-                                    <Filtering statusIcons={statusIcons} setFilterValues={setFilterValues} filteredTotal={meta.total} total={availableTasksCount} />
-                                </div>
-                            </div>
-
-                            <Pagination meta={meta} perPageOptions={perPageOptions} setPaginationValues={setPaginationValues} />
+                                <Pagination meta={meta} perPageOptions={perPageOptions} setPaginationValues={setPaginationValues} />
                             </>
                         )}
 
@@ -143,8 +145,6 @@ const TaskList = ({ match, history }) => {
                             <Pagination meta={meta} perPageOptions={perPageOptions} setPaginationValues={setPaginationValues} />
                         )}
                     </>
-                    )}
-                </>
                 )}
             </div>
         )}
