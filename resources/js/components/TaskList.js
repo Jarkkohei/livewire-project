@@ -85,16 +85,6 @@ const TaskList = ({ match, history }) => {
                             <>
                             <div>Tasks</div>
                             <div>
-                                {/*
-                                <button
-                                    className="btn btn-sm btn-primary"
-                                    onClick={() => { }}
-                                    title="Add new task"
-                                >
-                                    <i className="fas fa-plus"></i>
-                                </button>
-                                */}
-
                                 <Link to={`${match.url}/create`}>
                                     <button
                                         className="btn btn-sm btn-primary"
@@ -206,8 +196,6 @@ const TaskStatusIcon = ({ status }) => {
         };
     }
 
-    
-
     return (
         <div className="text-center" style={wrapperStyles}>
             <i className={`${taskStatusObject.classes} ${taskStatusObject.colorClass}`}
@@ -217,7 +205,6 @@ const TaskStatusIcon = ({ status }) => {
         </div>
     );
 }
-
 
 const TaskListItem = ({ task }) => {
 
@@ -244,18 +231,6 @@ const TaskListItem = ({ task }) => {
                 </h2>
 
                 <div style={{ minWidth: 75, marginLeft: 10 }}>
-                    {/*
-                    <Link to={editLinkUrl}>
-                        <button
-                            type="button"
-                            className="btn btn-sm btn-primary ml-1"
-                            onClick={() => { }}
-                            title="Edit"
-                        >
-                            <i className="fas fa-edit"></i>
-                        </button>
-                    </Link>
-                    */}
 
                     <Link to={editLinkUrl}>
                         <button
