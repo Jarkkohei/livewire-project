@@ -18,6 +18,7 @@ import Pagination from './Pagination';
 import Breadcrumbs from './Breadcrumbs';
 
 import TaskModal from './TaskModal';
+import { fetchProjects } from '../actions/projects';
 
 const TaskList = ({ match, history }) => {
 
@@ -32,8 +33,6 @@ const TaskList = ({ match, history }) => {
         EDIT: 'EDIT',
         CREATE: 'CREATE'
     };
-
-    const [breadcrumbs, setBreadcrumbs] = useState([]);
 
     const [isRecentVisible, setIsRecentVisible] = useState(false);
     const {tasks, pending, pagination: { meta }, perPageOptions, currentSortOption, sortOptions, statusIcons, availableTasksCount} = useSelector(state => state.tasks);
@@ -53,21 +52,8 @@ const TaskList = ({ match, history }) => {
     }
 
     useEffect(() => {
-        if (typeof match.params.project_id !== 'undefined') {
-            setBreadcrumbs([]);
-            const newBreadcrumbs = [];
-            
-            const breadcrumbBuilder = (project_id) => {
-                const project = projects.find(p => (p.id == project_id));
-                if(project.parent_id != null) {
-                    breadcrumbBuilder(project.parent_id);
-                }
-                newBreadcrumbs.push(project);
-            }
-            breadcrumbBuilder(match.params.project_id);
-            setBreadcrumbs(newBreadcrumbs);
-        }
-    }, [match.params.project_id]);
+        dispatch(fetchProjects());
+    }, []);
 
     useEffect(() => {
         if(typeof match.params.project_id === 'undefined') {
@@ -97,15 +83,13 @@ const TaskList = ({ match, history }) => {
 
     return (
         <>
-        {tasks && (
+        {tasks && projects.length > 0 && (
             <div>
                 {!isRecentVisible && (
                     <>
-                    
-
                     <div className="card shadow-sm">
                         <div className="card-header d-flex justify-content-between align-items-center">
-                            <Breadcrumbs projects={breadcrumbs} active_id={match.params.project_id} />
+                            <Breadcrumbs projects={projects} active_id={match.params.project_id} />
                             <div className="ml-3">
                                 <Link to={`${match.url}/create`}>
                                     <button
