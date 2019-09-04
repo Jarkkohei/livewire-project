@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/projects', 'ProjectController@index')->name('projects');
+//Route::get('/projects', 'ProjectController@index')->name('projects');
 
 Route::group(['middleware'=>'auth', 'prefix'=>'admin'], function () {
     Route::livewire('/tasks', 'tasks')->name('tasks');
@@ -30,6 +30,7 @@ Route::group(['middleware'=>'auth', 'prefix'=>'admin'], function () {
 //Route::livewire('/project/{id}/tasks', 'tasks')->name('tasks');
 
 
-Route::middleware('auth')->get('{any}', function () {
+Route::middleware('auth')->get('projects/{any?}', function () {
     return view('projects'); // or wherever your React app is bootstrapped.
-})->where('any', '.*');
+})->where('any', '.*')
+->name('projects');
