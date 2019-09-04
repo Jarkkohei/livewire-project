@@ -1,12 +1,12 @@
 // Instantiated in components/Home.js
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProjects } from '../actions/projects';
 import styled from 'styled-components';
 import Spinner from './Spinner';
 
-const Projects = (props) => {
+const Projects = ({ match }) => {
 
     const dispatch = useDispatch();
 
@@ -41,6 +41,8 @@ const Projects = (props) => {
         </>
     );
 }
+
+export default withRouter(Projects);
 
 const ProjectsListItem = ({ project }) => {
 
@@ -101,5 +103,3 @@ const ProjectsListItem = ({ project }) => {
         </>
     );
 }
-
-export default Projects;
