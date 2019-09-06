@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { 
     fetchTasks, 
-    fetchRecentTasks, 
+    fetchRecentTasks,
+    createNewTask,
     SET_TASKS_CURRENT_SORT_OPTION, 
     SET_TASKS_PAGINATION, 
     TOGGLE_FILTER_TASK_STATUS
@@ -80,6 +81,10 @@ const TaskList = ({ match, history }) => {
         }
         
     }, [match.params.project_id, currentSortOption, meta.current_page, meta.per_page, statusIcons]);
+
+    const handleCreateNewTask = (task) => {
+        dispatch(createNewTask(task));
+    }
 
     return (
         <>
@@ -185,7 +190,7 @@ const TaskList = ({ match, history }) => {
                     title="Create Task"
                     mode={modalModes.CREATE}
                     closeHandler={() => { history.replace(`/projects/${match.params.project_id}/tasks`) }}
-                    confirmHandler={() => { }}
+                    confirmHandler={handleCreateNewTask}
                 />
             )}
         />

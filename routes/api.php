@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 /* Get all tasks */
 Route::get('/tasks', 'API\TaskController@index');
 
+Route::post('/tasks', 'API\TaskController@store');
+
 /* Get Recent Tasks */
 Route::get('/tasks/recent', 'API\TaskController@recent');
 
