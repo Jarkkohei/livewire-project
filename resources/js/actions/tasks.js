@@ -86,6 +86,33 @@ export const createNewTask = (data) => {
     }
 }
 
+export const updateTask = (task_id, data) => {
+    return dispatch => {
+        dispatch(fetchTasksPending());
+        fetch(`${baseUrl}/tasks/${task_id}`, {
+            method: 'PUT',
+            //mode: 'cors',
+            //cache: 'no-cache',
+            //credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            //redirect: 'follow',
+            //referrer: 'no-referrer',
+            body: JSON.stringify(data)
+        }).then(res => res.json())
+            .then(res => {
+                if (res.error) {
+                    throw (res.error);
+                }
+                console.log(res);
+            })
+            .catch(error => {
+                dispatch(fetchTasksError(error));
+            });
+    }
+}
+
 /*
 export const fetchTask = (task_id) => {
     return dispatch => {

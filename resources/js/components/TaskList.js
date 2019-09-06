@@ -7,6 +7,7 @@ import {
     fetchTasks, 
     fetchRecentTasks,
     createNewTask,
+    updateTask,
     SET_TASKS_CURRENT_SORT_OPTION, 
     SET_TASKS_PAGINATION, 
     TOGGLE_FILTER_TASK_STATUS
@@ -84,6 +85,10 @@ const TaskList = ({ match, history }) => {
 
     const handleCreateNewTask = (task) => {
         dispatch(createNewTask(task));
+    }
+
+    const handleUpdateTask = (task_id, task) => {
+        dispatch(updateTask(task_id, task));
     }
 
     return (
@@ -176,7 +181,7 @@ const TaskList = ({ match, history }) => {
                     title="Edit Task"
                     mode={modalModes.EDIT}
                     closeHandler={() => { history.replace(`/projects/${match.params.project_id}/tasks`) }}
-                    confirmHandler={() => { }}
+                    confirmHandler={handleUpdateTask}
                 />
             )}
         />
