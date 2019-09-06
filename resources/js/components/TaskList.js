@@ -8,6 +8,7 @@ import {
     fetchRecentTasks,
     createNewTask,
     updateTask,
+    deleteTask,
     SET_TASKS_CURRENT_SORT_OPTION, 
     SET_TASKS_PAGINATION, 
     TOGGLE_FILTER_TASK_STATUS
@@ -91,6 +92,10 @@ const TaskList = ({ match, history }) => {
         dispatch(updateTask(task_id, task));
     }
 
+    const handleDeleteTask = (task_id) => {
+        dispatch(deleteTask(task_id));
+    }
+
     return (
         <>
         {tasks && projects.length > 0 && (
@@ -160,7 +165,7 @@ const TaskList = ({ match, history }) => {
 
                         <div className="accordion mt-3 shadow-sm" id="taskAccordion">
                             {tasks.map(task => (
-                                <TaskListItem task={task} key={task.id} />
+                                <TaskListItem task={task} key={task.id} deleteHandler={handleDeleteTask} />
                             ))}
                         </div>
 
@@ -229,7 +234,7 @@ const TaskStatusIcon = ({ status }) => {
     );
 }
 
-const TaskListItem = ({ task }) => {
+const TaskListItem = ({ task, deleteHandler }) => {
 
     const editLinkUrl = `/projects/${task.project_id}/tasks/${task.id}/edit`;
 
@@ -270,7 +275,7 @@ const TaskListItem = ({ task }) => {
                     <button
                         type="button"
                         className="btn btn-sm btn-danger ml-1"
-                        onClick={() => { }}
+                        onClick={() => { deleteHandler(task.id) }}
                         title="Delete"
                     >
                         <i className="far fa-trash-alt"></i>

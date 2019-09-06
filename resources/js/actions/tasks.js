@@ -113,6 +113,33 @@ export const updateTask = (task_id, data) => {
     }
 }
 
+export const deleteTask = (task_id) => {
+    return dispatch => {
+        dispatch(fetchTasksPending());
+        fetch(`${baseUrl}/tasks/${task_id}`, {
+            method: 'DELETE',
+            //mode: 'cors',
+            //cache: 'no-cache',
+            //credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            //redirect: 'follow',
+            //referrer: 'no-referrer',
+            body: null
+        }).then(res => res.json())
+            .then(res => {
+                if (res.error) {
+                    throw (res.error);
+                }
+                console.log(res);
+            })
+            .catch(error => {
+                dispatch(fetchTasksError(error));
+            });
+    }
+}
+
 /*
 export const fetchTask = (task_id) => {
     return dispatch => {

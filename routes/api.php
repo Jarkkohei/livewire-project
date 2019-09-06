@@ -24,6 +24,8 @@ Route::post('/tasks', 'API\TaskController@store');
 
 Route::put('/tasks/{id}', 'API\TaskController@update');
 
+Route::delete('/tasks/{id}', 'API\TaskController@destroy');
+
 /* Get Recent Tasks */
 Route::get('/tasks/recent', 'API\TaskController@recent');
 
