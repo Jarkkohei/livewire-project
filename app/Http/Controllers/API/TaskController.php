@@ -47,6 +47,8 @@ class TaskController extends Controller
 
         $task = Task::create($validatedData);
         $task->save();
+
+        return new TaskCollection(Task::where('id', $task->id)->get());
     }
 
     /**
@@ -80,6 +82,8 @@ class TaskController extends Controller
         ]);
 
         $task->update($validatedData);
+
+        return new TaskCollection(Task::where('id', $id)->get());
     }
 
     /**
@@ -92,6 +96,8 @@ class TaskController extends Controller
     {
         $task = Task::find($id);
         $task->delete();
+
+        return new TaskCollection(Task::where('id', $id)->get());
     }
 
     /**
