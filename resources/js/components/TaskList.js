@@ -54,6 +54,12 @@ const TaskList = ({ match, history }) => {
         dispatch({ type: TOGGLE_FILTER_TASK_STATUS, payload: statusIconId});
     }
 
+    const filteredStatusIds = statusIcons
+        .filter(statIcon => (statIcon.included))
+        .map(statIcon => {
+            return statIcon.id;
+        });
+
     useEffect(() => {
         dispatch(fetchProjects());
     }, []);
@@ -63,11 +69,13 @@ const TaskList = ({ match, history }) => {
             setIsRecentVisible(true);
             dispatch(fetchRecentTasks());
         } else {
+            /*
             const filteredStatusIds = statusIcons
                 .filter(statIcon => (statIcon.included))
                 .map(statIcon => {
                     return statIcon.id;
                 });
+            */
 
             dispatch(fetchTasks({
                 project_id: match.params.project_id,
@@ -85,15 +93,45 @@ const TaskList = ({ match, history }) => {
     }, [match.params.project_id, currentSortOption, meta.current_page, meta.per_page, statusIcons]);
 
     const handleCreateNewTask = (task) => {
-        dispatch(createNewTask(task));
+        dispatch(createNewTask(task, {
+            project_id: match.params.project_id,
+            page: meta.current_page,
+            perPage: meta.per_page,
+            sortBy: currentSortOption.sortBy,
+            sortDir: currentSortOption.sortDir,
+            filter: {
+                statuses: filteredStatusIds
+            }
+        }));
+        dispatch(fetchProjects());
     }
 
     const handleUpdateTask = (task_id, task) => {
-        dispatch(updateTask(task_id, task));
+        dispatch(updateTask(task_id, task, {
+            project_id: match.params.project_id,
+            page: meta.current_page,
+            perPage: meta.per_page,
+            sortBy: currentSortOption.sortBy,
+            sortDir: currentSortOption.sortDir,
+            filter: {
+                statuses: filteredStatusIds
+            }
+        }));
+        dispatch(fetchProjects());
     }
 
     const handleDeleteTask = (task_id) => {
-        dispatch(deleteTask(task_id));
+        dispatch(deleteTask(task_id, {
+            project_id: match.params.project_id,
+            page: meta.current_page,
+            perPage: meta.per_page,
+            sortBy: currentSortOption.sortBy,
+            sortDir: currentSortOption.sortDir,
+            filter: {
+                statuses: filteredStatusIds
+            }
+        }));
+        dispatch(fetchProjects());
     }
 
     return (

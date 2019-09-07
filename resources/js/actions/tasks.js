@@ -59,7 +59,7 @@ export const fetchRecentTasks = () => {
     }
 }
 
-export const createNewTask = (data) => {
+export const createNewTask = (data, queryObject) => {
     return dispatch => {
         dispatch(fetchTasksPending());
         fetch(`${baseUrl}/tasks`, {
@@ -78,7 +78,7 @@ export const createNewTask = (data) => {
                 if (res.error) {
                     throw (res.error);
                 }
-                console.log(res);
+                dispatch(fetchTasks(queryObject));
             })
             .catch(error => {
                 dispatch(fetchTasksError(error));
@@ -86,7 +86,7 @@ export const createNewTask = (data) => {
     }
 }
 
-export const updateTask = (task_id, data) => {
+export const updateTask = (task_id, data, queryObject) => {
     return dispatch => {
         dispatch(fetchTasksPending());
         fetch(`${baseUrl}/tasks/${task_id}`, {
@@ -105,7 +105,7 @@ export const updateTask = (task_id, data) => {
                 if (res.error) {
                     throw (res.error);
                 }
-                console.log(res);
+                dispatch(fetchTasks(queryObject));
             })
             .catch(error => {
                 dispatch(fetchTasksError(error));
@@ -113,7 +113,7 @@ export const updateTask = (task_id, data) => {
     }
 }
 
-export const deleteTask = (task_id) => {
+export const deleteTask = (task_id, queryObject) => {
     return dispatch => {
         dispatch(fetchTasksPending());
         fetch(`${baseUrl}/tasks/${task_id}`, {
@@ -132,30 +132,10 @@ export const deleteTask = (task_id) => {
                 if (res.error) {
                     throw (res.error);
                 }
-                console.log(res);
+                dispatch(fetchTasks(queryObject));
             })
             .catch(error => {
                 dispatch(fetchTasksError(error));
             });
     }
 }
-
-/*
-export const fetchTask = (task_id) => {
-    return dispatch => {
-        dispatch(fetchTasksPending());
-        fetch(`${baseUrl}/tasks/${task_id}`)
-            .then(res => res.json())
-            .then(res => {
-                if (res.error) {
-                    throw (res.error);
-                }
-                dispatch(fetchTasksSuccess(res.data));
-                return res.data;
-            })
-            .catch(error => {
-                dispatch(fetchTasksError(error));
-            })
-    }
-}
-*/
