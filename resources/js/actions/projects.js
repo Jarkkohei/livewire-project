@@ -40,3 +40,54 @@ export const fetchProjects = () => {
             })
     }
 }
+
+export const createNewProject = (project) => {
+    return dispatch => {
+        dispatch(fetchProjectsPending());
+        fetch(`${baseUrl}/projects`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(project)
+        }).then(res => res.json())
+            .then(res => {
+                if (res.error) {
+                    throw (res.error);
+                }
+                dispatch(fetchProjects());
+                return res.data;
+            })
+            .catch(error => {
+                dispatch(fetchProjectsError(error));
+            })
+    }
+}
+
+export const updateProject = (project) => {
+    return dispatch => {
+        dispatch(fetchProjectsPending());
+        fetch(`${baseUrl}/projects/${project.id}`, {
+            method: 'PUT',
+            //mode: 'cors',
+            //cache: 'no-cache',
+            //credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            //redirect: 'follow',
+            //referrer: 'no-referrer',
+            body: JSON.stringify(project)
+        }).then(res => res.json())
+            .then(res => {
+                if (res.error) {
+                    throw (res.error);
+                }
+                dispatch(fetchProjects());
+                return res.data;
+            })
+            .catch(error => {
+                dispatch(fetchProjectsError(error));
+            });
+    }
+}
