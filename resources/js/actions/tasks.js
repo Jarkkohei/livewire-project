@@ -59,7 +59,7 @@ export const fetchRecentTasks = () => {
     }
 }
 
-export const createNewTask = (data, queryObject) => {
+export const createNewTask = (task, queryObject) => {
     return dispatch => {
         dispatch(fetchTasksPending());
         fetch(`${baseUrl}/tasks`, {
@@ -72,7 +72,7 @@ export const createNewTask = (data, queryObject) => {
             },
             //redirect: 'follow',
             //referrer: 'no-referrer',
-            body: JSON.stringify(data)
+            body: JSON.stringify(task)
         }).then(res => res.json())
             .then(res => {
                 if (res.error) {
@@ -87,10 +87,10 @@ export const createNewTask = (data, queryObject) => {
     }
 }
 
-export const updateTask = (task_id, data, queryObject) => {
+export const updateTask = (task, queryObject) => {
     return dispatch => {
         dispatch(fetchTasksPending());
-        fetch(`${baseUrl}/tasks/${task_id}`, {
+        fetch(`${baseUrl}/tasks/${task.id}`, {
             method: 'PUT',
             //mode: 'cors',
             //cache: 'no-cache',
@@ -100,7 +100,7 @@ export const updateTask = (task_id, data, queryObject) => {
             },
             //redirect: 'follow',
             //referrer: 'no-referrer',
-            body: JSON.stringify(data)
+            body: JSON.stringify(task)
         }).then(res => res.json())
             .then(res => {
                 if (res.error) {

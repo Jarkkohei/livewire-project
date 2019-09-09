@@ -1,7 +1,7 @@
 // Instantiated in components/Projects.js
 import React, { useEffect, useState } from 'react';
 import { createPortal } from "react-dom";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const ProjectModal = ({ activeProjectId, title, closeHandler, confirmHandler, mode }) => {
 
@@ -17,19 +17,20 @@ const ProjectModal = ({ activeProjectId, title, closeHandler, confirmHandler, mo
     //const [errors, setErrors] = useState({});
     const { projects: { projects } } = useSelector(state => state);
 
-    const [editedProject, setEditedProject] = useState(
-        {
-            user_id: 1,
-            title: '',
-            description: '',
-            parent_id: activeProjectId
-        }
-    );
+    const initialProject = {
+        title: '',
+        description: '',
+        parent_id: ''
+    };
+
+    const [editedProject, setEditedProject] = useState(initialProject);
 
     useEffect(() => {
-        if (activeProjectId && mode == 'EDIT') {
+        if(activeProjectId && mode == 'EDIT') {
             const project = projects.find(project => project.id == activeProjectId);
-            setEditedProject({ ...editedProject, ...project });
+            setEditedProject(project);
+        } else if(activeProjectId && mode == 'CREATE') {
+            setEditedProject({ ...editedProject, parent_id: activeProjectId });
         }
     }, []);
 
@@ -46,7 +47,7 @@ const ProjectModal = ({ activeProjectId, title, closeHandler, confirmHandler, mo
     */
 
     const closeModal = () => {
-        setEditedProject({});
+        setEditedProject(initialProject);
         closeHandler();
     }
 
@@ -58,6 +59,7 @@ const ProjectModal = ({ activeProjectId, title, closeHandler, confirmHandler, mo
         }
         */
         confirmHandler(editedProject);
+        setEditedProject(initialProject);
         closeModal();
     }
 
@@ -95,7 +97,7 @@ const ProjectModal = ({ activeProjectId, title, closeHandler, confirmHandler, mo
                                     placeholder="Title..."
                                     onChange={(e) => { setEditedProject({ ...editedProject, title: e.target.value }) }}
                                     autoComplete="off"
-                                    defaultValue={editedProject.title}
+                                    value={editedProject.title}
                                     title="Title"
                                 />
 
@@ -122,11 +124,11 @@ const ProjectModal = ({ activeProjectId, title, closeHandler, confirmHandler, mo
                                     id="editProjectParent"
                                     name="editProjectParent"
                                     className="form-control form-control shadow-sm"
-                                    onChange={(e) => { setEditedProject({ ...editedProject, parent_id: parseInt(e.target.value, 10) }) }}
-                                    defaultValue={editedProject.parent_id}
+                                    onChange={(e) => { setEditedProject({ ...editedProject, parent_id: e.target.value }) }}
+                                    value={editedProject.parent_id}
                                     title="Project"
                                 >
-                                    <option value={null}>None (Create as a root project)</option>
+                                    <option value="">None (Create as a root project)</option>
                                     {projects.map((project) => (
                                         <option
                                             name={project.title}

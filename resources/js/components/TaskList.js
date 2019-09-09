@@ -106,8 +106,8 @@ const TaskList = ({ match, history }) => {
         dispatch(fetchProjects());
     }
 
-    const handleUpdateTask = (task_id, task) => {
-        dispatch(updateTask(task_id, task, {
+    const handleUpdateTask = (task) => {
+        dispatch(updateTask(task, {
             project_id: match.params.project_id,
             page: meta.current_page,
             perPage: meta.per_page,

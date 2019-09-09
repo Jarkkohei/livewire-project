@@ -1,7 +1,7 @@
 // Instantiated in components/TaskList.js
 import React, { useEffect, useState } from 'react';
 import { createPortal } from "react-dom";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
 
@@ -17,20 +17,18 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
     //const [errors, setErrors] = useState({});
     const {tasks: {tasks, statusIcons}, projects: {projects}} = useSelector(state => state);
 
-    const [editedTask, setEditedTask] = useState(
-        {
-            user_id: 1,
-            title: '',
-            description: '',
-            status: 1,
-            project_id: match.params.project_id
-        }
-    );
+    const initialTask = {
+        title: '',
+        description: '',
+        status: 1,
+        project_id: match.params.project_id
+    };
+
+    const [editedTask, setEditedTask] = useState(initialTask);
 
     useEffect(() => {
         if (match.params.task_id) {
             const task = tasks.find(task => task.id == match.params.task_id);
-            console.log(tasks);
             setEditedTask({ ...editedTask, ...task });
         }
     }, []);
@@ -48,7 +46,7 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
     */
 
     const closeModal = () => {
-        setEditedTask({});
+        setEditedTask(initialTask);
         closeHandler();
     }
 
@@ -59,11 +57,8 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
             closeModal();
         }
         */
-        if(mode == 'CREATE') {
-            confirmHandler(editedTask);
-        } else if(mode == 'EDIT') {
-            confirmHandler(editedTask.id, editedTask);
-        }
+        confirmHandler(editedTask);
+        setEditedTask(initialTask);
         closeModal();
     }
 
@@ -101,7 +96,7 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
                                     placeholder="Title..."
                                     onChange={(e) => { setEditedTask({...editedTask, title: e.target.value}) }}
                                     autoComplete="off"
-                                    defaultValue={editedTask.title}
+                                    value={editedTask.title}
                                     title="Title"
                                 />
 
@@ -128,8 +123,8 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
                                     id="editTaskProject"
                                     name="editTaskProject"
                                     className="form-control form-control shadow-sm"
-                                    onChange={(e) => { setEditedTask({ ...editedTask, project_id: parseInt(e.target.value, 10) }) }}
-                                    defaultValue={editedTask.project_id}
+                                    onChange={(e) => { setEditedTask({ ...editedTask, project_id: e.target.value }) }}
+                                    value={editedTask.project_id}
                                     title="Project"
                                 >
                                     {projects.map((project) => (
@@ -151,7 +146,7 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
                                     name="editTaskStatus"
                                     className="form-control form-control shadow-sm"
                                     onChange={(e) => { setEditedTask({ ...editedTask, status: parseInt(e.target.value, 10) }) }}
-                                    defaultValue={editedTask.status}
+                                    value={editedTask.status}
                                     title="Status"
                                 >
                                     {statusIcons.map((status) => (

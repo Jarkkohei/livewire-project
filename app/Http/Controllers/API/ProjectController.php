@@ -38,7 +38,6 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'user_id' => 'required',
             'title' => 'required',
             'description' => 'nullable|string',
             'parent_id' => 'nullable|integer',
@@ -79,7 +78,6 @@ class ProjectController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'user_id' => 'required',
             'title' => 'required',
             'description' => 'nullable|string',
             'parent_id' => 'nullable|integer',
