@@ -117,28 +117,6 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="editTaskStatus">Status</label>
-                                <select
-                                    id="editTaskStatus"
-                                    name="editTaskStatus"
-                                    className="form-control form-control shadow-sm"
-                                    onChange={(e) => { setEditedTask({ ...editedTask, status: parseInt(e.target.value, 10) }) }}
-                                    defaultValue={editedTask.status}
-                                    title="Status"
-                                >
-                                    {statusIcons.map((status) => (
-                                        <option
-                                            name={status.label}
-                                            key={status.id}
-                                            value={status.id}
-                                        >
-                                            {status.label}
-                                        </option>
-                                    ))}
-                                </select >
-                            </div >
-
-                            <div className="form-group">
                                 <label htmlFor="editTaskProject">Project</label>
                                 <select
                                     id="editTaskProject"
@@ -155,6 +133,28 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
                                             value={project.id}
                                         >
                                             {project.title}
+                                        </option>
+                                    ))}
+                                </select >
+                            </div >
+
+                            <div className="form-group">
+                                <label htmlFor="editTaskStatus">Status</label>
+                                <select
+                                    id="editTaskStatus"
+                                    name="editTaskStatus"
+                                    className="form-control form-control shadow-sm"
+                                    onChange={(e) => { setEditedTask({ ...editedTask, status: parseInt(e.target.value, 10) }) }}
+                                    defaultValue={editedTask.status}
+                                    title="Status"
+                                >
+                                    {statusIcons.map((status) => (
+                                        <option
+                                            name={status.label}
+                                            key={status.id}
+                                            value={status.id}
+                                        >
+                                            {status.label}
                                         </option>
                                     ))}
                                 </select >
