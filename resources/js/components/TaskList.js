@@ -325,7 +325,7 @@ const TaskListItem = ({ task, deleteHandler }) => {
             <div className={detailsClassNames}>
                 <div className="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        Description: {task.description}
+                        <strong>Description:  </strong>{task.description}
                     </div>
                 </div>
             </div>
