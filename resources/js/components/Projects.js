@@ -184,7 +184,7 @@ const ProjectsListItem = ({ project }) => {
                 
                 {hasChildren && (
                     <CaretButton className="btn btn-sm" type="button" onClick={toggleShowChildren} title={showChildren ? 'Hide sub-projects' : 'Show sub-projects'}>
-                        <i className={showChildren ? 'fas fa-caret-down' : 'fas fa-caret-right'}></i>
+                        <i className={showChildren ? 'fas fa-angle-down' : 'fas fa-angle-right'}></i>
                     </CaretButton>
                 )}
             </NavLink>
