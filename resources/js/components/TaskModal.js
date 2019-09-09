@@ -49,9 +49,7 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
     }
 
     const saveTask = () => {
-        //console.log(editedTask);
         if(taskValid == true) {
-            //console.log('is valid');
             confirmHandler(editedTask);
             closeModal();
         }
@@ -79,6 +77,7 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
                                 className="close text-white" 
                                 aria-label="Close" 
                                 onClick={closeModal}
+                                title="Close"
                             >
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -97,6 +96,7 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
                                     onChange={(e) => { setEditedTask({...editedTask, title: e.target.value}) }}
                                     autoComplete="off"
                                     defaultValue={editedTask.title}
+                                    title="Title"
                                 />
 
                             </div>
@@ -112,6 +112,7 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
                                     onChange={(e) => { setEditedTask({ ...editedTask, description: e.target.value }) }}
                                     autoComplete="off"
                                     value={editedTask.description}
+                                    title="Description"
                                 ></textarea>
                             </div>
 
@@ -123,6 +124,7 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
                                     className="form-control form-control shadow-sm"
                                     onChange={(e) => { setEditedTask({ ...editedTask, status: parseInt(e.target.value, 10) }) }}
                                     defaultValue={editedTask.status}
+                                    title="Status"
                                 >
                                     {statusIcons.map((status) => (
                                         <option
@@ -144,6 +146,7 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
                                     className="form-control form-control shadow-sm"
                                     onChange={(e) => { setEditedTask({ ...editedTask, project_id: parseInt(e.target.value, 10) }) }}
                                     defaultValue={editedTask.project_id}
+                                    title="Project"
                                 >
                                     {projects.map((project) => (
                                         <option
@@ -164,6 +167,7 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
                                 type="button" 
                                 className="btn btn-secondary" 
                                 onClick={closeModal}
+                                title="Close"
                             >
                                 Close
                             </button>
@@ -172,6 +176,7 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
                                 type="button" 
                                 className="btn btn-primary" 
                                 onClick={saveTask}
+                                title={ mode == 'EDIT' ? 'Save' : 'Create'}
                             >
                                 { mode == 'EDIT' ? 'Save' : 'Create'}
                             </button>
