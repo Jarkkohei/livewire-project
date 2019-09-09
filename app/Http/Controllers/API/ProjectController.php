@@ -37,7 +37,25 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'user_id' => 'required',
+            'title' => 'required',
+            'description' => 'nullable|string',
+            'parent_id' => 'nullable|integer',
+        ]);
+
+        if($validatedData['parent_id']) {
+            $parent = Project::find($validatedData['parent_id']);
+
+            if($parent) {
+                $validatedData['level'] = $parent->level + 1;
+            }
+        } else $validatedData['level'] = 1;
+
+        $project = Project::create($validatedData);
+        $project->save();
+
+        return new ProjectCollection(Project::where('id', $project->id)->get());
     }
 
     /**
@@ -60,7 +78,26 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'user_id' => 'required',
+            'title' => 'required',
+            'description' => 'nullable|string',
+            'parent_id' => 'nullable|integer',
+        ]);
+
+        $project = Project::find($id);
+
+        if($validatedData['parent_id']) {
+            $parent = Project::find($validatedData['parent_id']);
+
+            if($parent) {
+                $validatedData['level'] = $parent->level + 1;
+            }
+        } else $validatedData['level'] = 1;
+
+        $project->update($validatedData);
+
+        return new ProjectCollection(Project::where('id', $id)->get());
     }
 
     /**
