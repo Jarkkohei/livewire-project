@@ -41,3 +41,7 @@ Route::put('/projects/{id}', 'API\ProjectController@update');
 
 /* Get all Tasks for the selected Project */
 Route::get('/projects/{id}/tasks', 'API\TaskController@tasksForProject');
+
+Route::fallback(function(){
+    return response()->json(['message' => 'Not Found.'], 404);
+})->name('api.fallback.404');
