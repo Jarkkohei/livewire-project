@@ -25,9 +25,7 @@ const Projects = ({ match, history }) => {
         setShowEditButton(match.params.project_id && match.params.project_id > 0 && match.params.project_id != 'recent');
     }, [match.params.project_id]);
 
-    const projects = useSelector(state => state.projects.projects);
-    const isLoading = useSelector(state => state.projects.pending);
-
+    const {projects, pending} = useSelector(state => state.projects);
     const [showEditButton, setShowEditButton] = useState();
 
     const handleCreateNewProject = (project) => {
@@ -69,10 +67,20 @@ const Projects = ({ match, history }) => {
                     </div>
                 </div>
 
-                {isLoading ? (
-                        <div className="list-group-item d-flex justify-content-center align-items-center">
-                        <Spinner />
-                    </div>
+                {projects.length == 0 ? (
+                    <>
+                        {pending ? (
+                            <div className="list-group-item d-flex justify-content-center align-items-center">
+                                <Spinner />
+                            </div>
+                        ) : (
+                            <ul className="list-group list-group-flush">
+                                <div className="projectsListItem list-group-item d-flex align-items-center justify-content-between">
+                                    <p className="mb-0">No tasks for this project</p>
+                                </div>
+                            </ul>
+                        )}
+                    </>
                 ) : (
                     <ul className="list-group list-group-flush">
                         {projects.map(project => project.level == 1 && (
