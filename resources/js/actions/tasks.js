@@ -79,6 +79,7 @@ export const createNewTask = (data, queryObject) => {
                     throw (res.error);
                 }
                 dispatch(fetchTasks(queryObject));
+                return res.data;
             })
             .catch(error => {
                 dispatch(fetchTasksError(error));
@@ -106,6 +107,7 @@ export const updateTask = (task_id, data, queryObject) => {
                     throw (res.error);
                 }
                 dispatch(fetchTasks(queryObject));
+                return res.data;
             })
             .catch(error => {
                 dispatch(fetchTasksError(error));
@@ -133,6 +135,7 @@ export const deleteTask = (task_id, queryObject) => {
                     throw (res.error);
                 }
                 dispatch(fetchTasks(queryObject));
+                return res.data;
             })
             .catch(error => {
                 dispatch(fetchTasksError(error));
