@@ -1,9 +1,9 @@
-// Instantiated in components/TaskList.js
+// Instantiated in components/Projects.js
 import React, { useEffect, useState } from 'react';
 import { createPortal } from "react-dom";
 import { useSelector, useDispatch } from 'react-redux';
 
-const TaskModal = ({ activeProjectId, title, closeHandler, confirmHandler, mode }) => {
+const ProjectModal = ({ activeProjectId, title, closeHandler, confirmHandler, mode }) => {
 
     const styles = {
         position: 'fixed',
@@ -15,31 +15,30 @@ const TaskModal = ({ activeProjectId, title, closeHandler, confirmHandler, mode 
     };
 
     //const [errors, setErrors] = useState({});
-    const {tasks: {tasks, statusIcons}, projects: {projects}} = useSelector(state => state);
+    const { projects: { projects } } = useSelector(state => state);
 
-    const [editedTask, setEditedTask] = useState(
+    const [editedProject, setEditedProject] = useState(
         {
             user_id: 1,
             title: '',
             description: '',
-            status: 1,
-            project_id: activeProjectId
+            parent_id: activeProjectId
         }
     );
 
     useEffect(() => {
-        if(activeProjectId) {
-            const task = tasks.find((task) => (task.id == activeProjectId));
-            setEditedTask({ ...editedTask, ...task });
+        if (activeProjectId && mode == 'EDIT') {
+            const project = projects.find(project => project.id == activeProjectId);
+            setEditedProject({ ...editedProject, ...project });
         }
     }, []);
 
     /*
-    const taskValid = () => {
+    const projectValid = () => {
         setErrors({});
-        console.log(editedTask.title.trim().length);
-        if(editedTask.title.trim().length < 3) {
-            setErrors({ ...errors, title: 'Title is too short. Minimum of 3 charachters required.'});
+        //console.log(editedProject.title.trim().length);
+        if (editedProject.title.trim().length < 3) {
+            setErrors({ ...errors, title: 'Title is too short. Minimum of 3 charachters required.' });
             return false;
         }
         return false;
@@ -47,26 +46,22 @@ const TaskModal = ({ activeProjectId, title, closeHandler, confirmHandler, mode 
     */
 
     const closeModal = () => {
-        setEditedTask({});
+        setEditedProject({});
         closeHandler();
     }
 
-    const saveTask = () => {
+    const saveProject = () => {
         /*
-        if(taskValid == true) {
-            confirmHandler(editedTask);
+        if (projectValid == true) {
+            confirmHandler(editedProject);
             closeModal();
         }
         */
-        if(mode == 'CREATE') {
-            confirmHandler(editedTask);
-        } else if(mode == 'EDIT') {
-            confirmHandler(editedTask.id, editedTask);
-        }
+        confirmHandler(editedProject);
         closeModal();
     }
 
-    return createPortal (
+    return createPortal(
         <>
             <div style={styles}>
 
@@ -77,10 +72,10 @@ const TaskModal = ({ activeProjectId, title, closeHandler, confirmHandler, mode 
                             <h5 className="modal-title">
                                 {title}
                             </h5>
-                            <button 
-                                type="button" 
-                                className="close text-white" 
-                                aria-label="Close" 
+                            <button
+                                type="button"
+                                className="close text-white"
+                                aria-label="Close"
                                 onClick={closeModal}
                                 title="Close"
                             >
@@ -90,47 +85,48 @@ const TaskModal = ({ activeProjectId, title, closeHandler, confirmHandler, mode 
 
                         <div className="modal-body" style={{ backgroundColor: 'rgba(0, 0, 0, 0.03)' }}>
                             <div className="form-group ">
-                                <label htmlFor="editTaskTitle">Title</label>
+                                <label htmlFor="editProjectTitle">Title</label>
                                 <small className="text-danger">(required)</small>
                                 <input
-                                    id="editTaskTitle"
-                                    name="editTaskTitle"
+                                    id="editProjectTitle"
+                                    name="editProjectTitle"
                                     type="text"
                                     className="form-control form-control shadow-sm"
                                     placeholder="Title..."
-                                    onChange={(e) => { setEditedTask({...editedTask, title: e.target.value}) }}
+                                    onChange={(e) => { setEditedProject({ ...editedProject, title: e.target.value }) }}
                                     autoComplete="off"
-                                    defaultValue={editedTask.title}
+                                    defaultValue={editedProject.title}
                                     title="Title"
                                 />
 
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="editTaskDescription">Description</label>
+                                <label htmlFor="editProjectDescription">Description</label>
                                 <textarea
-                                    id="editTaskDescription"
-                                    name="editTaskDescription"
+                                    id="editProjectDescription"
+                                    name="editProjectDescription"
                                     className="form-control shadow-sm"
                                     placeholder="Description..."
                                     rows="5"
-                                    onChange={(e) => { setEditedTask({ ...editedTask, description: e.target.value }) }}
+                                    onChange={(e) => { setEditedProject({ ...editedProject, description: e.target.value }) }}
                                     autoComplete="off"
-                                    value={editedTask.description}
+                                    value={editedProject.description}
                                     title="Description"
                                 ></textarea>
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="editTaskProject">Project</label>
+                                <label htmlFor="editProjectParent">Parent project</label>
                                 <select
-                                    id="editTaskProject"
-                                    name="editTaskProject"
+                                    id="editProjectParent"
+                                    name="editProjectParent"
                                     className="form-control form-control shadow-sm"
-                                    onChange={(e) => { setEditedTask({ ...editedTask, project_id: parseInt(e.target.value, 10) }) }}
-                                    defaultValue={editedTask.project_id}
+                                    onChange={(e) => { setEditedProject({ ...editedProject, parent_id: parseInt(e.target.value, 10) }) }}
+                                    defaultValue={editedProject.parent_id}
                                     title="Project"
                                 >
+                                    <option value={null}>None (Create as a root project)</option>
                                     {projects.map((project) => (
                                         <option
                                             name={project.title}
@@ -143,53 +139,31 @@ const TaskModal = ({ activeProjectId, title, closeHandler, confirmHandler, mode 
                                 </select >
                             </div >
 
-                            <div className="form-group">
-                                <label htmlFor="editTaskStatus">Status</label>
-                                <select
-                                    id="editTaskStatus"
-                                    name="editTaskStatus"
-                                    className="form-control form-control shadow-sm"
-                                    onChange={(e) => { setEditedTask({ ...editedTask, status: parseInt(e.target.value, 10) }) }}
-                                    defaultValue={editedTask.status}
-                                    title="Status"
-                                >
-                                    {statusIcons.map((status) => (
-                                        <option
-                                            name={status.label}
-                                            key={status.id}
-                                            value={status.id}
-                                        >
-                                            {status.label}
-                                        </option>
-                                    ))}
-                                </select >
-                            </div >
-
                         </div>
 
                         <div className="modal-footer">
-                            <button 
-                                type="button" 
-                                className="btn btn-secondary" 
+                            <button
+                                type="button"
+                                className="btn btn-secondary"
                                 onClick={closeModal}
                                 title="Close"
                             >
                                 Close
                             </button>
 
-                            <button 
-                                type="button" 
-                                className="btn btn-primary" 
-                                onClick={saveTask}
-                                title={ mode == 'EDIT' ? 'Save' : 'Create'}
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={saveProject}
+                                title={mode == 'EDIT' ? 'Save' : 'Create'}
                             >
-                                { mode == 'EDIT' ? 'Save' : 'Create'}
+                                {mode == 'EDIT' ? 'Save' : 'Create'}
                             </button>
                         </div>
 
                     </div>
                 </div>
-                
+
             </div>
 
             <BackDrop />
@@ -198,7 +172,7 @@ const TaskModal = ({ activeProjectId, title, closeHandler, confirmHandler, mode 
     );
 }
 
-export default TaskModal;
+export default ProjectModal;
 
 const BackDrop = () => {
 
