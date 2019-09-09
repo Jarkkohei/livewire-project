@@ -27,7 +27,7 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
     const [editedTask, setEditedTask] = useState(initialTask);
 
     useEffect(() => {
-        if (match.params.task_id) {
+        if (match.params.task_id && match.params.task_id != 'create') {
             const task = tasks.find(task => task.id == match.params.task_id);
             setEditedTask({ ...task, description: task.description ? task.description : '' });
         }
