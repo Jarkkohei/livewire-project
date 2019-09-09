@@ -37,7 +37,7 @@ const TaskList = ({ match, history }) => {
         CREATE: 'CREATE'
     };
 
-    const [isRecentVisible, setIsRecentVisible] = useState(false);
+    const [isRecentVisible, setIsRecentVisible] = useState(true);
     const {tasks, pending, pagination: { meta }, perPageOptions, currentSortOption, sortOptions, statusIcons, availableTasksCount} = useSelector(state => state.tasks);
 
     const projects = useSelector(state => state.projects.projects);
@@ -65,7 +65,7 @@ const TaskList = ({ match, history }) => {
     }, []);
 
     useEffect(() => {
-        if(typeof match.params.project_id === 'undefined') {
+        if(typeof match.params.project_id == 'undefined' || match.params.project_id == 'create' || match.params.project_id < 1) {
             setIsRecentVisible(true);
             dispatch(fetchRecentTasks());
         } else {
@@ -220,7 +220,7 @@ const TaskList = ({ match, history }) => {
             exact 
             render={() => (
                 <TaskModal
-                    match={match}
+                    activeProjectId={match.params.project.id}
                     title="Edit Task"
                     mode={modalModes.EDIT}
                     closeHandler={() => { history.replace(`/projects/${match.params.project_id}/tasks`) }}
@@ -234,7 +234,7 @@ const TaskList = ({ match, history }) => {
             exact 
             render={() => (
                 <TaskModal
-                    match={match}
+                    activeProjectId={match.params.project_id}
                     title="Create Task"
                     mode={modalModes.CREATE}
                     closeHandler={() => { history.replace(`/projects/${match.params.project_id}/tasks`) }}

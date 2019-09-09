@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { createPortal } from "react-dom";
 import { useSelector, useDispatch } from 'react-redux';
 
-const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
+const TaskModal = ({ activeProjectId, title, closeHandler, confirmHandler, mode }) => {
 
     const styles = {
         position: 'fixed',
@@ -14,25 +14,27 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
         zIndex: 9999
     };
 
-    const [errors, setErrors] = useState({});
+    //const [errors, setErrors] = useState({});
     const {tasks: {tasks, statusIcons}, projects: {projects}} = useSelector(state => state);
+
     const [editedTask, setEditedTask] = useState(
         {
             user_id: 1,
             title: '',
             description: '',
             status: 1,
-            project_id: match.params.project_id
+            project_id: activeProjectId
         }
     );
 
     useEffect(() => {
-        if(match.params.task_id !== 'create' && match.params.task_id > 0) {
-            const task = tasks.find((task) => (task.id == match.params.task_id));
-            setEditedTask(task);
+        if(activeProjectId) {
+            const task = tasks.find((task) => (task.id == activeProjectId));
+            setEditedTask({ ...editedTask, ...task });
         }
     }, []);
 
+    /*
     const taskValid = () => {
         setErrors({});
         console.log(editedTask.title.trim().length);
@@ -42,6 +44,7 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
         }
         return false;
     }
+    */
 
     const closeModal = () => {
         setEditedTask({});
@@ -49,10 +52,12 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
     }
 
     const saveTask = () => {
+        /*
         if(taskValid == true) {
             confirmHandler(editedTask);
             closeModal();
         }
+        */
         if(mode == 'CREATE') {
             confirmHandler(editedTask);
         } else if(mode == 'EDIT') {
