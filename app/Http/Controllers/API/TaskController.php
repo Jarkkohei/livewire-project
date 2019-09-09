@@ -70,7 +70,7 @@ class TaskController extends Controller
      */
     public function update($id, Request $request)
     {
-        $task = Task::find($id);
+        $task = Task::findOrFail($id);
 
         $validatedData = $request->validate([
             'title' => 'required',
@@ -92,7 +92,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        $task = Task::find($id);
+        $task = Task::findOrFail($id);
         $task->delete();
 
         return new TaskCollection(Task::where('id', $id)->get());

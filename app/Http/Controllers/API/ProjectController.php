@@ -44,7 +44,7 @@ class ProjectController extends Controller
         ]);
 
         if($validatedData['parent_id']) {
-            $parent = Project::find($validatedData['parent_id']);
+            $parent = Project::findOrFail($validatedData['parent_id']);
 
             if($parent) {
                 $validatedData['level'] = $parent->level + 1;
@@ -65,7 +65,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return new ProjectCollection(Project::find($id));
+        return new ProjectCollection(Project::findOrFail($id));
     }
 
     /**
@@ -83,10 +83,10 @@ class ProjectController extends Controller
             'parent_id' => 'nullable|integer',
         ]);
 
-        $project = Project::find($id);
+        $project = Project::findOrFail($id);
 
         if($validatedData['parent_id']) {
-            $parent = Project::find($validatedData['parent_id']);
+            $parent = Project::findOrFail($validatedData['parent_id']);
 
             if($parent) {
                 $validatedData['level'] = $parent->level + 1;
