@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Task;
+use App\Http\Resources\TaskResource;
 use App\Http\Resources\TaskCollection;
 
 class TaskController extends Controller
@@ -47,7 +48,8 @@ class TaskController extends Controller
         $task = Task::create($validatedData);
         $task->save();
 
-        return new TaskCollection(Task::where('id', $task->id)->get());
+        //return new TaskCollection(Task::where('id', $task->id)->get());
+        return new TaskResource($task);
     }
 
     /**
@@ -58,7 +60,8 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        return new TaskCollection(Task::where('id', $id)->get());
+        //return new TaskCollection(Task::where('id', $id)->get());
+        return new TaskResource(Task::findOrFail($id));
     }
 
     /**
@@ -81,7 +84,8 @@ class TaskController extends Controller
 
         $task->update($validatedData);
 
-        return new TaskCollection(Task::where('id', $id)->get());
+        //return new TaskCollection(Task::where('id', $id)->get());
+        return new TaskResource($task);
     }
 
     /**
@@ -95,7 +99,8 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         $task->delete();
 
-        return new TaskCollection(Task::where('id', $id)->get());
+        //return new TaskCollection(Task::where('id', $id)->get());
+        return new TaskResource($task);
     }
 
     /**
