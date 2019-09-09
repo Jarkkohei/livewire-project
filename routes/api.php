@@ -35,5 +35,9 @@ Route::get('/tasks/{id}', 'API\TaskController@show');
 /* Get all Projects */
 Route::get('/projects', 'API\ProjectController@index');
 
+Route::post('/projects', 'API\ProjectController@store');
+
+Route::put('/projects/{id}', 'API\ProjectController@update');
+
 /* Get all Tasks for the selected Project */
 Route::get('/projects/{id}/tasks', 'API\TaskController@tasksForProject');
