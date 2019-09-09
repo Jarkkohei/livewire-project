@@ -4,8 +4,6 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 
 import Projects from './Projects';
 import TaskList from './TaskList';
-import TaskShow from './TaskShow';
-import TaskEdit from './TaskEdit';
 
 const Home = () => {
 
