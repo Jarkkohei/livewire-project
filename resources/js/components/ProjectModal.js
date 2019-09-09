@@ -28,7 +28,7 @@ const ProjectModal = ({ activeProjectId, title, closeHandler, confirmHandler, mo
     useEffect(() => {
         if(activeProjectId && mode == 'EDIT') {
             const project = projects.find(project => project.id == activeProjectId);
-            setEditedProject(project);
+            setEditedProject({ ...project, parent_id: project.parent_id ? project.parent_id : '' });
         } else if(activeProjectId && mode == 'CREATE') {
             setEditedProject({ ...editedProject, parent_id: activeProjectId });
         }
