@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, Link, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProjects, saveProject, createNewProject, updateProject } from '../actions/projects';
+import { fetchProjects, createNewProject, updateProject } from '../actions/projects';
 import styled from 'styled-components';
 import Spinner from './Spinner';
 
