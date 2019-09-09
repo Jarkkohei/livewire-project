@@ -29,7 +29,7 @@ const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
     useEffect(() => {
         if (match.params.task_id) {
             const task = tasks.find(task => task.id == match.params.task_id);
-            setEditedTask({ ...editedTask, ...task });
+            setEditedTask({ ...task, description: task.description ? task.description : '' });
         }
     }, []);
 
