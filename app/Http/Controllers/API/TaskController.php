@@ -27,7 +27,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return new TaskCollection(Task::all());
+        return (new TaskCollection(Task::all()))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -48,7 +50,9 @@ class TaskController extends Controller
         $task = Task::create($validatedData);
         $task->save();
 
-        return new TaskResource($task);
+        return (new TaskResource($task))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
@@ -59,7 +63,9 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        return new TaskResource(Task::findOrFail($id));
+        return (new TaskResource(Task::findOrFail($id)))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -82,7 +88,9 @@ class TaskController extends Controller
 
         $task->update($validatedData);
 
-        return new TaskResource($task);
+        return (new TaskResource($task))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -96,7 +104,9 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         $task->delete();
 
-        return new TaskResource($task);
+        return (new TaskResource($task))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -115,7 +125,9 @@ class TaskController extends Controller
 
         $filteredStatuses = collect($parsedFilter->statuses);
 
-        return new TaskCollection(Task::where('project_id', $projectId)->whereIn('status', $filteredStatuses)->orderBy($sortBy, $sortDir)->paginate($perPage));
+        return (new TaskCollection(Task::where('project_id', $projectId)->whereIn('status', $filteredStatuses)->orderBy($sortBy, $sortDir)->paginate($perPage)))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -125,6 +137,8 @@ class TaskController extends Controller
      */
     public function recent(Request $request)
     {
-        return new TaskCollection(Task::orderBy('created_at', 'desc')->take(10)->get());
+        return (new TaskCollection(Task::orderBy('created_at', 'desc')->take(10)->get()))
+            ->response()
+            ->setStatusCode(200);
     }
 }

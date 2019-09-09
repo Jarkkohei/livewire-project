@@ -27,7 +27,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return new ProjectCollection(Project::with('tasks')->orderBy('title', 'asc')->get());
+        return (new ProjectCollection(Project::with('tasks')->orderBy('title', 'asc')->get()))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -55,7 +57,9 @@ class ProjectController extends Controller
         $project = Project::create($validatedData);
         $project->save();
 
-        return new ProjectResource($project);
+        return (new ProjectResource($project))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
@@ -66,7 +70,9 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-         return new ProjectResource(Project::findOrFail($id));
+         return (new ProjectResource(Project::findOrFail($id)))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -96,7 +102,9 @@ class ProjectController extends Controller
 
         $project->update($validatedData);
         
-        return new ProjectResource($project);
+        return (new ProjectResource($project))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
