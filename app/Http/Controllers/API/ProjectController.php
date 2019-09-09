@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Project;
 use App\Http\Resources\ProjectCollection;
+use App\Http\Resources\ProjectResource;
 
 class ProjectController extends Controller
 {
@@ -54,7 +55,8 @@ class ProjectController extends Controller
         $project = Project::create($validatedData);
         $project->save();
 
-        return new ProjectCollection(Project::where('id', $project->id)->get());
+        //return new ProjectCollection(Project::where('id', $project->id)->get());
+        return new ProjectResource($project);
     }
 
     /**
@@ -65,7 +67,8 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return new ProjectCollection(Project::findOrFail($id));
+        //return new ProjectCollection(Project::findOrFail($id));
+         return new ProjectResource(Project::findOrFail($id));
     }
 
     /**
@@ -95,7 +98,8 @@ class ProjectController extends Controller
 
         $project->update($validatedData);
 
-        return new ProjectCollection(Project::where('id', $id)->get());
+        //return new ProjectCollection(Project::where('id', $id)->get());
+        return new ProjectResource($project);
     }
 
     /**
