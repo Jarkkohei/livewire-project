@@ -55,7 +55,6 @@ class ProjectController extends Controller
         $project = Project::create($validatedData);
         $project->save();
 
-        //return new ProjectCollection(Project::where('id', $project->id)->get());
         return new ProjectResource($project);
     }
 
@@ -67,7 +66,6 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //return new ProjectCollection(Project::findOrFail($id));
          return new ProjectResource(Project::findOrFail($id));
     }
 
@@ -97,8 +95,7 @@ class ProjectController extends Controller
         } else $validatedData['level'] = 1;
 
         $project->update($validatedData);
-
-        //return new ProjectCollection(Project::where('id', $id)->get());
+        
         return new ProjectResource($project);
     }
 
