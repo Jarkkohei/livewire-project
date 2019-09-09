@@ -12,8 +12,16 @@
         <!-- Styles -->
         <style>
             html, body {
+                /*
                 background-color: #fff;
                 color: #636b6f;
+                */
+
+                
+                background-color: #3366ff;
+                color: white;
+                
+                
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -45,11 +53,15 @@
             }
 
             .title {
-                font-size: 84px;
+                /*font-size: 84px;*/
+                font-size: 4rem;
             }
 
             .links > a {
+                /*
                 color: #636b6f;
+                */
+                color: #fff;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
@@ -81,9 +93,10 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Project manager
                 </div>
 
+                <!--
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
@@ -93,6 +106,7 @@
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
+                -->
             </div>
         </div>
     </body>
