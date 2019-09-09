@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { createPortal } from "react-dom";
 import { useSelector, useDispatch } from 'react-redux';
 
-const TaskModal = ({ activeProjectId, title, closeHandler, confirmHandler, mode }) => {
+const TaskModal = ({ match, title, closeHandler, confirmHandler, mode }) => {
 
     const styles = {
         position: 'fixed',
@@ -23,13 +23,14 @@ const TaskModal = ({ activeProjectId, title, closeHandler, confirmHandler, mode 
             title: '',
             description: '',
             status: 1,
-            project_id: activeProjectId
+            project_id: match.params.project_id
         }
     );
 
     useEffect(() => {
-        if(activeProjectId) {
-            const task = tasks.find((task) => (task.id == activeProjectId));
+        if (match.params.task_id) {
+            const task = tasks.find(task => task.id == match.params.task_id);
+            console.log(tasks);
             setEditedTask({ ...editedTask, ...task });
         }
     }, []);

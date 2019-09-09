@@ -220,7 +220,7 @@ const TaskList = ({ match, history }) => {
             exact 
             render={() => (
                 <TaskModal
-                    activeProjectId={match.params.project.id}
+                    match={match}
                     title="Edit Task"
                     mode={modalModes.EDIT}
                     closeHandler={() => { history.replace(`/projects/${match.params.project_id}/tasks`) }}
@@ -234,7 +234,7 @@ const TaskList = ({ match, history }) => {
             exact 
             render={() => (
                 <TaskModal
-                    activeProjectId={match.params.project_id}
+                    match={match}
                     title="Create Task"
                     mode={modalModes.CREATE}
                     closeHandler={() => { history.replace(`/projects/${match.params.project_id}/tasks`) }}
