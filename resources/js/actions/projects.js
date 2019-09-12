@@ -91,3 +91,31 @@ export const updateProject = (project) => {
             });
     }
 }
+
+export const deleteProject = (projectId) => {
+    return dispatch => {
+        dispatch(fetchProjectsPending());
+        fetch(`${baseUrl}/projects/${projectId}`, {
+            method: 'DELETE',
+            //mode: 'cors',
+            //cache: 'no-cache',
+            //credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            //redirect: 'follow',
+            //referrer: 'no-referrer',
+            body: null
+        }).then(res => res.json())
+            .then(res => {
+                if (res.error) {
+                    throw (res.error);
+                }
+                dispatch(fetchProjects());
+                return res.data;
+            })
+            .catch(error => {
+                dispatch(fetchProjectsError(error));
+            });
+    }
+}

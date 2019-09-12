@@ -41,6 +41,8 @@ Route::post('/projects', 'API\ProjectController@store');
 
 Route::put('/projects/{id}', 'API\ProjectController@update');
 
+Route::delete('/projects/{id}', 'API\ProjectController@destroy');
+
 /* Get all Tasks for the selected Project */
 Route::get('/projects/{id}/tasks', 'API\TaskController@tasksForProject');
 

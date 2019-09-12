@@ -17,6 +17,10 @@ import {
     TOGGLE_FILTER_TASK_STATUS
 } from '../actions/tasks';
 
+import {
+    deleteProject
+} from '../actions/projects';
+
 import Spinner from './Spinner';
 import Sorting from './Sorting';
 import Filtering from './Filtering';
@@ -132,6 +136,11 @@ const TaskList = ({ match, history }) => {
         dispatch(fetchProjects());
     }
 
+    const handleDeleteProject = (projectId) => {
+        dispatch(deleteProject(projectId));
+        history.push(`/projects`);
+    }
+
     return (
         <>
         {tasks && projects.length > 0 && (
@@ -142,6 +151,15 @@ const TaskList = ({ match, history }) => {
                         <div className="card-header d-flex justify-content-between align-items-center">
                             <Breadcrumbs projects={projects} active_id={match.params.project_id} />
                             <div className="ml-3">
+                                {tasks.length == 0 && (
+                                    <button
+                                        className="btn btn-sm btn-danger mr-1"
+                                        onClick={() => { handleDeleteProject(match.params.project_id) }}
+                                        title="Delete project"
+                                    >
+                                        <i className="fas fa-trash-alt"></i>
+                                    </button>
+                                )}
                                 <Link to={`${match.url}/create`}>
                                     <button
                                         className="btn btn-sm btn-primary"

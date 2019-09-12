@@ -115,6 +115,19 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $project = Project::findOrFail($id);
+
+        if($project->tasks()->count() != 0) {
+            return response()
+                ->json([
+                    'error' => 'Project must not have any tasks.'
+                ], 500);
+        }
+
+        $project->delete();
+
+        return (new ProjectResource($project))
+            ->response()
+            ->setStatusCode(200);
     }
 }
