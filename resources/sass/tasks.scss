@@ -2,15 +2,6 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-.taskDetailsCollapse {
-    height: 0px;
-    transition: height 500ms;
-}
-
-.taskDetailsCollapse.show {
-    height: 100px;
-}
-
 .recentTasksCardHeader {
     height: 53px;
     //border-bottom: none;

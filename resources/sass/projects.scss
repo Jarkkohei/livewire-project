@@ -1,18 +1,3 @@
-.childWrapper {
-    animation: fill-down 500ms ease;
-}
-
-@keyframes fill-down {
-    0% {
-        opacity: 0;
-        max-height: 0;
-    }
-    100% {
-        opacity: 1;
-        max-height: auto;
-    }
-}
-
 .projectsListCardHeader {
     height: 53px;
     //border-bottom: none;
