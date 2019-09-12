@@ -6,6 +6,9 @@ import { fetchProjects, createNewProject, updateProject } from '../actions/proje
 import styled from 'styled-components';
 import Spinner from './Spinner';
 
+import { SlideDown } from 'react-slidedown';
+import 'react-slidedown/lib/slidedown.css';
+
 import ProjectModal from './ProjectModal';
 
 const Projects = ({ match, history }) => {
@@ -141,8 +144,8 @@ export default Projects;
 
 const ProjectsListItem = ({ project }) => {
 
-    const styles = { paddingLeft: project.level * 10 + 10, minHeight: 45, maxHeight: 45 };
-    const childWrapperElementId = `childWrapper-${project.id}`;
+    const projectLevelIndentationStyles = { paddingLeft: project.level * 10 + 10, minHeight: 45, maxHeight: 45 };
+    const childWrapperKey = `childWrapper-${project.id}`;
     const hasChildren = project.children && project.children.length > 0;
     const [showChildren, setShowChildren] = useState(false);
     
@@ -156,16 +159,10 @@ const ProjectsListItem = ({ project }) => {
         }
     `;
 
-    const toggleShowChildren = () => {
-        const childWrapper = document.getElementById(childWrapperElementId);
-        childWrapper.classList.toggle('d-none');
-        setShowChildren(!showChildren);
-    }
-
     return (
         <>
             <NavLink
-                style={styles}
+                style={projectLevelIndentationStyles}
                 className="projectsListItem list-group-item d-flex align-items-center justify-content-between"
                 to={`/projects/${project.id}/tasks`}
                 title={project.description}
@@ -183,18 +180,26 @@ const ProjectsListItem = ({ project }) => {
                 </span> 
                 
                 {hasChildren && (
-                    <CaretButton className="btn btn-sm" type="button" onClick={toggleShowChildren} title={showChildren ? 'Hide sub-projects' : 'Show sub-projects'}>
+                    <CaretButton 
+                        className="btn btn-sm" 
+                        type="button" 
+                        onClick={() => setShowChildren(!showChildren)} 
+                        title={showChildren ? 'Hide sub-projects' : 'Show sub-projects'}
+                    >
                         <i className={showChildren ? 'fas fa-angle-down' : 'fas fa-angle-right'}></i>
                     </CaretButton>
                 )}
             </NavLink>
 
-            <div id={childWrapperElementId} className="childWrapper d-none">
-                {project.children.map((child) => (
-                    <ProjectsListItem project={child} key={child.id} toggleShowChildren={toggleShowChildren} />
-                ))}
-            </div>
-        
+            <SlideDown className={'my-dropdown-slidedown'}>
+                {showChildren ? (
+                    <div key={childWrapperKey} >
+                        {project.children.map((child) => (
+                            <ProjectsListItem project={child} key={child.id} />
+                        ))}
+                    </div>
+                ) : null}
+            </SlideDown>
         </>
     );
 }
