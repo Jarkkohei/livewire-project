@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
-import Projects from './Projects';
+import ProjectMenu from './ProjectMenu';
 import TaskList from './TaskList';
 
 const Home = () => {
@@ -17,8 +17,8 @@ const Home = () => {
                     
                     <div className="col-12 col-lg-4 col-xl-3 mt-3">
                         <Switch>
-                            <Route path="/projects/:project_id" component={Projects} />
-                            <Route path="/projects" component={Projects} />
+                            <Route path="/projects/:project_id" component={ProjectMenu} />
+                            <Route path="/projects" component={ProjectMenu} />
                         </Switch>
                     </div>
                     

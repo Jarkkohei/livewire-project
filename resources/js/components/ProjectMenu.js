@@ -11,7 +11,7 @@ import 'react-slidedown/lib/slidedown.css';
 
 import ProjectModal from './ProjectModal';
 
-const Projects = ({ match, history }) => {
+const ProjectMenu = ({ match, history }) => {
 
     const dispatch = useDispatch();
 
@@ -140,7 +140,7 @@ const Projects = ({ match, history }) => {
     );
 }
 
-export default Projects;
+export default ProjectMenu;
 
 const ProjectsListItem = ({ project }) => {
 
