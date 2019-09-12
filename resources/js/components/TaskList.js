@@ -72,13 +72,6 @@ const TaskList = ({ match, history }) => {
             setIsRecentVisible(true);
             dispatch(fetchRecentTasks());
         } else {
-            /*
-            const filteredStatusIds = statusIcons
-                .filter(statIcon => (statIcon.included))
-                .map(statIcon => {
-                    return statIcon.id;
-                });
-            */
 
             dispatch(fetchTasks({
                 project_id: match.params.project_id,
