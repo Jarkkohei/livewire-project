@@ -315,7 +315,7 @@ const TaskListItem = ({ task, deleteHandler }) => {
 
             </div>
 
-            <SlideDown className={'my-dropdown-slidedown'}>
+            <SlideDown>
                 {isDetailsVisible ? (
                     <div>
                         <div className="card-body d-flex justify-content-between align-items-center">
