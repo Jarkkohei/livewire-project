@@ -145,7 +145,6 @@ export default Projects;
 const ProjectsListItem = ({ project }) => {
 
     const projectLevelIndentationStyles = { paddingLeft: project.level * 10 + 10 };
-    const childWrapperKey = `childWrapper-${project.id}`;
     const hasChildren = project.children && project.children.length > 0;
     const [showChildren, setShowChildren] = useState(false);
     
@@ -194,11 +193,11 @@ const ProjectsListItem = ({ project }) => {
             {hasChildren && (
                 <SlideDown>
                     {showChildren ? (
-                        <div key={childWrapperKey} >
-                            {project.children.map((child) => (
-                                <ProjectsListItem project={child} key={child.id} />
-                            ))}
-                        </div>
+                        <>
+                        {project.children.map((child) => (
+                            <ProjectsListItem project={child} key={child.id} />
+                        ))}
+                        </>
                     ) : null}
                 </SlideDown>
             )}
