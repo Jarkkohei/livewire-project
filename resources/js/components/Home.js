@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import ProjectMenu from './ProjectMenu';
 import TaskList from './TaskList';
 import NavBar from './NavBar';
+import Cart from './Cart';
 
 const Home = () => {
 
@@ -18,6 +19,12 @@ const Home = () => {
                     <div className="col-12 mt-2">
                         <NavBar />
                     </div>
+
+                    {/*
+                    <div className="col-12 col-lg-4 col-xl-3 mt-3">
+                        <Route path="/cart" component={Cart} />
+                    </div>
+                    */}
                     
                     <div className="col-12 col-lg-4 col-xl-3 mt-3">
                         <Switch>
