@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { Route, Link, withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { SlideDown } from 'react-slidedown';
+import 'react-slidedown/lib/slidedown.css';
+
 import { 
     fetchTasks, 
     fetchRecentTasks,
@@ -275,10 +278,7 @@ const TaskStatusIcon = ({ status }) => {
 const TaskListItem = ({ task, deleteHandler }) => {
 
     const editLinkUrl = `/projects/${task.project_id}/tasks/${task.id}/edit`;
-
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
-
-    const detailsClassNames = isDetailsVisible ? 'taskDetailsCollapse show' : 'taskDetailsCollapse';
 
     return (
         <div className="card taskListItem" key={task.id}>
@@ -322,13 +322,17 @@ const TaskListItem = ({ task, deleteHandler }) => {
 
             </div>
 
-            <div className={detailsClassNames}>
-                <div className="card-body d-flex justify-content-between align-items-center">
+            <SlideDown className={'my-dropdown-slidedown'}>
+                {isDetailsVisible ? (
                     <div>
-                        <strong>Description:  </strong>{task.description}
+                        <div className="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>Description:  </strong>{task.description}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                ) : null}
+            </SlideDown>
 
         </div>
     );
