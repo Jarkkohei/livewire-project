@@ -12,8 +12,8 @@ const Breadcrumbs = ({ projects, active_id }) => {
 
         const breadcrumbBuilder = (project_id) => {
 
-            const project = projects.find(p => (p.id == project_id));
-            if (project.parent_id != null) {
+            const project = projects.find(p => p.id == project_id);
+            if (project && project.parent_id != null) {
                 breadcrumbBuilder(project.parent_id);
             }
             newItems.push(project);
