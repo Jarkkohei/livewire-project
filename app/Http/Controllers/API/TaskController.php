@@ -41,6 +41,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'user_id' => 'required',
             'title' => 'required',
             'description' => 'nullable|string',
             'status' => 'required',
@@ -80,6 +81,7 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
 
         $validatedData = $request->validate([
+            'user_id' => 'required',
             'title' => 'required',
             'description' => '',
             'status' => 'required',

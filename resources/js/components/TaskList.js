@@ -89,6 +89,7 @@ const TaskList = ({ match, history }) => {
     }, [match.params.project_id, currentSortOption, meta.current_page, meta.per_page, statusIcons]);
 
     const handleCreateNewTask = (task) => {
+        task = { ...task, user_id: 1 };
         dispatch(createNewTask(task, {
             project_id: match.params.project_id,
             page: meta.current_page,
@@ -103,6 +104,7 @@ const TaskList = ({ match, history }) => {
     }
 
     const handleUpdateTask = (task) => {
+        task = { ...task, user_id: 1 };
         dispatch(updateTask(task, {
             project_id: match.params.project_id,
             page: meta.current_page,
