@@ -8,7 +8,11 @@ const NavBar = ({ match }) => {
                 <div className="card-header">
                     <div className="row justify-content-between align-items-center">
                         <ul className="col-auto mb-0" style={{ listStyle: 'none' }}>
-                            <li>Left</li>
+                            <li>
+                                <NavLink to="/projects">
+                                    <i className="fas fa-pencil-ruler fa-lg" title="Projects"></i>
+                                </NavLink>
+                            </li>
                         </ul>
 
                         <ul className="col-auto mb-0 ml-auto" style={{ listStyle: 'none' }}>
