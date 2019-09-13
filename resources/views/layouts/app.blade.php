@@ -89,12 +89,12 @@
             </div>
         </nav>
 
-        <main class="py-2">
+        <main class="py-2 mb-4 {{ Route::currentRouteName() }}-page">
             @yield('content')
         </main>
     </div>
 
-    <footer class="mt-4">
+    <footer>
         <div id="footer-content" class="container">
             <div class="row justify-content-center align-items-center">
                 <div class="col">

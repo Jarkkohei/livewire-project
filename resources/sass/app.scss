@@ -28,6 +28,14 @@ body {
     flex: 1 0 auto;
 }
 
+// Background image for auth pages
+.login-page, .register-page, .password\.request-page {
+    margin-bottom: 0px !important;
+    background: url('./images/brickwall.jpg');
+    background-repeat: repeat-y;
+    background-size: contain;
+}
+
 .pagination > .page-item > .page-link {
     &:focus {
         box-shadow: none;
