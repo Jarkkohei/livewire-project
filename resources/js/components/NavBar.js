@@ -7,10 +7,17 @@ const NavBar = ({ match }) => {
             <div className="card shadow-sm">
                 <div className="card-header">
                     <div className="row justify-content-between align-items-center">
+
+                        <ul className="col-auto mb-0" style={{ listStyle: 'none' }}>
+                            <li>
+                                Projects manager
+                            </li>
+                        </ul>
+
                         <ul className="col-auto mb-0" style={{ listStyle: 'none' }}>
                             <li>
                                 <NavLink to="/projects">
-                                    <i className="fas fa-pencil-ruler fa-lg" title="Projects"></i>
+                                    <i className="fas fa-pencil-ruler fa-lg" title="Projects"></i> Projects 
                                 </NavLink>
                             </li>
                         </ul>
@@ -18,10 +25,11 @@ const NavBar = ({ match }) => {
                         <ul className="col-auto mb-0 ml-auto" style={{ listStyle: 'none' }}>
                             <li>
                                 <NavLink to="/cart">
-                                    <i className="fas fa-shopping-cart fa-lg" title="Cart"></i>
+                                    <i className="fas fa-shopping-cart fa-lg" title="Cart"></i> Cart
                                 </NavLink>
                             </li>
                         </ul>
+
                     </div>
                 </div>
             </div>
