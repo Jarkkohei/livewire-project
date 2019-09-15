@@ -33,7 +33,8 @@ body {
     margin-bottom: 0px !important;
     background: url('./images/brickwall.jpg');
     background-repeat: repeat-y;
-    background-size: contain;
+    background-position: center;
+    background-size: cover;
 }
 
 .pagination > .page-item > .page-link {
