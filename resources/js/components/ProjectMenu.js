@@ -58,9 +58,9 @@ const ProjectMenu = ({ match, history }) => {
                             </Link>
                         )}
 
-                            <Link to={`${match.url}/create`}>
+                        <Link to={`${match.url}/create`} className="ml-1">
                             <button
-                                className="btn btn-sm btn-primary ml-1"
+                                className="btn btn-sm btn-primary"
                                 onClick={() => { }}
                                 title="Create Project"
                             >
