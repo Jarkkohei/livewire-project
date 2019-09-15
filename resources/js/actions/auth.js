@@ -41,7 +41,10 @@ export const setCurrentUser = (access_token) => {
 
         Axios({
             method: 'post',
-            url: `${baseUrl}/me?token=${access_token}`,
+            url: `${baseUrl}/me`,
+            headers: {
+                'Authorization': `Bearer ${access_token}`
+            }
             
         }).then(res => res.data)
         .then(res => {
@@ -82,13 +85,16 @@ export const login = ({ email, password }) => {
     }
 }
 
-export const logout = () => {
+export const logout = (access_token) => {
     return dispatch => {
         dispatch(authActionPending());
 
         Axios({
             method: 'post',
             url: `${baseUrl}/logout`,
+            headers: {
+                'Authorization': `Bearer ${access_token}`
+            }
         }).then(res => res.data)
             .then(res => {
                 if (res.error) {
