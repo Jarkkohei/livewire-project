@@ -69,14 +69,9 @@ export const updateProject = (project) => {
         dispatch(fetchProjectsPending());
         fetch(`${baseUrl}/projects/${project.id}`, {
             method: 'PUT',
-            //mode: 'cors',
-            //cache: 'no-cache',
-            //credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
             },
-            //redirect: 'follow',
-            //referrer: 'no-referrer',
             body: JSON.stringify(project)
         }).then(res => res.json())
             .then(res => {
@@ -97,14 +92,9 @@ export const deleteProject = (projectId) => {
         dispatch(fetchProjectsPending());
         fetch(`${baseUrl}/projects/${projectId}`, {
             method: 'DELETE',
-            //mode: 'cors',
-            //cache: 'no-cache',
-            //credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
             },
-            //redirect: 'follow',
-            //referrer: 'no-referrer',
             body: null
         }).then(res => res.json())
             .then(res => {

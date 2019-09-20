@@ -64,14 +64,9 @@ export const createNewTask = (task, queryObject) => {
         dispatch(fetchTasksPending());
         fetch(`${baseUrl}/tasks`, {
             method: 'POST',
-            //mode: 'cors',
-            //cache: 'no-cache',
-            //credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
             },
-            //redirect: 'follow',
-            //referrer: 'no-referrer',
             body: JSON.stringify(task)
         }).then(res => res.json())
             .then(res => {
@@ -92,14 +87,9 @@ export const updateTask = (task, queryObject) => {
         dispatch(fetchTasksPending());
         fetch(`${baseUrl}/tasks/${task.id}`, {
             method: 'PUT',
-            //mode: 'cors',
-            //cache: 'no-cache',
-            //credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
             },
-            //redirect: 'follow',
-            //referrer: 'no-referrer',
             body: JSON.stringify(task)
         }).then(res => res.json())
             .then(res => {
@@ -120,14 +110,9 @@ export const deleteTask = (task_id, queryObject) => {
         dispatch(fetchTasksPending());
         fetch(`${baseUrl}/tasks/${task_id}`, {
             method: 'DELETE',
-            //mode: 'cors',
-            //cache: 'no-cache',
-            //credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
             },
-            //redirect: 'follow',
-            //referrer: 'no-referrer',
             body: null
         }).then(res => res.json())
             .then(res => {
