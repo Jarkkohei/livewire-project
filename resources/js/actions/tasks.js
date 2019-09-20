@@ -1,3 +1,5 @@
+import Axios from "axios";
+
 export const FETCH_TASKS_PENDING = 'FETCH_TASKS_PENDING';
 export const FETCH_TASKS_SUCCESS = 'FETCH_TASKS_SUCCESS';
 export const FETCH_TASKS_ERROR = 'FETCH_TASKS_ERROR';
@@ -25,8 +27,11 @@ const baseUrl = 'http://localhost:8000/api';
 export const fetchTasks = ({ project_id, page, perPage, sortBy, sortDir, filter }) => {
     return dispatch => {
         dispatch(fetchTasksPending());
-        fetch(`${baseUrl}/projects/${project_id}/tasks?page=${page}&perPage=${perPage}&sortBy=${sortBy}&sortDir=${sortDir}&filter=${JSON.stringify(filter)}`)
-            .then(res => res.json())
+
+        Axios({
+            url: `${baseUrl}/projects/${project_id}/tasks?page=${page}&perPage=${perPage}&sortBy=${sortBy}&sortDir=${sortDir}&filter=${JSON.stringify(filter)}`,
+            method: 'GET',
+        }).then(res => res.data)
             .then(res => {
                 if (res.error) {
                     throw (res.error);
@@ -44,8 +49,11 @@ export const fetchTasks = ({ project_id, page, perPage, sortBy, sortDir, filter 
 export const fetchRecentTasks = () => {
     return dispatch => {
         dispatch(fetchTasksPending());
-        fetch(`${baseUrl}/tasks/recent`)
-            .then(res => res.json())
+
+        Axios({
+            url: `${baseUrl}/tasks/recent`,
+            method: 'GET',
+        }).then(res => res.data)
             .then(res => {
                 if (res.error) {
                     throw (res.error);
@@ -62,13 +70,15 @@ export const fetchRecentTasks = () => {
 export const createNewTask = (task, queryObject) => {
     return dispatch => {
         dispatch(fetchTasksPending());
-        fetch(`${baseUrl}/tasks`, {
+
+        Axios({
+            url: `${baseUrl}/tasks`,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(task)
-        }).then(res => res.json())
+            data: task
+        }).then(res => res.data)
             .then(res => {
                 if (res.error) {
                     throw (res.error);
@@ -85,13 +95,15 @@ export const createNewTask = (task, queryObject) => {
 export const updateTask = (task, queryObject) => {
     return dispatch => {
         dispatch(fetchTasksPending());
-        fetch(`${baseUrl}/tasks/${task.id}`, {
+
+        Axios({
+            url: `${baseUrl}/tasks/${task.id}`,
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(task)
-        }).then(res => res.json())
+            data: task
+        }).then(res => res.data)
             .then(res => {
                 if (res.error) {
                     throw (res.error);
@@ -108,13 +120,14 @@ export const updateTask = (task, queryObject) => {
 export const deleteTask = (task_id, queryObject) => {
     return dispatch => {
         dispatch(fetchTasksPending());
-        fetch(`${baseUrl}/tasks/${task_id}`, {
+
+        Axios({
+            url: `${baseUrl}/tasks/${task_id}`,
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: null
-        }).then(res => res.json())
+        }).then(res => res.data)
             .then(res => {
                 if (res.error) {
                     throw (res.error);

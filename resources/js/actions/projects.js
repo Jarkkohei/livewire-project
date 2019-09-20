@@ -1,3 +1,5 @@
+import Axios from "axios";
+
 export const FETCH_PROJECTS_PENDING = 'FETCH_PROJECTS_PENDING';
 export const FETCH_PROJECTS_SUCCESS = 'FETCH_PROJECTS_SUCCESS';
 export const FETCH_PROJECTS_ERROR = 'FETCH_PROJECTS_ERROR';
@@ -21,8 +23,11 @@ const baseUrl = 'http://localhost:8000/api';
 export const fetchProjects = () => {
     return dispatch => {
         dispatch(fetchProjectsPending());
-        fetch(`${baseUrl}/projects`)
-            .then(res => res.json())
+
+        Axios({
+            url: `${baseUrl}/projects`,
+            method: 'GET'
+        }).then(res => res.data)
             .then(res => {
                 if (res.error) {
                     throw (res.error);
@@ -44,13 +49,15 @@ export const fetchProjects = () => {
 export const createNewProject = (project) => {
     return dispatch => {
         dispatch(fetchProjectsPending());
-        fetch(`${baseUrl}/projects`, {
+
+        Axios({
+            url: `${baseUrl}/projects`,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(project)
-        }).then(res => res.json())
+            data: project
+        }).then(res => res.data)
             .then(res => {
                 if (res.error) {
                     throw (res.error);
@@ -67,13 +74,15 @@ export const createNewProject = (project) => {
 export const updateProject = (project) => {
     return dispatch => {
         dispatch(fetchProjectsPending());
-        fetch(`${baseUrl}/projects/${project.id}`, {
+
+        Axios({
+            url: `${baseUrl}/projects/${project.id}`,
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(project)
-        }).then(res => res.json())
+            data: project
+        }).then(res => res.data)
             .then(res => {
                 if (res.error) {
                     throw (res.error);
@@ -90,13 +99,14 @@ export const updateProject = (project) => {
 export const deleteProject = (projectId) => {
     return dispatch => {
         dispatch(fetchProjectsPending());
-        fetch(`${baseUrl}/projects/${projectId}`, {
+
+        Axios({
+            url: `${baseUrl}/projects/${projectId}`,
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: null
-        }).then(res => res.json())
+        }).then(res => res.data)
             .then(res => {
                 if (res.error) {
                     throw (res.error);
