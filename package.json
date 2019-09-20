@@ -26,6 +26,8 @@
         "sass-loader": "^7.1.0"
     },
     "dependencies": {
+        "js-cookie": "^2.2.1",
+        "react-cookie": "^4.0.1",
         "react-redux": "^7.1.0",
         "react-router-dom": "^5.0.1",
         "react-slidedown": "^2.4.4",
