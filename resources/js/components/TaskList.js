@@ -269,7 +269,7 @@ const TaskStatusIcon = ({ status }) => {
 
     const taskStatusObject = useSelector(state => state.tasks.statusIcons.find((s) => (s.id == status)));
     const wrapperStyles = { minWidth: 30, maxWidth: 30 };
-    let styles = { cursor: 'pointer' };
+    let styles = {};
 
     if(taskStatusObject.colorStyle != '') {
         styles = {

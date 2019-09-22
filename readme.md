@@ -30,6 +30,11 @@ Migrate the database
 php artisan migrate 
 ```
 
+Generate JWT-secret
+```
+php artisan jwt:secret
+```
+
 ---
 
 ## Run
