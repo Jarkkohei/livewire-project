@@ -1,4 +1,5 @@
 import Axios from "axios";
+import Cookies from 'js-cookie';
 
 export const AUTH_ACTION_PENDING = 'AUTH_ACTION_PENDING';
 //export const AUTH_ACTION_SUCCESS = 'AUTH_ACTION_SUCCESS';
@@ -76,6 +77,7 @@ export const login = ({ email, password }) => {
                 if (res.error) {
                     throw (res.error);
                 }
+                Cookies.set('jwt', res.access_token);
                 dispatch(loginSuccess(res));
                 return res;
             })
@@ -100,6 +102,7 @@ export const logout = (access_token) => {
                 if (res.error) {
                     throw (res.error);
                 }
+                Cookies.remove('jwt');
                 dispatch(logoutSuccess(res));
                 return res;
             })
